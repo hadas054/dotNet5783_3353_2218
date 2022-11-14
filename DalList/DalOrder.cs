@@ -2,11 +2,14 @@
 
 namespace Dal;
 
-public class DalOrder
+public class DalOrder  //iorder
 {
-    public int Add(Order order)
+    public int Add(Order neworder)
     {
-        return ;
+        int x = (DataSource.Config.s_nextOrderNumber)-1000;
+        neworder.OrderID = DataSource.Config.NextOrderNumber;
+        DataSource.OrderArr[x] = neworder;                 
+        return neworder.OrderID;     //    i need it?
     }
-    public Order GetById(int id)
 }
+

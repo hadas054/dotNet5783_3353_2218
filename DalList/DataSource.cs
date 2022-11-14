@@ -6,22 +6,44 @@ namespace Dal;
 
 internal static class DataSource
 {
+    //private static readonly Random s_rand = new();
+    public readonly static Random rand = new Random(DateTime.Now.Millisecond);
+
     static DataSource()
     {
-        s_Initialize();
+        s_Initialize();//מתודה פרטית שמזומנת מבנאי ברירת המחדל הסטטי של המחלקה
     }
-    private static readonly Random s_rand = new();
+
+    internal static Product[] ProductArr = new Product[50];
+    internal static int CountOfProductArry = 0;
+
+
+    internal static Order[] OrderArr = new Order[100];
+    internal static OrderItem[] OrderItemArr = new OrderItem[200];
+
+
+
+
+
+
+
+
+
+
 
     internal static class Config
     {
         internal const int s_stratOrderNumber = 1000;
-        private static int s_nextOrderNumber = s_stratOrderNumber;
-        internal static int NextOrderNumber { get => s_nextOrderNumber++; }
-    }
-    internal static List<Product> ProductsList { get; }= new List<Product>();
-    internal static List<Order> OrdersList { get; } = new List<Order>();
-    internal static List<OrderItem> OrderItemList { get; } = new List<OrderItem>();
 
+        internal static int s_nextOrderNumber = s_stratOrderNumber;
+        internal static int NextOrderNumber { get => s_nextOrderNumber++; }
+
+
+        internal static int s_nextOrderItemNumber = s_stratOrderNumber;
+        internal static int NextOrderItemNumber { get => s_nextOrderItemNumber++; }
+
+    }
+   
     private static void s_Initialize()
     {
         creatAndInitProducts();
@@ -32,7 +54,7 @@ internal static class DataSource
     {
         for(int i=0;i<10;i++)
         {
-            ProductsList.Add(
+            ProductsArr.Add(
                 new Product
                 {
                     ID = i,
