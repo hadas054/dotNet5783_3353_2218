@@ -5,7 +5,7 @@ namespace Dal;
 
 public class DalProduct
 {
-    public int Add(Product newProduct)   //אילה אמרה שלפי הוראות המתודה בקובץ הזה לא צריכ ה להחזיר ערך
+    public static int Add(Product newProduct)   //אילה אמרה שלפי הוראות המתודה בקובץ הזה לא צריכ ה להחזיר ערך
     {
         for(int i=0;i<=DataSource.productArr.Length;i++)
         {
@@ -33,7 +33,7 @@ public class DalProduct
     {
         Product[] Arr = new Product[DataSource.productArr.Length];
         for (int i = 0; i < DataSource.countOfProductArry; i++)
-            Arr[i] = DataSource.productArr[i];
+            Arr[i] = DataSource.productArr[i]; 
         return Arr;
     }
 
