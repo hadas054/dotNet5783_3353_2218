@@ -7,14 +7,8 @@ public class DalOrderItem
 
     public static int Add(OrderItem newOrderItem)
     {
-        for (int i = 0; i < DataSource.OrderItemArr.Length; i++)
-        {
-            if (DataSource.OrderItemArr[i].ID == newOrderItem.ID)
-                throw new Exception("The object is already exist");
-        }
-
-        int x = (DataSource.Config.s_nextOrderItemNumber) - 1000;
-        newOrderItem.ID = DataSource.Config.NextOrderItemNumber;
+        int x = (DataSource.s_nextOrderItemNumber) - 1000;
+        newOrderItem.ID = DataSource.NextOrderItemNumber;
         DataSource.OrderItemArr[x] = newOrderItem;
         return newOrderItem.ID;
     }
@@ -24,7 +18,7 @@ public class DalOrderItem
     {
         // DataSource.OrderItemArr.Length;
         bool x = false;
-        for (int i = 0; i <= DataSource.Config.s_nextOrderItemNumber; i++)
+        for (int i = 0; i <= DataSource.s_nextOrderItemNumber; i++)
         {
             if (DataSource.OrderItemArr[i].ID == order.ID)
             {
@@ -46,8 +40,8 @@ public class DalOrderItem
         {
             if (DataSource.OrderItemArr[i].ID == id)
             {
-                DataSource.OrderItemArr[i] = DataSource.OrderItemArr[DataSource.Config.s_nextOrderItemNumber];
-                DataSource.Config.s_nextOrderItemNumber--;
+                DataSource.OrderItemArr[i] = DataSource.OrderItemArr[DataSource.s_nextOrderItemNumber];
+                DataSource.s_nextOrderItemNumber--;
                 flag = true;
             }
         }
@@ -77,7 +71,7 @@ public class DalOrderItem
     public static OrderItem[] allOrderItem()
     {
         OrderItem[] Arr = new OrderItem[DataSource.OrderItemArr.Length];
-        for (int i = 0; i < DataSource.Config.s_nextOrderItemNumber; i++)
+        for (int i = 0; i < DataSource.s_nextOrderItemNumber; i++)
             Arr[i] = DataSource.OrderItemArr[i];
         return Arr;
 

@@ -1,20 +1,12 @@
 ﻿using Dal;
 using DO;
-namespace DalTest
+namespace DalTest;
+public class porgram
 {
-    public class Program
+    public static void ProductFunc(DalProduct product)
     {
-<<<<<<< HEAD
-        private static DalProduct DalProduct = new DalProduct();
-        private static DalOrder DalOrder = new DalOrder();
-        private static DalOrderItem DalOrderItem = new DalOrderItem();
-        static void Main(String[] args)
-=======
-
         char ch;
-
         do
->>>>>>> e4d9cb837dac333d7fab6b2175d7fcebf8fabfce
         {
             Console.WriteLine(@"
 a: Add product
@@ -48,7 +40,7 @@ e: Delete product
                         Console.WriteLine(DalProduct.Get(id));
                         break;
                     case 'c':
-                       Product[] ProductsList = DalProduct.allProducts();
+                        Product[] ProductsList = DalProduct.allProducts();
                         foreach (Product? item in ProductsList)
                         {
                             Console.WriteLine(item);
@@ -164,64 +156,101 @@ e: Delete order
     {
         char ch;
 
-                                    orderItem.Price = Dal.DalProduct.Get(orderItem.ProductID).Price;
-                                    Console.WriteLine("enter amount of orderItem");
-                                    int.TryParse(Console.ReadLine(), out amount);
-                                    orderItem.Amount = amount;
-                                    Dal.DalOrderItem.Add(orderItem);
-                                    break;
-                                case 2:
-                                    Console.WriteLine("enter id of orderItem");
-                                    int.TryParse(Console.ReadLine(), out id);
-                                    Console.WriteLine(Dal.DalOrderItem.Get(id));
-                                    break;
-                                case 3:
-                                    OrderItem[] ord = DalOrderItem.allOrderItem();
-                                    foreach (OrderItem o in ord)
-                                    {
-                                        Console.WriteLine(o);
-                                    }
-                                    break;
-                                case 4:
-                                    OrderItem orderItem1 = new OrderItem();
-                                    Console.WriteLine("enter id of orderItem");
-                                    int.TryParse(Console.ReadLine(), out id);
-                                    orderItem1.ID = id;
-                                    Console.WriteLine("enter product ID of orderItem");
-                                    int.TryParse(Console.ReadLine(), out idProduct);
-                                    orderItem1.ProductID = idProduct;
-                                    Console.WriteLine("enter order ID of orderItem");
-                                    int.TryParse(Console.ReadLine(), out idOrder);
-                                    orderItem1.OrderID = idOrder;
-
-                                    orderItem1.Price = Dal.DalProduct.Get(orderItem1.ProductID).Price;
-                                    Console.WriteLine("enter amount of orderItem");
-                                    int.TryParse(Console.ReadLine(), out amount);
-                                    orderItem1.Amount = amount;
-                                    if (orderItem1.ProductID > 0)
-                                        Dal.DalOrderItem.Update(orderItem1);
-                                    break;
-                                case 5:
-                                    Console.WriteLine("enter id of orderItem");
-                                    int.TryParse(Console.ReadLine(), out id);
-                                    Dal.DalOrderItem.Delete(id);
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                catch (Exception str)
+        do
+        {
+            Console.WriteLine(@"
+a: Add order
+b: Get order byID
+c: Get orders' list
+d: Update order
+e: Delete order
+");
+            ch = Convert.ToChar(Console.ReadLine());
+            OrderItem items = new OrderItem();
+            try
+            {
+                switch (ch)
                 {
-                    Console.WriteLine(str);
+                    case 'a':
+                        Console.WriteLine("Enter the ID of order");
+                        items.ID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the ProductID of order");
+                        items.ProductID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the orderID of order");
+                        items.OrderID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the price of the order");
+                        items.Price = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("Enter the amount of products in the order item");
+                        items.Amount = Convert.ToInt32(Console.ReadLine());
+                        DalOrderItem.Add(items);
+                        break;
+                    case 'b':
+                        Console.WriteLine("Enter the ID of order");
+                        int Id = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine(DalOrderItem.Get(Id));
+                        break;
+                    case 'c':
+                        OrderItem[] OrderItemList = DalOrderItem.allOrderItem();
+                        foreach (OrderItem? s in OrderItemList)
+                        {
+                            Console.WriteLine(s);
+                        }
+                        break;
+                    case 'd':
+                        Console.WriteLine("Enter the ID of order to update");
+                        items.ID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the ProductID of order");
+                        items.ProductID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the orderID of order");
+                        items.OrderID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the price of the order");
+                        items.Price = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("Enter the amount of products in the order item");
+                        items.Amount = Convert.ToInt32(Console.ReadLine());
+                        DalOrderItem.Update(items);
+                        break;
+                    case 'e':
+                        Console.WriteLine("Enter the ID of order to delete");
+                        int id = Convert.ToInt32(Console.ReadLine());
+                        DalOrderItem.Delete(id);
+                        break;
                 }
-                Console.WriteLine("Choose an entity:");
-                Console.WriteLine("0: to exit");
-                Console.WriteLine("1: to product");
-                Console.WriteLine("2: to order");
-                Console.WriteLine("3: to orderItem");
-                int.TryParse(Console.ReadLine(), out chooseEntity);
+            }
+            catch (Exception s)
+            {
+                Console.WriteLine(s);
+            }
 
+
+        }
+        while (ch != 'f');
+    }
+    private static DalOrder order = new DalOrder();
+    private static DalOrderItem orderItem = new DalOrderItem();
+    private static DalProduct Product = new DalProduct();
+    static void Main(string[] args)
+    {
+
+        int ch = 0;
+        do
+        {
+            Console.WriteLine("Press 1 for product, 2 for order, 3 for orderItem, 4 for exit");
+            ch = Convert.ToInt32(Console.ReadLine());
+            switch (ch)
+            {
+                case 1:
+                    ProductFunc(Product);
+                    break;
+                case 2:
+                    OrderFunc(order);
+                    break;
+                case 3:
+                    OrderItemFunc(orderItem);
+                    break;
+                default:
+                    break;
             }
         }
+        while (ch != 4);
     }
 }

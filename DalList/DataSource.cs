@@ -1,57 +1,26 @@
 ﻿using DO;
-using System;
-using System.Security.Cryptography.X509Certificates;
-
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
-using System.Data;
-
 namespace Dal;
-
 internal static class DataSource
 {
     //private static readonly Random s_rand = new();
-    public readonly static Random rand = new Random(DateTime.Now.Millisecond);
+    public readonly static Random rand = new();
+    internal static Product[] productArr = new Product[50];
+    internal static int countOfProductArry = 0;
+    internal static Order[] OrderArr = new Order[100];
+    internal static OrderItem[] OrderItemArr = new OrderItem[200];
 
     static DataSource()
     {
         s_Initialize();//מתודה פרטית שמזומנת מבנאי ברירת המחדל הסטטי של המחלקה
     }
 
-    internal static Product[] productArr = new Product[50];
-    internal static int countOfProductArry = 0;
 
 
-    internal static Order[] OrderArr = new Order[100];
-    internal static OrderItem[] OrderItemArr = new OrderItem[200];
-
-
-
-    internal static class Config
-    {
         internal const int s_stratOrderNumber = 1000;
-
         internal static int s_nextOrderNumber = s_stratOrderNumber;
         internal static int NextOrderNumber { get => s_nextOrderNumber++; }
-
-
         internal static int s_nextOrderItemNumber = s_stratOrderNumber;
         internal static int NextOrderItemNumber { get => s_nextOrderItemNumber++; }
-
-    }
-
-
-
-    private static void s_Initialize()
-    {
-        CreateProducts();
-        CreateOrder();
-        CreateOrderItem();
-    }
-
-
-
     private static void CreateProducts()
     {
         string[] namesArr = new string[] { "meri", "lihi", "yellowJacket", "blueJacket", "StripedShirt", "WhiteShirt", "jeans", "Shorts", "ElegantPpants", "ClassicPants" };//contune to add more 8 
@@ -62,13 +31,13 @@ internal static class DataSource
         {
             Product product = new Product();
             //product.ID = 100000 + i;
-            product.ID = rand.Next(100000, 999999);
+            product.ID = rand.Next(100000, 1000000);
             product.Name = namesArr[i];
             product.inStock = i * 5;
             product.Price = rand.Next(50, 300);
             product.Category = categoriesArr[i];
-            productArr[i] = product;   //  לבדוק אם ככה מכניסים
-            //Product.Add(product);  //למה הוא לא נותן
+   //  לבדוק אם ככה מכניסים
+            DalProduct.Add(product);  //למה הוא לא נותן
 
         }
     }
@@ -79,46 +48,59 @@ internal static class DataSource
     {
         string[] costumerNameArr = new string[] {"Hadas Zehevi","Avigail Cohen","Avigail Levi","Efrat Avitan" ,
             "Ayala Nisani","Shira kubin","Teheila yahav","Gefen Shalom","Yair Macluf","Avishag Hazan",
-        "Mical shooshan","Nati Segal","Yahakov Avidan","Meir Cohen","Avishai Shitrit","Nati Levi"};
-
-        string[] costumerAdress = new string[] { "Atehena 5 Elad", "Hashoshana 47 Givataim" };//ass more names
-
-
-
+        "Mical shooshan","Nati Segal","Yahakov Avidan","Meir Cohen","Avishai Shitrit","Nati Levi","ronit chaim","shira chaim","hadar levi"};
+        string[] costumerAdress = new string[] { "Atehena 5 Elad", "Hashoshana 47 Givataim" , "Atehena 48 Elad", "Hashoshana 37 Givataim","rabi akiva 9","hashoshana 4" ,"Atehena 5 Elad", "Hashoshana 47 Givataim" , "Atehena 48 Elad","karo 6 ", "Atehena 5 Elad", "Hashoshana 47 Givataim", "Atehena 48 Elad", "Hashoshana 37 Givataim", "rabi akiva 9", "hashoshana 4", "rabi akiva 19", "hashoshana 47", "rabi akiva 99", "hashoshana 40" };//ass more names
         int AmountOfOrders = 20;
+        int days=rand.Next(10,20);
         for (int i = 0; i < AmountOfOrders; i++)
         {
             Order order = new Order();
-            order.OrderID = Config.NextOrderNumber;
+            order.OrderID = 1;
             order.CustomerName = costumerNameArr[i];
-            order.OrderDate = DateTime.Now.AddMonths(rand.Next(-4, -1));
-            //if (i <= AmountOfOrders * 0.8)
-            //    order.OrderShipDate=order.OrderDate.
-
+            order.OrderDate = DateTime.Now.AddDays(-days);
+            if (i < AmountOfOrders * 0.8)
+            {
+                days = rand.Next(10, 20);
+                TimeSpan shipTime = new TimeSpan(days, 0, 0, 0);
+                order.OrderShipDate = order.OrderDate + shipTime;
+            }
+            if (i < AmountOfOrders * 0.8*0.6)
+            {
+                days = rand.Next(1, 10);
+                TimeSpan deliverTime = new TimeSpan(days, 0, 0, 0);
+                order.OrderDeliveryDate = order.OrderShipDate + deliverTime;
+            }
             order.CustomerEmail = costumerNameArr[i] + "@gmail.com";
             order.CustomerAdress = costumerAdress[i];
-            order.OrderShipDate = DateTime.Now.AddMonths(rand.Next(-4, -1));   //fixxxxxxxx
-            order.OrderDeliveryDate = DateTime.Now.AddMonths(rand.Next(-4, -1));//fixxxxxxxxx
-
-
+            order.OrderShipDate = DateTime.MinValue;   
+            order.OrderDeliveryDate = DateTime.MinValue;
         }
     }
-
-
-
     private static void CreateOrderItem()
     {
-
-        int helpId = rand.Next(productArr.First().ID, productArr.Last().ID);
-        OrderItem item = new OrderItem();
-        item.ID = Config.NextOrderItemNumber;
-        item.ProductID = helpId;
-        item.Amount = rand.Next(5);
-        item.Price = rand.Next(50, 400);
-        //item.OrderID=
-
+        int index1, index2;
+        for (int i = 0; i < 20; i++)
+        {
+            index1 = rand.Next(1, 5);
+            for (int j = 0; j < index1; j++)
+            {
+                OrderItem orderItem = new OrderItem();
+                orderItem.ID = 0;
+                orderItem.Amount = rand.Next(1, 4);
+                index2 = rand.Next(0,countOfProductArry);
+                orderItem.ProductID = DataSource.productArr[index2].ID;
+                orderItem.OrderID = DataSource.productArr[i].ID;
+                orderItem.Price = DataSource.productArr[index2].Price;
+                DalOrderItem.Add(orderItem);
+            }
+        }
     }
-
+    private static void s_Initialize()
+    {
+        CreateProducts();
+        CreateOrder();
+        CreateOrderItem();
+    }
 }
 
 
