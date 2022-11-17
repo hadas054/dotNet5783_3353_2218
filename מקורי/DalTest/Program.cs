@@ -1,36 +1,40 @@
 ﻿using Dal;
 using DO;
+using System.Collections.Generic;
 namespace DalTest;
 public class porgram
 {
     public static void ProductFunc(DalProduct product)
     {
         char ch;
-        Console.WriteLine(@"
+        do
+        {
+            Console.WriteLine(@"
 a: Add product
 b: Get product byID
 c: Get products' list
 d: Update product
 e: Delete product
 ");
-        ch = Convert.ToChar(Console.ReadLine());
-
-        do
-        {
-            try
+            ch = Convert.ToChar(Console.ReadLine());
+            Product p = new Product();
+            //try
             {
                 switch (ch)
                 {
                     case 'a':
-                        Product p = new Product();
+                        Console.WriteLine("Enter the Id of the product");
+                        p.ID = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the name of the product");
                         p.Name = Console.ReadLine();
                         Console.WriteLine("Enter the stock of the product");
                         p.inStock = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the price of the product");
                         p.Price = Convert.ToDouble(Console.ReadLine());
-                        Console.WriteLine("Enter the category of the product");
-                        p.Category = (Category)Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the category of the product: dress press 1, pants press 2,  ");
+                        int input = Convert.ToInt32(Console.ReadLine());
+                        if(input == 1)  
+                          p.Category = (DO.Category.Dresses);/*Convert.ToInt32(Console.ReadLine());*/
                         DalProduct.Add(p);
                         break;
                     case 'b':
@@ -46,57 +50,49 @@ e: Delete product
                         }
                         break;
                     case 'd':
-                        Product p1 = new Product();
                         Console.WriteLine("Enter the Id of the product to update");
-                        p1.ID = Convert.ToInt32(Console.ReadLine());
+                        p.ID = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the name of the product");
-                        p1.Name = Console.ReadLine();
+                        p.Name = Console.ReadLine();
                         Console.WriteLine("Enter the stock of the product");
-                        p1.inStock = Convert.ToInt32(Console.ReadLine());
+                        p.inStock = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the price of the product");
-                        p1.Price = Convert.ToDouble(Console.ReadLine());
+                        p.Price = Convert.ToDouble(Console.ReadLine());
                         Console.WriteLine("Enter the category of the product");
-                        p1.Category = (Category)Convert.ToInt32(Console.ReadLine());
-                        DalProduct.Update(p1);
+                        p.Category = (Category)Convert.ToInt32(Console.ReadLine());
+                        DalProduct.Update(p);
                         break;
                     case 'e':
                         Console.WriteLine("Enter the ID of product to delete");
                         int Id = Convert.ToInt32(Console.ReadLine());
                         DalProduct.Delete(Id);
                         break;
+
                 }
             }
-            catch (Exception s)
+            //catch (Exception s)
             {
-                Console.WriteLine(s);
+               // Console.WriteLine(s);
             }
-            Console.WriteLine(@"
-a: Add product
-b: Get product byID
-c: Get products' list
-d: Update product
-e: Delete product
-");
-            ch = Convert.ToChar(Console.ReadLine());
+
         }
         while (ch != 'f');
     }
-
     public static void OrderFunc(DalOrder order)
     {
         char ch;
 
+
         do
         {
             Console.WriteLine(@"
-a: Add order 
+a: Add order
 b: Get order byID
-c: Get order list
-d: Update order 
+c: Get orders' list
+d: Update order
 e: Delete order
 ");
             ch = Convert.ToChar(Console.ReadLine());
-
             Order o = new Order();
             try
             {
@@ -148,8 +144,6 @@ e: Delete order
                         int Id = Convert.ToInt32(Console.ReadLine());
                         DalOrder.Delete(Id);
                         break;
-                    default:
-                        break;
                 }
             }
 
@@ -157,11 +151,10 @@ e: Delete order
             {
                 Console.WriteLine(s);
             }
-          
+
         }
         while (ch != 'f');
     }
-
     public static void OrderItemFunc(DalOrderItem item)
     {
         char ch;
@@ -169,11 +162,11 @@ e: Delete order
         do
         {
             Console.WriteLine(@"
-a: Add order item
-b: Get order item byID
-c: Get order items' list
-d: Update order item
-e: Delete order item
+a: Add order
+b: Get order byID
+c: Get orders' list
+d: Update order
+e: Delete order
 ");
             ch = Convert.ToChar(Console.ReadLine());
             OrderItem items = new OrderItem();
@@ -230,22 +223,22 @@ e: Delete order item
             {
                 Console.WriteLine(s);
             }
+
+
         }
         while (ch != 'f');
     }
-
     private static DalOrder order = new DalOrder();
     private static DalOrderItem orderItem = new DalOrderItem();
     private static DalProduct Product = new DalProduct();
-
-
     static void Main(string[] args)
     {
+
         int ch = 0;
-        Console.WriteLine("Press 1 for product, 2 for order, 3 for orderItem, 4 for exit");
-        ch = Convert.ToInt32(Console.ReadLine());
-        while (ch != 4) 
+        do
         {
+            Console.WriteLine("Press 1 for product, 2 for order, 3 for orderItem, 4 for exit");
+            ch = Convert.ToInt32(Console.ReadLine());
             switch (ch)
             {
                 case 1:
@@ -260,9 +253,7 @@ e: Delete order item
                 default:
                     break;
             }
-            Console.WriteLine("Press 1 for product, 2 for order, 3 for orderItem, 4 for exit");
-            ch = Convert.ToInt32(Console.ReadLine());
-
         }
+        while (ch != 4);
     }
 }

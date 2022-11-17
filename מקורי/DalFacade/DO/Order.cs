@@ -13,12 +13,12 @@ public struct Order
     public DateTime? OrderDeliveryDate { get; set; }
 
     public override string ToString() => $@"
-ID ={OrderID},
-CustomerName ={CustomerName},
-CustomerEmail ={CustomerEmail},
-CustomerAdress ={CustomerAdress},
-OrderDate ={OrderDate},
-ShipDate ={OrderShipDate},
-DeliveryDate ={OrderDeliveryDate}
+ID               ={OrderID},
+CustomerName     ={CustomerName},
+CustomerEmail    ={CustomerEmail},
+CustomerAdress   ={CustomerAdress},
+OrderDate        ={OrderDate},
+ShipDate         ={OrderShipDate},
+DeliveryDate     ={OrderDeliveryDate}
 ";    
 }

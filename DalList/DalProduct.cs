@@ -5,15 +5,24 @@ namespace Dal;
 
 public class DalProduct
 {
-    public static int Add(Product newProduct)   //אילה אמרה שלפי הוראות המתודה בקובץ הזה לא צריכ ה להחזיר ערך
+    public static void Add(Product newProduct)   //אילה אמרה שלפי הוראות המתודה בקובץ הזה לא צריכ ה להחזיר ערך ואיילה מאוד מאוד טועה
     {
-        for(int i=0;i< DataSource.countOfProductArry;i++)
-        {
-            if (DataSource.productArr[i].ID == newProduct.ID)
-                throw new Exception("the product is exist");
+        newProduct.ID = DataSource.rand.Next(100000, 1000000);
+        bool check = true;
+        while (check)
+        {  
+            check = false;  
+            for (int i = 0; i < DataSource.productArr.Length; i++)
+            {
+                if (DataSource.productArr[i].ID == newProduct.ID)
+                {
+                    newProduct.ID = DataSource.rand.Next(100000, 1000000);
+                    check = true;
+                    break;
+                }
+            }
         }
-        DataSource.productArr[DataSource.countOfProductArry++]=newProduct;  //אולי לעשות את הפלוס פלוס בנפרד
-        return newProduct.ID;
+        DataSource.productArr[DataSource._nextEmptyProduct++] = newProduct; 
     }
 
     public static Product Get(int id)
@@ -31,43 +40,40 @@ public class DalProduct
 
     public static Product[] allProducts()
     {
-        Product[] Arr = new Product[DataSource.countOfProductArry];
-        for (int i = 0; i < DataSource.countOfProductArry; i++)
-            Arr[i] = DataSource.productArr[i]; 
+        Product[] Arr = new Product[DataSource._nextEmptyProduct];
+        for (int i = 0; i < DataSource._nextEmptyProduct; i++)
+            Arr[i] = DataSource.productArr[i];
         return Arr;
     }
 
     public static void Delete(int id)
     {
-        bool flag = false;
-
-        for (int i = 0; i <= DataSource.productArr.Length; i++)
+        for (int i = 0; i < DataSource._nextEmptyProduct; i++)
         {
             if (DataSource.productArr[i].ID == id)
             {
-                DataSource.productArr[i] = DataSource.productArr[DataSource.countOfProductArry];
-                DataSource.countOfProductArry--;
-                flag = true;
+              for(int j = i; j < DataSource._nextEmptyProduct; j++)
+                {
+                    DataSource.productArr[i] = DataSource.productArr[i + 1];
+                }
+                DataSource._nextEmptyProduct--;
+                return;
             }
         }
-        if (flag == false)
             throw new Exception("cannot delete an Product,it is not exists");
     }
 
 
     public static void Update(Product product)
     {
-        // DataSource.OrderItemArr.Length;
-        bool x = false;
-        for (int i = 0; i <= DataSource.productArr.Length; i++)
+        for (int i = 0; i <= DataSource._nextEmptyProduct; i++)
         {
             if (DataSource.productArr[i].ID == product.ID)
             {
-                x = true;
                 DataSource.productArr[i] = product;
+                return;
             }
         }
-        if (x == false)
             throw new Exception("cannot update an product,it is not exists");
 
     }
