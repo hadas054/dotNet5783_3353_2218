@@ -1,14 +1,20 @@
 ﻿using Dal;
 using DO;
-using System;
 namespace DalTest
 {
     public class Program
     {
+<<<<<<< HEAD
         private static DalProduct DalProduct = new DalProduct();
         private static DalOrder DalOrder = new DalOrder();
         private static DalOrderItem DalOrderItem = new DalOrderItem();
         static void Main(String[] args)
+=======
+
+        char ch;
+
+        do
+>>>>>>> e4d9cb837dac333d7fab6b2175d7fcebf8fabfce
         {
             int chooseEntity;
             int chooseMenu;
