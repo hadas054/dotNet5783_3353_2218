@@ -50,28 +50,28 @@ internal static class DataSource
         CreateOrderItem();
     }
 
-    
+
 
     private static void CreateProducts()
     {
-        string[] namesArr = new string[] {"meri","lihi", "yellowJacket", "blueJacket", "StripedShirt", "WhiteShirt", "jeans", "Shorts", "ElegantPpants", "ClassicPants" };//contune to add more 8 
+        string[] namesArr = new string[] { "meri", "lihi", "yellowJacket", "blueJacket", "StripedShirt", "WhiteShirt", "jeans", "Shorts", "ElegantPpants", "ClassicPants" };//contune to add more 8 
 
-        Category[] categoriesArr = new Category[] { Category.Dresses,Category.Dresses,Category.jackets,Category.jackets,Category.Shirts,Category.Shirts,Category.pants,Category.pants,Category.pants,Category.pants};
-        
-        for(int i=0;i<10;i++)
+        Category[] categoriesArr = new Category[] { Category.Dresses, Category.Dresses, Category.jackets, Category.jackets, Category.Shirts, Category.Shirts, Category.pants, Category.pants, Category.pants, Category.pants };
+
+        for (int i = 0; i < 10; i++)
         {
             Product product = new Product();
             //product.ID = 100000 + i;
-            product.ID=rand.Next(100000,999999);
-            product.Name=namesArr[i];
-            product.inStock = i*5;
+            product.ID = rand.Next(100000, 999999);
+            product.Name = namesArr[i];
+            product.inStock = i * 5;
             product.Price = rand.Next(50, 300);
             product.Category = categoriesArr[i];
-             productArr[i]=product;   //  לבדוק אם ככה מכניסים
+            productArr[i] = product;   //  לבדוק אם ככה מכניסים
             //Product.Add(product);  //למה הוא לא נותן
 
         }
-     }
+    }
 
 
 
@@ -81,23 +81,23 @@ internal static class DataSource
             "Ayala Nisani","Shira kubin","Teheila yahav","Gefen Shalom","Yair Macluf","Avishag Hazan",
         "Mical shooshan","Nati Segal","Yahakov Avidan","Meir Cohen","Avishai Shitrit","Nati Levi"};
 
-        string[] costumerAdress = new string[] { "Atehena 5 Elad","Hashoshana 47 Givataim"};//ass more names
+        string[] costumerAdress = new string[] { "Atehena 5 Elad", "Hashoshana 47 Givataim" };//ass more names
 
 
 
         int AmountOfOrders = 20;
         for (int i = 0; i < AmountOfOrders; i++)
         {
-           Order order = new Order();
+            Order order = new Order();
             order.OrderID = Config.NextOrderNumber;
             order.CustomerName = costumerNameArr[i];
             order.OrderDate = DateTime.Now.AddMonths(rand.Next(-4, -1));
             //if (i <= AmountOfOrders * 0.8)
             //    order.OrderShipDate=order.OrderDate.
 
-            order.CustomerEmail=costumerNameArr[i]+"@gmail.com";
+            order.CustomerEmail = costumerNameArr[i] + "@gmail.com";
             order.CustomerAdress = costumerAdress[i];
-         order.OrderShipDate = DateTime.Now.AddMonths(rand.Next(-4, -1));   //fixxxxxxxx
+            order.OrderShipDate = DateTime.Now.AddMonths(rand.Next(-4, -1));   //fixxxxxxxx
             order.OrderDeliveryDate = DateTime.Now.AddMonths(rand.Next(-4, -1));//fixxxxxxxxx
 
 

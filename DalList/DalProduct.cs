@@ -7,7 +7,7 @@ public class DalProduct
 {
     public static int Add(Product newProduct)   //אילה אמרה שלפי הוראות המתודה בקובץ הזה לא צריכ ה להחזיר ערך
     {
-        for(int i=0;i<=DataSource.productArr.Length;i++)
+        for(int i=0;i<=DataSource.countOfProductArry;i++)
         {
             if (DataSource.productArr[i].ID == newProduct.ID)
                 throw new Exception("the product is exist");
@@ -31,7 +31,7 @@ public class DalProduct
 
     public static Product[] allProducts()
     {
-        Product[] Arr = new Product[DataSource.productArr.Length];
+        Product[] Arr = new Product[DataSource.countOfProductArry];
         for (int i = 0; i < DataSource.countOfProductArry; i++)
             Arr[i] = DataSource.productArr[i]; 
         return Arr;
