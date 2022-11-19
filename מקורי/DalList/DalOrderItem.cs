@@ -7,16 +7,18 @@ public class DalOrderItem
 
     public static int Add(OrderItem newOrderItem)
     {
-        newOrderItem.ID = DataSource._nextIdOrederItem++;
-        DataSource.OrderItemArr[DataSource._nextEmptyOrederItem++] = newOrderItem;
+        int x = (DataSource.s_nextOrderItemNumber) - 1000;
+        newOrderItem.ID = DataSource.NextOrderItemNumber;
+        DataSource.OrderItemArr[x] = newOrderItem;
         return newOrderItem.ID;
     }
 
 
     public static void Update(OrderItem order)
     {
+        // DataSource.OrderItemArr.Length;
         bool x = false;
-        for (int i = 0; i <= DataSource.OrderItemArr.Length; i++)
+        for (int i = 0; i <= DataSource.s_nextOrderItemNumber; i++)
         {
             if (DataSource.OrderItemArr[i].ID == order.ID)
             {
@@ -32,17 +34,19 @@ public class DalOrderItem
 
     public static void Delete(int id)
     {
+        bool flag = false;
 
         for (int i = 0; i <= DataSource.OrderItemArr.Length; i++)
         {
             if (DataSource.OrderItemArr[i].ID == id)
             {
-                DataSource.OrderItemArr[i] = DataSource.OrderItemArr[--DataSource._nextEmptyOrederItem];
-                return;
+                DataSource.OrderItemArr[i] = DataSource.OrderItemArr[DataSource.s_nextOrderItemNumber];
+                DataSource.s_nextOrderItemNumber--;
+                flag = true;
             }
         }
-
-        throw new Exception("cannot delete an OrderItem,that is not exists");
+        if (flag == false)
+            throw new Exception("cannot delete an OrderItem,that is not exists");
     }
 
 
@@ -51,7 +55,7 @@ public class DalOrderItem
     public static OrderItem Get(int id)
     {
 
-        for (int i = 0; i <= DataSource._nextEmptyOrederItem; i++)
+        for (int i = 0; i <= DataSource.OrderItemArr.Length; i++)
         {
             if (DataSource.OrderItemArr[i].ID == id)
 
@@ -66,10 +70,11 @@ public class DalOrderItem
 
     public static OrderItem[] allOrderItem()
     {
-        OrderItem[] Arr = new OrderItem[DataSource._nextEmptyOrederItem];
-        for (int i = 0; i < DataSource._nextEmptyOrederItem; i++)
+        OrderItem[] Arr = new OrderItem[DataSource.OrderItemArr.Length];
+        for (int i = 0; i < DataSource.s_nextOrderItemNumber; i++)
             Arr[i] = DataSource.OrderItemArr[i];
         return Arr;
+
 
     }
 
