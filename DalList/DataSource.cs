@@ -6,17 +6,12 @@ internal static class DataSource
     {
         s_Initialize();//מתודה פרטית שמזומנת מבנאי ברירת המחדל הסטטי של המחלקה
     }
-    public readonly static Random rand = new();
+
+    internal readonly static Random rand = new();
     internal static Product[] productArr = new Product[50];
     internal static int countOfProductArry = 0;
     internal static Order[] OrderArr = new Order[100];
     internal static OrderItem[] OrderItemArr = new OrderItem[200];
-
-    static DataSource()
-    {
-        s_Initialize();//מתודה פרטית שמזומנת מבנאי ברירת המחדל הסטטי של המחלקה
-    }
-
 
     internal static int _nextEmptyOreder = 0;
     internal static int _nextEmptyOrederItem = 0;
@@ -24,11 +19,6 @@ internal static class DataSource
     internal static int _nextIdOreder = 1000;
     internal static int _nextIdOrederItem = 1000;
 
-        internal const int s_stratOrderNumber = 1000;
-        internal static int s_nextOrderNumber = s_stratOrderNumber;
-        internal static int NextOrderNumber { get => s_nextOrderNumber++; }
-        internal static int s_nextOrderItemNumber = s_stratOrderNumber;
-        internal static int NextOrderItemNumber { get => s_nextOrderItemNumber++; }
     private static void CreateProducts()
     {
         string[] namesArr = new string[] { "meri", "lihi", "yellowJacket", "blueJacket", "StripedShirt", "WhiteShirt", "jeans", "Shorts", "ElegantPpants", "ClassicPants" };//contune to add more 8 
