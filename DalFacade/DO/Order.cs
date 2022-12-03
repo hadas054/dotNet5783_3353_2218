@@ -12,13 +12,8 @@ public struct Order
     public DateTime? OrderShipDate { get; set; }
     public DateTime? OrderDeliveryDate { get; set; }
 
-    public override string ToString() => $@"
-ID ={OrderID},
-CustomerName ={CustomerName},
-CustomerEmail ={CustomerEmail},
-CustomerAdress ={CustomerAdress},
-OrderDate ={OrderDate},
-ShipDate ={OrderShipDate},
-DeliveryDate ={OrderDeliveryDate}
-";    
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

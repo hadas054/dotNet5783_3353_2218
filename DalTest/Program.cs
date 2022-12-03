@@ -1,9 +1,12 @@
 ﻿using Dal;
+using DalApi;
 using DO;
 namespace DalTest;
 public class porgram
 {
-    public static void ProductFunc(DalProduct product)
+
+    static IDal dal = new DalList();
+    public static void ProductFunc()
     {
         char ch;
         Console.WriteLine(@"
@@ -31,15 +34,15 @@ e: Delete product
                         p.Price = Convert.ToDouble(Console.ReadLine());
                         Console.WriteLine("Enter the category of the product");
                         p.Category = (Category)Convert.ToInt32(Console.ReadLine());
-                        DalProduct.Add(p);
+                        dal.Product.Add(p);
                         break;
                     case 'b':
                         Console.WriteLine("Enter the ID of product");
                         int id = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalProduct.Get(id));
+                        Console.WriteLine(dal.Product.Get(id));
                         break;
                     case 'c':
-                        Product[] ProductsList = DalProduct.allProducts();
+                        IEnumerable<Product?> ProductsList = dal.Product.GetAll();
                         foreach (Product? item in ProductsList)
                         {
                             Console.WriteLine(item);
@@ -57,12 +60,12 @@ e: Delete product
                         p1.Price = Convert.ToDouble(Console.ReadLine());
                         Console.WriteLine("Enter the category of the product");
                         p1.Category = (Category)Convert.ToInt32(Console.ReadLine());
-                        DalProduct.Update(p1);
+                        dal.Product.Update(p1);
                         break;
                     case 'e':
                         Console.WriteLine("Enter the ID of product to delete");
                         int Id = Convert.ToInt32(Console.ReadLine());
-                        DalProduct.Delete(Id);
+                        dal.Product.Delete(Id);
                         break;
                 }
             }
@@ -82,7 +85,7 @@ e: Delete product
         while (ch != 'f');
     }
 
-    public static void OrderFunc(DalOrder order)
+    public static void OrderFunc()
     {
         char ch;
 
@@ -114,15 +117,15 @@ e: Delete order
                         o.OrderShipDate = null;
                         o.OrderDeliveryDate = null;
                         o.OrderDate = DateTime.Now;
-                        DalOrder.Add(o);
+                        dal.Order.Add(o);
                         break;
                     case 'b':
                         Console.WriteLine("Enter the ID of customer");
                         int id = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrder.Get(id));
+                        Console.WriteLine(dal.Order.Get(id));
                         break;
                     case 'c':
-                        Order[] OrderList = DalOrder.allOrders();
+                        IEnumerable<Order?> OrderList = dal.Order.GetAll();
                         foreach (Order? item in OrderList)
                         {
                             Console.WriteLine(item);
@@ -140,13 +143,13 @@ e: Delete order
                         //Console.WriteLine("Enter the ship date of customer");
                         o.OrderDate = DateTime.Now;
                         if (o.CustomerName.Length > 0)
-                            Dal.DalOrder.Update(o);
+                            dal.Order.Update(o);
 
                         break;
                     case 'e':
                         Console.WriteLine("Enter the ID of order to delete");
                         int Id = Convert.ToInt32(Console.ReadLine());
-                        DalOrder.Delete(Id);
+                        dal.Order.Delete(Id);
                         break;
                     default:
                         break;
@@ -162,7 +165,7 @@ e: Delete order
         while (ch != 'f');
     }
 
-    public static void OrderItemFunc(DalOrderItem item)
+    public static void OrderItemFunc()
     {
         char ch;
 
@@ -192,15 +195,15 @@ e: Delete order item
                         items.Price = Convert.ToDouble(Console.ReadLine());
                         Console.WriteLine("Enter the amount of products in the order item");
                         items.Amount = Convert.ToInt32(Console.ReadLine());
-                        DalOrderItem.Add(items);
+                        dal.OrderItem.Add(items);
                         break;
                     case 'b':
                         Console.WriteLine("Enter the ID of order");
                         int Id = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrderItem.Get(Id));
+                        Console.WriteLine(dal.OrderItem.Get(Id));
                         break;
                     case 'c':
-                        OrderItem[] OrderItemList = DalOrderItem.allOrderItem();
+                        IEnumerable< OrderItem?> OrderItemList = dal.OrderItem.GetAll();
                         foreach (OrderItem? s in OrderItemList)
                         {
                             Console.WriteLine(s);
@@ -217,12 +220,12 @@ e: Delete order item
                         items.Price = Convert.ToDouble(Console.ReadLine());
                         Console.WriteLine("Enter the amount of products in the order item");
                         items.Amount = Convert.ToInt32(Console.ReadLine());
-                        DalOrderItem.Update(items);
+                        dal.OrderItem.Update(items);
                         break;
                     case 'e':
                         Console.WriteLine("Enter the ID of order to delete");
                         int id = Convert.ToInt32(Console.ReadLine());
-                        DalOrderItem.Delete(id);
+                        dal.OrderItem.Delete(id);
                         break;
                 }
             }
@@ -234,9 +237,7 @@ e: Delete order item
         while (ch != 'f');
     }
 
-    private static DalOrder order = new DalOrder();
-    private static DalOrderItem orderItem = new DalOrderItem();
-    private static DalProduct Product = new DalProduct();
+    
 
 
     static void Main(string[] args)
@@ -249,13 +250,13 @@ e: Delete order item
             switch (ch)
             {
                 case 1:
-                    ProductFunc(Product);
+                    ProductFunc();
                     break;
                 case 2:
-                    OrderFunc(order);
+                    OrderFunc();
                     break;
                 case 3:
-                    OrderItemFunc(orderItem);
+                    OrderItemFunc();
                     break;
                 default:
                     break;

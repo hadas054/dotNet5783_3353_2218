@@ -1,86 +1,48 @@
 ﻿using DO;
-
+using static Dal.DataSource;
 namespace Dal;
+using DalApi;
 
-public class DalOrderItem
+internal class DalOrderItem:IOrderItem
 {
 
-    public static int Add(OrderItem newOrderItem)
+    public int Add(OrderItem newOrderItem)
     {
         newOrderItem.ID = DataSource._nextIdOrederItem++;
-        DataSource.OrderItemArr[DataSource._nextEmptyOrederItem++] = newOrderItem;
+        OrderItemArr.Add(newOrderItem);
         return newOrderItem.ID;
     }
 
 
-    public static void Update(OrderItem order)
+    public  void Update(OrderItem order)
     {
-        bool x = false;
-        for (int i = 0; i <= DataSource.OrderItemArr.Length; i++)
-        {
-            if (DataSource.OrderItemArr[i].ID == order.ID)
-            {
-                x = true;
-                DataSource.OrderItemArr[i] = order;
-            }
-        }
-        if (x == false)
-            throw new Exception("cannot update an OrderItem, that is not exists");
-
+        int index = OrderItemArr.FindIndex(x => x?.ID == order.ID);
+        if (index == -1)
+            throw new Exception();
+        OrderItemArr[index] = order;
     }
 
 
-    public static void Delete(int id)
+    public  void Delete(int id)
     {
 
-        for (int i = 0; i <= DataSource.OrderItemArr.Length; i++)
-        {
-            if (DataSource.OrderItemArr[i].ID == id)
-            {
-                DataSource.OrderItemArr[i] = DataSource.OrderItemArr[--DataSource._nextEmptyOrederItem];
-                return;
-            }
-        }
-
-        throw new Exception("cannot delete an OrderItem,that is not exists");
+        int index = OrderItemArr.FindIndex(x => x?.ID == id);
+        if (index == -1)
+            throw new Exception();
+        OrderItemArr.RemoveAt(index);
     }
 
-
-
-
-    public static OrderItem Get(int id)
+    public  OrderItem? Get(int id)
     {
 
-        for (int i = 0; i <= DataSource._nextEmptyOrederItem; i++)
-        {
-            if (DataSource.OrderItemArr[i].ID == id)
-
-                return DataSource.OrderItemArr[i];
-
-        }
-
-        throw new Exception("the OrderItem does not exist");
-
+        return OrderItemArr.Find(x => x?.ID == id);
     }
 
-
-    public static OrderItem[] allOrderItem()
+    public  IEnumerable<OrderItem?> GetAll()
     {
-        OrderItem[] Arr = new OrderItem[DataSource._nextEmptyOrederItem];
-        for (int i = 0; i < DataSource._nextEmptyOrederItem; i++)
-            Arr[i] = DataSource.OrderItemArr[i];
-        return Arr;
+        IEnumerable<OrderItem?> list = OrderItemArr.ToList();
+        return list;
 
     }
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -4,18 +4,16 @@ internal static class DataSource
 {
     static DataSource()
     {
-        s_Initialize();//מתודה פרטית שמזומנת מבנאי ברירת המחדל הסטטי של המחלקה
+        sInitialize();
     }
 
     internal readonly static Random rand = new();
-    internal static Product[] productArr = new Product[50];
+    internal static List <Product?> productArr = new List <Product?>();
+    internal static List<Order?> OrderArr = new List<Order?>();
+    internal static List <OrderItem?> OrderItemArr = new List <OrderItem?>();
     internal static int countOfProductArry = 0;
-    internal static Order[] OrderArr = new Order[100];
-    internal static OrderItem[] OrderItemArr = new OrderItem[200];
 
-    internal static int _nextEmptyOreder = 0;
-    internal static int _nextEmptyOrederItem = 0;
-    internal static int _nextEmptyProduct = 0;
+
     internal static int _nextIdOreder = 1000;
     internal static int _nextIdOrederItem = 1000;
 
@@ -33,7 +31,7 @@ internal static class DataSource
             product.inStock = i * 5;
             product.Price = rand.Next(50, 300);
             product.Category = categoriesArr[i];
-            productArr[_nextEmptyProduct++] = product;
+            productArr.Add(product);
         }
     }
 
@@ -55,8 +53,8 @@ internal static class DataSource
             order.CustomerEmail = costumerNameArr[i] + "@gmail.com";
             order.OrderDate = DateTime.Now.AddDays(-days);
             order.CustomerAdress = costumerAdress[i];
-            order.OrderShipDate = DateTime.MinValue;
-            order.OrderDeliveryDate = DateTime.MinValue;
+            order.OrderShipDate = null;
+            order.OrderDeliveryDate = null;
             if (i < AmountOfOrders * 0.8)
             {
                 days = rand.Next(10, 20);
@@ -69,7 +67,7 @@ internal static class DataSource
                 TimeSpan deliverTime = new TimeSpan(days, 0, 0, 0);
                 order.OrderDeliveryDate = order.OrderShipDate + deliverTime;
             }
-            OrderArr[_nextEmptyOreder] = order;
+            OrderArr.Add(order);
         }
     }
     private static void CreateOrderItem()
@@ -84,15 +82,15 @@ internal static class DataSource
                 orderItem.ID = _nextIdOrederItem++;
                 orderItem.Amount = rand.Next(1, 4);
                 index2 = rand.Next(0,10);
-                orderItem.ProductID = DataSource.productArr[index2].ID;
-                orderItem.OrderID = DataSource.productArr[i].ID;
-                orderItem.Price = DataSource.productArr[index2].Price;
-                OrderItemArr[_nextEmptyOrederItem++]=orderItem; 
+                orderItem.ProductID = DataSource.productArr[index2].Value.ID;
+                orderItem.OrderID = DataSource.productArr[i].Value.ID;
+                orderItem.Price = DataSource.productArr[index2].Value.Price;
+                OrderItemArr.Add(orderItem); 
             }
         }
     }
 
-    private static void s_Initialize()
+    private static void sInitialize()
     {
         CreateProducts();
         CreateOrder();
@@ -106,20 +104,3 @@ internal static class DataSource
 
 
 
-//    private static void creatAndInitProducts()
-//    {
-//        for(int i=0;i<10;i++)
-//        {
-//            ProductsArr.Add(
-//                new Product
-//                {
-//                    ID = i,
-//                    Name = "pppp",
-//                    Price = s_rand.Next(200),
-//                    Category= (Category)s_rand.Next(4),
-//                    inStock=s_rand.Next(50),
-//                });
-
-//        }
-//    }
-//}

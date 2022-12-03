@@ -1,63 +1,48 @@
-﻿using DO;
+﻿
+using static Dal.DataSource;
+using DalApi;
+using DO;
+using DalApi;
 
 namespace Dal;
-public class DalOrder
+
+internal class DalOrder :IOrder
 {
-    public static int Add(Order newOrder)   //אילה אמרה שאולי לא צריך להכניס פה ערך לפי ההוראות
+    public int Add(Order newOrder)   
     {
         newOrder.OrderID = DataSource._nextIdOreder++;
-        DataSource.OrderArr[DataSource._nextEmptyOreder] = newOrder;
-        DataSource._nextEmptyOreder++;
+        DataSource.OrderArr.Add(newOrder);
         return newOrder.OrderID;
     }
 
-    public static Order Get(int id)
+    public Order? Get(int id)
     {
 
-        for (int i = 0; i <= DataSource._nextEmptyOreder; i++)
-        {
-            if (DataSource.OrderArr[i].OrderID == id)
-                return DataSource.OrderArr[i];
-        }
-        throw new Exception("the OrderItem does not exist");
+        return OrderArr.Find(x => x.Value.OrderID == id);
+        //else throw exeption?
 
     }
 
-
-    public static Order[] allOrders()
+    public IEnumerable<Order?> GetAll()
     {
-        Order[] Arr = new Order[DataSource._nextEmptyOreder];
-        for (int i = 0; i < DataSource._nextEmptyOreder; i++)
-            Arr[i] = DataSource.OrderArr[i];
-        return Arr;
+        List<Order?> list = OrderArr.ToList();
+        return list;
     }
 
-    public static void Delete(int id)
+    public void Delete(int id)
     {
-        for (int i = 0; i <= DataSource._nextEmptyOreder; i++)
-        {
-            if (DataSource.OrderArr[i].OrderID == id)
-            {
-                DataSource.OrderArr[i] = DataSource.OrderArr[DataSource._nextEmptyOreder - 1];
-                DataSource._nextEmptyOreder--;
-                return;
-            }
-        }
-            throw new Exception("cannot delete an OrderItem,that is not exists");
+        int index = OrderArr.FindIndex(x => x?.OrderID == id);
+        if (index == -1)
+            throw new Exception();
+        OrderArr.RemoveAt(index);
     }
 
-
-    public static void Update(Order order)
+    public void Update(Order order)
     {
-        for (int i = 0; i < DataSource._nextEmptyOreder; i++)
-        {
-            if (DataSource.OrderItemArr[i].ID == order.OrderID)
-            {
-                DataSource.OrderArr[i] = order;
-                return;
-            }
-        }
-            throw new Exception("cannot update an Order, that is not exists");
+        int index = OrderArr.FindIndex(x => x?.OrderID == order.OrderID);
+        if (index == -1)
+            throw new Exception();
+        OrderArr[index] = order;
 
     }
 
