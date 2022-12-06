@@ -9,6 +9,8 @@ namespace BLImplementation
         DalApi.IDal dal = new DalList();
         public Order DeliveredOrder(int id)
         {
+            if (id < 0)
+                throw new Exception();
             DO.Order? dOrder = dal.Order.Get(id);
 
             if (dOrder?.OrderShipDate != DateTime.MinValue)//בידקה אם ההזמנה נשלחה בכלל
@@ -58,12 +60,20 @@ namespace BLImplementation
                             Name = dal.Product.Get(item.ProductID).Value.Name,
                             TotalPrice = item.Amount * item.Price
                         }
-            }
+            };
         }
 
         public IEnumerable<OrderForList> GetOrders()// אותו דבר כמו בפרודקט
         {
-            throw new NotImplementedException();
+            return from DO.Order item in dal.Order.GetAll()
+                   select new BO.OrderForList()
+                   {
+                       Id=item.OrderID,
+                       CustomerName=item.CustomerName,
+                       Status = GetSatus(item),
+                       AmountOfItems=dal.OrderItem.GetAll().Where(x=>x.Value.OrderID==item.OrderID).Sum(x=>x.Value.Amount),
+                       TotaiPrice = dal.OrderItem.GetAll().Where(x => x.Value.OrderID == item.OrderID).Sum(x => x.Value.Price)
+                   };
         }
 
         public OrderTracking OrderTracking(int id)
@@ -87,6 +97,9 @@ namespace BLImplementation
             return order?.OrderShipDate != null ? OrderStatus.Delievered :
                 order?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Ordered;
         }
+
+
+
         public Order SentOrder(int id)// בדיוק כמו בהספקת הזמנה שעשיתי
         {
             throw new NotImplementedException();

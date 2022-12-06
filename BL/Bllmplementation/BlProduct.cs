@@ -8,6 +8,8 @@ namespace BLImplementation
         DalApi.IDal dal = new Dal.DalList();
         public void AddProduct(BO.Product product)
         {
+            if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
+                throw new ArgumentException();
             try
             {
                 dal.Product.Add(new DO.Product()
@@ -37,17 +39,40 @@ namespace BLImplementation
         {
             DO.Product? dProduct = dal.Product.Get(id);
 
-            return new BO.ProductItem()
+            return(new BO.ProductItem()
             {
                 Id = dProduct.Value.ID,
                 Name = dProduct.Value.Name,
-                //ואת תמשיכי מפה
-            };
+                Price = dProduct.Value.Price,
+                Category = (BO.Category)dProduct.Value.Category,
+                Instock = IfInStock(dProduct)
+            });
         }
 
         public Product GetProductM(int id)// אותו רעיון כמו פונקצייה קודמת רק עם שדות שונים 
         {
-            throw new NotImplementedException();
+
+            if (id < 0)
+                throw new Exception();
+            //try
+            //{
+                DO.Product? dProduct = dal.Product.Get(id);
+
+                return (new BO.Product()
+                {
+
+                    Id = dProduct.Value.ID,
+                    Name = dProduct.Value.Name,
+                    Price = dProduct.Value.Price,
+                    Category = (BO.Category)dProduct.Value.Category,
+                    Instock = dProduct.Value.inStock
+
+                });
+            //}
+            //catch
+            //{
+
+            //}
         }
 
         public IEnumerable<ProductForList> GetProducts()
@@ -83,6 +108,13 @@ namespace BLImplementation
             {
                 throw new Exception();
             }
+        }
+
+        bool IfInStock(DO.Product? product)
+        {
+            if (product.Value.inStock > 0)
+                return true;
+            return false;
         }
     }
 }

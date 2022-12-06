@@ -3,6 +3,7 @@ using DO;
 using static Dal.DataSource;
 namespace Dal;
 using DalApi;
+using System.Security.Cryptography;
 
 internal class DalProduct:IProduct
 {
@@ -29,8 +30,12 @@ internal class DalProduct:IProduct
 
     public  IEnumerable<Product?> GetAll()
     {
-        List<Product?> list = productArr.ToList();
-        return list;
+        //List<Product?> list = productArr.ToList();
+        //return list;
+
+        return from Product? product in productArr
+               select product;
+
     }
 
     public  void Delete(int id)

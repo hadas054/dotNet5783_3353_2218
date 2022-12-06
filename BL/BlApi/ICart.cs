@@ -13,7 +13,7 @@ namespace BlApi
         /// </summary>
         /// <param name="cert"></param>
         /// <param name="ID"></param>
-        BO.Cart AddProduct(BO.Cart cert, int ID);
+        BO.Cart AddProduct(BO.Cart cart, int ID);
 
         /// <summary>
         /// update amount of product at cart by id and amount
@@ -21,7 +21,7 @@ namespace BlApi
         /// <param name="cert"></param>
         /// <param name="ID"></param>
         /// <param name="anount"></param>
-        BO.Cart UpdateAmount(BO.Cart cert, int ID, int anount);
+        BO.Cart UpdateAmount(BO.Cart cart, int ID, int amount);
 
         /// <summary>
         /// check thr cart for new order

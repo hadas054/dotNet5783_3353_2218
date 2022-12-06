@@ -38,7 +38,7 @@ internal class DalOrderItem:IOrderItem
         return OrderItemArr.Find(x => x?.ID == id);
     }
 
-    public  IEnumerable<OrderItem?> GetAll()
+    public  IEnumerable<OrderItem?> GetAll()   //לסדר כמו  בפרודקט ולסדר גם באחרים
     {
         IEnumerable<OrderItem?> list = OrderItemArr.ToList();
         return list;
