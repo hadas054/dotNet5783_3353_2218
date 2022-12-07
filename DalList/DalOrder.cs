@@ -15,10 +15,10 @@ internal class DalOrder :IOrder
         return newOrder.OrderID;
     }
 
-    public Order? Get(int id)
+    public Order Get(int id)
     {
 
-        return OrderArr.Find(x => x.Value.OrderID == id);
+        return OrderArr.Find(x => x.Value.OrderID == id) ?? throw new Exception();
         //else throw exeption?
 
     }
