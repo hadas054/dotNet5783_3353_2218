@@ -12,6 +12,6 @@ namespace DalApi
         void Delete(int Entity);  
         IEnumerable<T?> GetAll();    
         void Update (T Entity);
-        T? Get (int Entity); 
+        T Get (int Entity); 
     }
 }

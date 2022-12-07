@@ -32,10 +32,9 @@ internal class DalOrderItem:IOrderItem
         OrderItemArr.RemoveAt(index);
     }
 
-    public  OrderItem? Get(int id)
+    public  OrderItem Get(int id)
     {
-
-        return OrderItemArr.Find(x => x?.ID == id);
+        return OrderItemArr.Find(x => x?.ID == id) ?? throw new Exception();
     }
 
     public  IEnumerable<OrderItem?> GetAll()   //לסדר כמו  בפרודקט ולסדר גם באחרים

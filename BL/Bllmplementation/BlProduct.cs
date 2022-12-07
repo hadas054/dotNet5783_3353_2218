@@ -35,44 +35,38 @@ namespace BLImplementation
             dal.Product.Delete(id);
         }
 
-        public BO.ProductItem GetProductC(int id)//אותו רעיון כמו הוספה רק שצריך להעתיק מאובייקט של DO לאובייקט של BO
+        public BO.ProductItem GetProductC(int id)
         {
-            DO.Product? dProduct = dal.Product.Get(id);
+            DO.Product dProduct = dal.Product.Get(id);
 
-            return(new BO.ProductItem()
+            return new BO.ProductItem()
             {
-                Id = dProduct.Value.ID,
-                Name = dProduct.Value.Name,
-                Price = dProduct.Value.Price,
-                Category = (BO.Category)dProduct.Value.Category,
-                Instock = IfInStock(dProduct)
-            });
+                Id = dProduct.ID,
+                Name = dProduct.Name,
+                Price = dProduct.Price,
+                Category = (BO.Category)dProduct.Category,
+                Instock = dProduct.inStock >0 ? true : false
+            };
         }
 
-        public Product GetProductM(int id)// אותו רעיון כמו פונקצייה קודמת רק עם שדות שונים 
+        public Product GetProductM(int id)
         {
 
             if (id < 0)
                 throw new Exception();
-            //try
-            //{
-                DO.Product? dProduct = dal.Product.Get(id);
+            
+                DO.Product dProduct = dal.Product.Get(id);
 
                 return (new BO.Product()
                 {
 
-                    Id = dProduct.Value.ID,
-                    Name = dProduct.Value.Name,
-                    Price = dProduct.Value.Price,
-                    Category = (BO.Category)dProduct.Value.Category,
-                    Instock = dProduct.Value.inStock
+                    Id = dProduct.ID,
+                    Name = dProduct.Name,
+                    Price = dProduct.Price,
+                    Category = (BO.Category)dProduct.Category,
+                    Instock = dProduct.inStock
 
                 });
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         public IEnumerable<ProductForList> GetProducts()
@@ -108,13 +102,6 @@ namespace BLImplementation
             {
                 throw new Exception();
             }
-        }
-
-        bool IfInStock(DO.Product? product)
-        {
-            if (product.Value.inStock > 0)
-                return true;
-            return false;
         }
     }
 }

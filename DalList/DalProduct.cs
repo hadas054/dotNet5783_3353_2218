@@ -22,9 +22,9 @@ internal class DalProduct:IProduct
         return newProduct.ID;
     }
 
-    public  Product? Get(int id)
+    public  Product Get(int id)
     {
-        return productArr.Find(x=> x?.ID == id); 
+        return productArr.Find(x=> x?.ID == id) ?? throw new Exception(); 
     }
 
 
