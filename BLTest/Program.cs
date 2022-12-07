@@ -56,10 +56,17 @@ d:exit");
     static void ProductTest()
     {
         string action = null;
-        Product product = new Product();
+       BO. Product product = new BO.Product();
         while (true)
         {
             //כאן תבקשי קלט מהמשתמש
+            Console.WriteLine(@"choose the action:
+a: add product
+b: delete product
+c: get product
+d: get products
+e: update
+");
             switch (action)
             {
                 case "a":
@@ -67,10 +74,29 @@ d:exit");
                     break;
 
                 case "b":
-                    bl.Product.GetProducts();
+                    Console.WriteLine("Enter id of the product");
+                    int id=int.Parse(Console.ReadLine());
+                    bl.Product.Delete(id);
                     break;
                     //תכניסי את כל הפונקציות
+                case "c":
+                    Console.WriteLine("Enter id of the product");
+                    id = int.Parse(Console.ReadLine());
+                    bl.Product.GetProductC(id);
+                    break;
                 case "d":
+                   var v= bl.Product.GetProducts;
+                    foreach (var item in v)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+                case "e":
+                    bl.Product.Update(product);
+
+                    break;
+                default :
+                    Console.WriteLine("Error");
                     return;
 
             }
@@ -130,6 +156,7 @@ f: return to the main menu");
                     s = Console.ReadLine();
                     cart.CustomerEmail= s;
                     bl.cart.OrderConfirmation(cart);
+                    cart.Items.Clear();//איפוס הסל
                     return;
                 case "f":
                     return;
@@ -149,6 +176,13 @@ f: return to the main menu");
         while (true)
         {
             //כאן תבקשי קלט מהמשתמש
+
+            Console.WriteLine(@"
+a: update order
+b: get order
+c: delivery order
+d: det orders
+e:sent order");
             switch (action)
             {
                 case "a":
@@ -156,10 +190,32 @@ f: return to the main menu");
                     break;
 
                 case "b":
-                    bl.Order.GetOrders();
+                    Console.WriteLine("Enter the id");
+                    int id = int.Parse(Console.ReadLine());
+                    bl.Order.GetOrder(id);
                     break;
+
                 //תכניסי את כל הפונקציות
+                case "c":
+                    Console.WriteLine("Enter the id of the product");
+                    id=int.Parse(Console.ReadLine());
+                    bl.Order.SentOrder(id);
+                    break;
                 case "d":
+                    var v = bl.Order.GetOrders;
+                    foreach(var item in v)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+                 case "e":
+                    Console.WriteLine("Enter the id");
+                    id = int.Parse(Console.ReadLine());
+
+
+
+               
+                    break;
                     return;
 
             }

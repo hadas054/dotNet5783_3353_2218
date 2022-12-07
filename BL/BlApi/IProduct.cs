@@ -41,5 +41,5 @@ public interface IProduct
     /// </summary>
     /// <param name="product"></param>
     void Update(BO.Product product);
-
+    void Delete();
 }
