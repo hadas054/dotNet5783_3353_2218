@@ -11,17 +11,28 @@ namespace BLImplementation
 
         public Cart AddProduct(Cart cart, int ID)
         {
+            if (cart.Items == null)
+                cart.Items = new List<BO.OrderItem>();
+
             int index = cart.Items.FindIndex(x => x.ProductId == ID);
 
-            DO.Product? product = dal.Product.Get(ID);
-            if (product?.inStock < 1)
-                throw new Exception();
+            DO.Product? product;
+            try
+            {
+                product = dal.Product.Get(ID);
+                if (product?.inStock < 1)
+                    throw new ConfirmException("the product no avaliable");
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             if (index != -1)
             {
                 cart.Items[index].Amount++;
-                cart.Items[index].TotalPrice += product.Value.Price;
-                cart.TotalPrice += product.Value.Price;
+                cart.Items[index].TotalPrice += product?.Price ?? 0;
+                cart.TotalPrice += product?.Price ?? 0;
                 return cart;
             }
 
@@ -44,17 +55,28 @@ namespace BLImplementation
 
             foreach (var item in cart.Items)
             {
-                if (!products.Any(pro => pro?.ID == item.ProductId))
-                    throw new Exception();
-                DO.Product p = dal.Product.Get(item.ProductId);
+                DO.Product p = new DO.Product();
+                try
+                {
+                    if (!products.Any(pro => pro?.ID == item.ProductId))
+                        p = dal.Product.Get(item.ProductId);
+                }
+                catch (Exception ex)
+                {
+                    throw new NotExistException("cart confirmation" + ex.Message + "\n");
+                }
+
                 if (item.Amount < 0 || item.Price < 0)
-                    throw new Exception();
+                    throw new ConfirmException("negativ amount\n");
+
                 if (p.inStock < item.Amount)
-                    throw new Exception();
+                    throw new ConfirmException("the product no avaliable\n");
+
                 if ((cart.CustomerName == "") || (cart.CustomerAddress == ""))
-                    throw new Exception();
+                    throw new ConfirmException("Invalid name or address\n");
+
                 if (!cart.CustomerEmail.Contains("@gmail.com"))
-                    throw new Exception();
+                    throw new ConfirmException("Invalid email address\n");
 
                 p.inStock -= item.Amount;
                 dal.Product.Update(p);
@@ -71,7 +93,15 @@ namespace BLImplementation
                 OrderShipDate = null
             };
 
-            int idOrder = dal.Order.Add(order);
+            int idOrder;
+            try
+            {
+                idOrder = dal.Order.Add(order);
+            }
+            catch (Exception ex)
+            {
+                throw new alreadyExistException(ex.Message);
+            }
 
 
             foreach (var item in cart.Items)
@@ -83,8 +113,15 @@ namespace BLImplementation
                     Price = item.Price,
                     Amount = item.Amount
                 };
+                try
+                {
+                    dal.OrderItem.Add(orderItem);
+                }
+                catch (Exception ex)
+                {
+                    throw new alreadyExistException(ex.Message);
+                }
 
-                dal.OrderItem.Add(orderItem);
             }
         }
 
@@ -92,15 +129,25 @@ namespace BLImplementation
         {
             int index = cart.Items.FindIndex(x => x.ProductId == ID);
 
-            DO.Product product = dal.Product.Get(ID);
-            if (index == -1)
-                throw new Exception();
+            DO.Product product = new DO.Product();
 
-            if (amount  != 0)
+            try
+            {
+                product = dal.Product.Get(ID);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
+
+            if (index == -1)
+                throw new NotExistException("the product is't in cart");
+
+            if (amount != 0)
             {
                 cart.Items[index].Amount = amount;
-                cart.Items[index].TotalPrice += cart.Items[index].Price * amount;
-                cart.TotalPrice = cart.Items.Sum(x=>x.TotalPrice);
+                cart.Items[index].TotalPrice = cart.Items.Sum(x => x.Amount * x.Price);
+                cart.TotalPrice = cart.Items.Sum(x => x.TotalPrice);
             }
 
             if (amount == 0)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,8 @@ public class OrderForList
     public int AmountOfItems { get; set; }
     public double TotaiPrice { get; set; }
 
-
-
-
-
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

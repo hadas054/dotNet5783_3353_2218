@@ -82,9 +82,9 @@ internal static class DataSource
                 orderItem.ID = _nextIdOrederItem++;
                 orderItem.Amount = rand.Next(1, 4);
                 index2 = rand.Next(0,10);
-                orderItem.ProductID = DataSource.productArr[index2].Value.ID;
-                orderItem.OrderID = DataSource.productArr[i].Value.ID;
-                orderItem.Price = DataSource.productArr[index2].Value.Price;
+                orderItem.ProductID = productArr[index2]?.ID ?? 0;
+                orderItem.OrderID = OrderArr[i]?.OrderID ?? 0;
+                orderItem.Price = productArr[index2]?.Price* orderItem.Amount ?? 0;
                 OrderItemArr.Add(orderItem); 
             }
         }

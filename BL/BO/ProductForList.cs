@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ public class ProductForList
 
 
 
-
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 
 }

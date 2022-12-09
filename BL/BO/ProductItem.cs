@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,4 +16,8 @@ public class ProductItem
     public int Amount { get; set; }
     public bool Instock { get; set; }
 
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

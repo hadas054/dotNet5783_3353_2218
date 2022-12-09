@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using DO;
+
+namespace BO;
 
 public class OrderItem
 {
@@ -7,4 +9,8 @@ public class OrderItem
     public double Price { get; set; }
     public int Amount { get; set; }
     public double TotalPrice { get; set; }
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

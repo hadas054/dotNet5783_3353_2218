@@ -9,7 +9,8 @@ namespace BLImplementation
         public void AddProduct(BO.Product product)
         {
             if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
-                throw new ArgumentException();
+                throw new Exception("the info is Error\n");
+
             try
             {
                 dal.Product.Add(new DO.Product()
@@ -23,14 +24,20 @@ namespace BLImplementation
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new alreadyExistException(ex.Message);
             }
         }
 
         public void Delete(int id)
         {
-            if (dal.OrderItem.GetAll().Select(x => x?.ID == id).Any())
-                throw new Exception();
+            try
+            {
+                dal.OrderItem.GetAll().Select(x => x?.ID == id).Any();
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             dal.Product.Delete(id);
         }
@@ -45,7 +52,7 @@ namespace BLImplementation
                 Name = dProduct.Name,
                 Price = dProduct.Price,
                 Category = (BO.Category)dProduct.Category,
-                Instock = dProduct.inStock >0 ? true : false
+                Instock = dProduct.inStock > 0 ? true : false
             };
         }
 
@@ -54,22 +61,28 @@ namespace BLImplementation
 
             if (id < 0)
                 throw new Exception();
-            
-                DO.Product dProduct = dal.Product.Get(id);
 
-                return (new BO.Product()
-                {
+            DO.Product dProduct = new DO.Product();
+            try
+            {
+                dProduct = dal.Product.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
-                    Id = dProduct.ID,
-                    Name = dProduct.Name,
-                    Price = dProduct.Price,
-                    Category = (BO.Category)dProduct.Category,
-                    Instock = dProduct.inStock
-
-                });
+            return (new BO.Product()
+            {
+                Id = dProduct.ID,
+                Name = dProduct.Name,
+                Price = dProduct.Price,
+                Category = (BO.Category)dProduct.Category,
+                Instock = dProduct.inStock
+            });
         }
 
-        public IEnumerable<ProductForList> GetProducts()
+        public IEnumerable<ProductForList?> GetProducts()
         {
             return from DO.Product dProduct in dal.Product.GetAll()
                    select new BO.ProductForList()
@@ -100,7 +113,7 @@ namespace BLImplementation
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                throw new NotExistException(ex.Message);
             }
         }
     }
