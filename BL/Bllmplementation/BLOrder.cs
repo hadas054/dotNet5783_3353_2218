@@ -24,7 +24,7 @@ namespace BLImplementation
             }
 
             if (dOrder.OrderShipDate == null)//בידקה אם ההזמנה נשלחה בכלל
-                throw new Exception("the order is not ordered\n");
+                throw new Exception("the order is not\n");
 
             if (dOrder is DO.Order order)
             {
