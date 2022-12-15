@@ -25,11 +25,13 @@ namespace PL.manager
     public partial class mainProduct : Window
     {
         IBL bl;
+        BO.Category[] categoryList;
         public mainProduct()
         {
             InitializeComponent();
             bl = new BL();
             List.ItemsSource = bl.Product.GetProducts();
+            categoryList = (Category[])Enum.GetValues(typeof(Category));
             selection.ItemsSource = Enum.GetValues(typeof(Category));
         }
 
@@ -45,20 +47,11 @@ namespace PL.manager
 
         private void select(object sender, SelectionChangedEventArgs e)
         {
+
             if (selection.SelectedItem is Category category)
                 List.ItemsSource = bl.Product.GetProducts().Where(x => x.Category == category);
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            bl = new BL();
-            List.ItemsSource = bl.Product.GetProducts();
-            selection.ItemsSource = Enum.GetValues(typeof(Category));
-        }
-
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
+                //foreach (var item in categoryList.Where(x => x != category))
+                //    selection.Items.Add(item);
         }
     }
 }

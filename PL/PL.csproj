@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="AddAndUpdate.xaml.cs">
+	  <Compile Update="manager\AddAndUpdate.xaml.cs">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Compile>
 	</ItemGroup>

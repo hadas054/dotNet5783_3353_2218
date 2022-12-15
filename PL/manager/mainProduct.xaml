@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="selection" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <ComboBox Name="selection" SelectionChanged="select" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
             <Label Content="קטגוריה"  HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="0" HorizontalContentAlignment="Center" />
         </Grid>
         <ListView  Name="List" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -27,6 +27,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Click="AddProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5"/>
 
     </Grid>
 </Window>
