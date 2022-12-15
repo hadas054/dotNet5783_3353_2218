@@ -17,4 +17,10 @@
 		<ProjectReference Include="..\BL\BL.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="AddAndUpdate.xaml.cs">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

@@ -6,14 +6,27 @@
         xmlns:local="clr-namespace:PL.manager"
         mc:Ignorable="d"
         Title="mainProduct" Height="450" Width="800">
-    <Grid>
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="500"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="selection" SelectionChanged="select" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" Width="120"/>
-        <ListView x:Name="List" Grid.Row="1" MouseDoubleClick="UpdateProduct"/>
-        <Button Content="הוספת מוצר" Click="AddProduct" HorizontalAlignment="Left" Margin="737,341,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Name="selection" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <Label Content="קטגוריה"  HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="0" HorizontalContentAlignment="Center" />
+        </Grid>
+        <ListView  Name="List" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

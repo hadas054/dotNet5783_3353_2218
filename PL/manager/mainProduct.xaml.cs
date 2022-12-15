@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using BlApi;
 using BLImplementation;
 using BO;
+using PL;
+
 
 namespace PL.manager
 {
@@ -22,32 +24,41 @@ namespace PL.manager
     /// </summary>
     public partial class mainProduct : Window
     {
-        IBL bl;   
+        IBL bl;
         public mainProduct()
         {
             InitializeComponent();
             bl = new BL();
-
-            selection.ItemsSource = Enum.GetValues(typeof(Category));
             List.ItemsSource = bl.Product.GetProducts();
+            selection.ItemsSource = Enum.GetValues(typeof(Category));
         }
-
-
 
         private void AddProduct(object sender, RoutedEventArgs e)
         {
-           // new ProductAction().Show();
+            new AddAndUpdate().Show();
         }
 
         private void UpdateProduct(object sender, MouseButtonEventArgs e)
         {
-          //  new ProductAction().Show();
+            new AddAndUpdate().Show();
         }
 
         private void select(object sender, SelectionChangedEventArgs e)
         {
             if (selection.SelectedItem is Category category)
                 List.ItemsSource = bl.Product.GetProducts().Where(x => x.Category == category);
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bl = new BL();
+            List.ItemsSource = bl.Product.GetProducts();
+            selection.ItemsSource = Enum.GetValues(typeof(Category));
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
