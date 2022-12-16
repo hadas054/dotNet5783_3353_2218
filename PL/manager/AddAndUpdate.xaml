@@ -17,7 +17,7 @@
         <Label Content="Category" HorizontalAlignment="Left" Margin="400,150,0,0" VerticalAlignment="Top"/>
         <Label Content="Price" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top"/>
         <Label Content="Amount" HorizontalAlignment="Left" Margin="400,250,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="add" Content="הופסה" Click="Add" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="update" Content="updae" Click="מוצר" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="add" Content="הוספה" Click="Add" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="update" Content="מוצר" Click="Update" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
