@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid x:Name="MainGrid">
-        <Button Content="manager" HorizontalAlignment="Left" Click="mainProduct" Margin="400,244,0,0" VerticalAlignment="Top"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/לןגווווווו.png"/>
+        </Grid.Background>
+        <Button Content="manager" HorizontalAlignment="Left" Click="mainProduct" Margin="26,85,0,0" VerticalAlignment="Top" Height="89" Width="244" FontFamily="Sitka Small Semibold" FontSize="24" FontWeight="Bold" FontStyle="Italic" />
 
     </Grid>
 </Window>

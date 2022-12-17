@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,33 +26,80 @@ namespace PL.manager
     public partial class mainProduct : Window
     {
         IBL bl;
-        BO.Category[] categoryList;
+        BO.Category[] categories;
+        public ObservableCollection<Category> ComboOption { get; private set; }
+        /// <summary>
+        /// constructor for the mainproduct
+        /// </summary>
         public mainProduct()
         {
             InitializeComponent();
             bl = new BL();
             List.ItemsSource = bl.Product.GetProducts();
-            categoryList = (Category[])Enum.GetValues(typeof(Category));
-            selection.ItemsSource = Enum.GetValues(typeof(Category));
+            categories = (Category[])Enum.GetValues(typeof(Category));
+            ComboOption = new ObservableCollection<Category>(categories);
+            this.DataContext = this;
         }
 
+
+        /// <summary>
+        /// when you click on the "add new product" the AddAndUpdate window will open 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddProduct(object sender, RoutedEventArgs e)
         {
-            new AddAndUpdate().Show();
-        }
+            new AddAndUpdate().ShowDialog();
 
+            //We will update the list of products after the action we have taken
+            try
+            {
+                List.ItemsSource = bl.Product.GetProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        /// <summary>
+        /// update product from the catalog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateProduct(object sender, MouseButtonEventArgs e)
         {
-            new AddAndUpdate().Show();
+            if (List.SelectedItem is ProductForList productForList)
+                new AddAndUpdate(productForList).ShowDialog();
+            //We will update the list of products after the action we have taken
+            try
+            {
+                List.ItemsSource = bl.Product.GetProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void select(object sender, SelectionChangedEventArgs e)
         {
 
             if (selection.SelectedItem is Category category)
+            {
                 List.ItemsSource = bl.Product.GetProducts().Where(x => x.Category == category);
-                //foreach (var item in categoryList.Where(x => x != category))
-                //    selection.Items.Add(item);
+
+                ComboOption.Clear();
+
+                foreach (var c in categories.Where(cat => cat != category))
+                {
+                    ComboOption.Add(c);
+                }
+            }
+        }
+
+        private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -17,12 +17,13 @@ using BO;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for production.xaml
-    /// </summary>
+    
     public partial class AddAndUpdate : Window
     {
         IBL bl;
+        /// <summary>
+        /// constructor for Add window
+        /// </summary>
         public AddAndUpdate()
         {
             InitializeComponent();
@@ -54,28 +55,55 @@ namespace PL
             ID.IsReadOnly = true;   
         }
 
+        /// <summary>
+        /// Add new product to the catalog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add(object sender, RoutedEventArgs e)
         {
-            bl.Product.Update(new Product
+            try
             {
-                Id = int.Parse(ID.Text),
-                Name = Name.Text,
-                Category = (Category)category.SelectedIndex,
-                Instock = int.Parse(ID.Text),
-                Price = int.Parse(Price.Text),
-            });
+                bl.Product.AddProduct(new Product
+                {
+                    Id = int.Parse(ID.Text),
+                    Name = Name.Text,
+                    Category = (Category)category.SelectedIndex,
+                    Instock = int.Parse(ID.Text),
+                    Price = int.Parse(Price.Text),
+                });
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);    
+            }
+            this.Close();
         }
 
+
+        /// <summary>
+        /// update product from the catalog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Update(object sender, RoutedEventArgs e)
         {
-            bl.Product.Update(new Product
+            try
             {
-                Id = int.Parse(ID.Text),
-                Name = Name.Text,
-                Category = (Category)category.SelectedIndex,
-                Instock = int.Parse(ID.Text),
-                Price = int.Parse(Price.Text),
-            });
+                bl.Product.Update(new Product
+                {
+                    Id = int.Parse(ID.Text),
+                    Name = Name.Text,
+                    Category = (Category)category.SelectedIndex,
+                    Instock = int.Parse(ID.Text),
+                    Price = int.Parse(Price.Text),
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            this.Close();
         }
     }
 }

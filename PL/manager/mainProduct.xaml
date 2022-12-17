@@ -17,10 +17,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="selection" SelectionChanged="select" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
-            <Label Content="קטגוריה"  HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="0" HorizontalContentAlignment="Center" />
+            <ComboBox Name="selection" ItemsSource="{Binding ComboOption, Mode=OneWay}" SelectionChanged="select" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <Label Content="קטגוריה"  HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Segoe UI Symbol" />
         </Grid>
-        <ListView  Name="List" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView  Name="List" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="UpdateProduct" SelectionChanged="List_SelectionChanged" Background="#FFE2D5D5" FontFamily="Segoe UI Variable Display Semibold">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

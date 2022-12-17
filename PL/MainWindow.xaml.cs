@@ -30,6 +30,11 @@ namespace PL
                 bl = new BL();
         }
 
+        /// <summary>
+        /// when you click on the "manager" in the main window the main product window will open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mainProduct(object sender, RoutedEventArgs e)
         {
             new mainProduct().Show();

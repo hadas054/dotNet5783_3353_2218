@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="production" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="228,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="228,100,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Price" HorizontalAlignment="Left" Margin="228,200,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Amount" HorizontalAlignment="Left" Margin="228,250,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="228,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="228,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Price" HorizontalAlignment="Left" Margin="228,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Amount" HorizontalAlignment="Left" Margin="228,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="category" HorizontalAlignment="Left" Margin="228,150,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Id" HorizontalAlignment="Left" Margin="400,50,0,0" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="400,100,0,0" VerticalAlignment="Top"/>
@@ -18,6 +18,6 @@
         <Label Content="Price" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top"/>
         <Label Content="Amount" HorizontalAlignment="Left" Margin="400,250,0,0" VerticalAlignment="Top"/>
         <Button x:Name="add" Content="הוספה" Click="Add" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="update" Content="מוצר" Click="Update" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="update" Content="עדכון" Click="Update" HorizontalAlignment="Left" Margin="288,382,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
