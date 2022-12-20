@@ -86,7 +86,10 @@ namespace PL.manager
 
             if (selection.SelectedItem is Category category)
             {
-                List.ItemsSource = bl.Product.GetProducts(x => x.Category == category);
+                if (category == Category.All)
+                    List.ItemsSource = bl.Product.GetProducts();
+                else
+                    List.ItemsSource = bl.Product.GetProducts(x => x.Category == category);
 
                 ComboOption.Clear();
 
