@@ -1,4 +1,6 @@
 ﻿
+using BO;
+
 namespace BlApi;
 
 public interface IProduct
@@ -8,7 +10,7 @@ public interface IProduct
     /// return all product
     /// </summary>
     /// <returns></returns>
-    IEnumerable<BO.ProductForList> GetProducts();
+    IEnumerable<BO.ProductForList> GetProducts(Func<ProductForList, bool>? func = null);
 
     /// <summary>
     /// return product by ID for manager

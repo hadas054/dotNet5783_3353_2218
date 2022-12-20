@@ -69,7 +69,7 @@ namespace PL
                     Id = int.Parse(ID.Text),
                     Name = Name.Text,
                     Category = (Category)category.SelectedIndex,
-                    Instock = int.Parse(ID.Text),
+                    Instock = int.Parse(Amount.Text),
                     Price = int.Parse(Price.Text),
                 });
             }

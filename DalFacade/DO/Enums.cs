@@ -6,7 +6,7 @@ public enum Category
     Dresses,
     pants,
     jackets,
-    Shirts
+    Shirts,
 }
 
 //public enum Status

@@ -82,16 +82,25 @@ namespace BLImplementation
             });
         }
 
-        public IEnumerable<ProductForList?> GetProducts()
+        public IEnumerable<ProductForList?> GetProducts(Func<ProductForList, bool>? func = null)
         {
-            return from DO.Product dProduct in dal.Product.GetAll()
-                   select new BO.ProductForList()
-                   {
-                       Id = dProduct.ID,
-                       Name = dProduct.Name,
-                       Category = (BO.Category)dProduct.Category,
-                       Price = dProduct.Price
-                   };
+            try
+            {
+                IEnumerable<ProductForList?> products = from DO.Product dProduct in dal.Product.GetAll()
+                                                        select new BO.ProductForList()
+                                                        {
+                                                            Id = dProduct.ID,
+                                                            Name = dProduct.Name,
+                                                            Category = (BO.Category)dProduct.Category,
+                                                            Price = dProduct.Price
+                                                        };
+
+                return func == null ? products : products.Where(func!);
+            }
+            catch(Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
         }
 
         public void Update(Product product)

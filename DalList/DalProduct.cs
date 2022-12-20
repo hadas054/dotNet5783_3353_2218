@@ -9,16 +9,8 @@ internal class DalProduct:IProduct
 {
     public  int Add(Product newProduct)   
     {
-        bool check = true;
 
-        while (check)
-        {
-            newProduct.ID = DataSource.rand.Next(100000, 1000000);
-
-            if (!productArr.Exists(x => x?.ID == newProduct.ID))
-                check = false;
-        }
-        productArr.Add(newProduct);
+        productArr.Add( newProduct);
         return newProduct.ID;
     }
 

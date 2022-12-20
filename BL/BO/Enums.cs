@@ -19,6 +19,7 @@ public enum Category
     Dresses,
     pants,
     jackets,
-    Shirts
+    Shirts,
+    All
 }
 
