@@ -23,11 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="לןגווווווו.png" />
-	  <Resource Include="צילום מסך 2022-12-17 205513.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="manager\AddAndUpdate.xaml.cs">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Compile>

@@ -2,7 +2,7 @@
 
 namespace BLImplementation
 {
-    public class BL : IBL
+    internal class BL : IBL
     {
         public IOrder Order => new BLOrder();
         public IProduct Product => new BlProduct();

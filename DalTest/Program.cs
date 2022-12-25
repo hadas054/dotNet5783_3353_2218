@@ -5,7 +5,7 @@ namespace DalTest;
 public class porgram
 {
 
-    static IDal dal = new DalList();
+     static DalApi.IDal? dal = DalApi.Factory.Get();
     public static void ProductFunc()
     {
         char ch;

@@ -34,7 +34,7 @@ namespace PL.manager
         public mainProduct()
         {
             InitializeComponent();
-            bl = new BL();
+            bl = BlApi.Factory.Get;
             List.ItemsSource = bl.Product.GetProducts();
             categories = (Category[])Enum.GetValues(typeof(Category));
             ComboOption = new ObservableCollection<Category>(categories);

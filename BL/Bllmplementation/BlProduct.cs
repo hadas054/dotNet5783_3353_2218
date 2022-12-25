@@ -5,7 +5,8 @@ namespace BLImplementation
 {
     internal class BlProduct : IProduct
     {
-        DalApi.IDal dal = new Dal.DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
+        
         public void AddProduct(BO.Product product)
         {
             if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)

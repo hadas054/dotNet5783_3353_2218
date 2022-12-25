@@ -1,13 +1,12 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using Dal;
 using System.Security.Cryptography;
 
 namespace BLImplementation
 {
-    internal class BlCart : ICart
+    internal class BlCart : BlApi.ICart
     {
-        DalApi.IDal dal = new Dal.DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
 
         public Cart AddProduct(Cart cart, int ID)
         {

@@ -27,7 +27,7 @@ namespace PL
         public AddAndUpdate()
         {
             InitializeComponent();
-            bl = new BL();
+            bl = BlApi.Factory.Get;
             category.ItemsSource = Enum.GetValues(typeof(Category));
             add.Visibility = Visibility.Visible;
             update.Visibility = Visibility.Hidden;
@@ -41,7 +41,7 @@ namespace PL
         public AddAndUpdate(ProductForList product)
         {
             InitializeComponent();
-            bl = new BL();
+            bl = Factory.Get;
             category.ItemsSource = Enum.GetValues(typeof(Category));    
 
             add.Visibility = Visibility.Hidden;
