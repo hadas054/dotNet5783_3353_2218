@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BlApi;
 using BLImplementation;
 using PL.manager;
+using PL.client;
 
 namespace PL
 {
@@ -38,6 +39,11 @@ namespace PL
         private void mainProduct(object sender, RoutedEventArgs e)
         {
             new mainProduct().Show();
+        }
+
+        private void MainClient(object sender, RoutedEventArgs e)
+        {
+            new mainClient().Show();
         }
     }
 }

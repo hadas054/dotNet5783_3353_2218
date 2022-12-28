@@ -1,0 +1,45 @@
+﻿<Window x:Class="PL.client.mainClient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.client"
+        mc:Ignorable="d"
+        Title="mainClient" Height="450" Width="800">
+    <Grid>
+
+        <Grid x:Name="MainGrid" Visibility="{Binding mainGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="400"/>
+            </Grid.RowDefinitions>
+            <Button Content="שמלות" Grid.Row="1" MouseDoubleClick="Dresses" HorizontalAlignment="Left" Height="40" Margin="102,50,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="מכנסיים" Grid.Row="1" MouseDoubleClick="pants"  HorizontalAlignment="Left" Height="40" Margin="102,100,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="גקטים" Grid.Row="1" MouseDoubleClick="jackets"  HorizontalAlignment="Left" Height="40" Margin="102,150,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="חולצות" Grid.Row="1" MouseDoubleClick="Shirts"  HorizontalAlignment="Left" Height="40" Margin="102,200,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="הסל שלי" Grid.Row="0" Click="OpenCart" Height="40" Width="80" Margin="10,5,710,5"/>
+        </Grid>
+
+        <Grid x:Name="DressesGrid" Visibility="Hidden" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Name="Back" Click="DresessBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="dresessLv" Grid.Row="1" MouseDoubleClick="addDresess" />
+        </Grid>
+
+        <Grid x:Name="MyCart" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Click="CartBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="cartList" Grid.Row="1"/>
+        </Grid>
+
+    </Grid>
+
+</Window>
