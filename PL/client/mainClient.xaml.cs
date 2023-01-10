@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,36 +24,45 @@ namespace PL.client
     {
         IBL bl;
         Cart cart;
-        IEnumerable<ProductForList?> products;
+
+        public static DependencyProperty ProductListDep =
+            DependencyProperty.Register(nameof(Products), typeof(IEnumerable<ProductForList>), typeof(mainClient));
+        IEnumerable<ProductForList?> Products { get => (IEnumerable<ProductForList?>)GetValue(ProductListDep); set => SetValue(ProductListDep, value); }
+
         public mainClient()
         {
             InitializeComponent();
             bl = Factory.Get;
-            products = bl.Product.GetProducts();
+            Products = bl.Product.GetProducts();
             cart = new Cart { Items = new List<OrderItem>() };
-            this.DataContext = this;
         }
 
         private void Dresses(object sender, MouseButtonEventArgs e)
         {
             DressesGrid.Visibility = Visibility;
             MainGrid.Visibility = Visibility.Hidden;
-            dresessLv.ItemsSource = products.Where(x => x!.Category == Category.Dresses);
+            Products = Products.Where(x => x!.Category == Category.Dresses);
         }
 
         private void pants(object sender, MouseButtonEventArgs e)
         {
-
+            pantsGrid.Visibility = Visibility;
+            MainGrid.Visibility = Visibility.Hidden;
+            PantsLv.ItemsSource = Products.Where(x => x!.Category == Category.pants);
         }
 
         private void jackets(object sender, MouseButtonEventArgs e)
         {
-
+            JacketsGrid.Visibility = Visibility;
+            MainGrid.Visibility = Visibility.Hidden;
+            JacketsLv.ItemsSource = Products.Where(x => x!.Category == Category.jackets);
         }
 
         private void Shirts(object sender, MouseButtonEventArgs e)
         {
-
+            ShirtsGrid.Visibility = Visibility;
+            MainGrid.Visibility = Visibility.Hidden;
+            ShirtsLv.ItemsSource = Products.Where(x => x!.Category == Category.Shirts);
         }
 
         private void DresessBack(object sender, RoutedEventArgs e)
@@ -82,11 +92,71 @@ namespace PL.client
                 if (dresessLv.SelectedItem is ProductForList p)
                     bl.cart.AddProduct(cart, p.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
         }
+
+        private void PantsBack(object sender, RoutedEventArgs e)
+        {
+            pantsGrid.Visibility = Visibility.Hidden;
+            MainGrid.Visibility = Visibility.Visible;
+        }
+
+        private void addPants(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (PantsLv.SelectedItem is ProductForList p)
+                    bl.cart.AddProduct(cart, p.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void JacketsBack(object sender, RoutedEventArgs e)
+        {
+            JacketsGrid.Visibility = Visibility.Hidden;
+            MainGrid.Visibility = Visibility.Visible;
+        }
+
+        private void addJackets(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (JacketsLv.SelectedItem is ProductForList p)
+                    bl.cart.AddProduct(cart, p.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void ShirtsBack(object sender, RoutedEventArgs e)
+        {
+            ShirtsGrid.Visibility = Visibility.Hidden;
+            MainGrid.Visibility = Visibility.Visible;
+        }
+
+        private void addShirts(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (ShirtsLv.SelectedItem is ProductForList p)
+                    bl.cart.AddProduct(cart, p.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
     }
 }

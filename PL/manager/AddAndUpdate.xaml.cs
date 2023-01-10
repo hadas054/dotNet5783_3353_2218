@@ -14,21 +14,43 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLImplementation;
 using BO;
+using PL.client;
 
 namespace PL
 {
-    
+
     public partial class AddAndUpdate : Window
     {
-        IBL bl;
+        static public readonly IBL bl  = BlApi.Factory.Get;
+
+        //public static DependencyProperty ProductDep =
+        //   DependencyProperty.Register(nameof(Product), typeof(Product), typeof(mainClient));
+        //Product Product { get => (Product)GetValue(ProductDep); set => SetValue(ProductDep, value); }
+        //public static DependencyProperty CategoryDep=
+        //    DependencyProperty.Register(nameof(Categorys), typeof(Category), typeof(mainClient));
+
+
+
+        public BO.Product? productCurrnet
+        {
+            get { return (BO.Product?)GetValue(productCurrnetProperty); }
+            set { SetValue(productCurrnetProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for productCurrnet.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty productCurrnetProperty =
+            DependencyProperty.Register("productCurrnet", typeof(BO.Product), typeof(Window), new PropertyMetadata(null));
+
+
+
+        Array Categorys;
         /// <summary>
         /// constructor for Add window
         /// </summary>
         public AddAndUpdate()
         {
             InitializeComponent();
-            bl = BlApi.Factory.Get;
-            category.ItemsSource = Enum.GetValues(typeof(Category));
+            Categorys =  Enum.GetValues(typeof(Category));
             add.Visibility = Visibility.Visible;
             update.Visibility = Visibility.Hidden;
 
@@ -38,21 +60,14 @@ namespace PL
         /// constructor for update window
         /// </summary>
         /// <param name="product"></param>
-        public AddAndUpdate(ProductForList product)
+        public AddAndUpdate(int id)
         {
             InitializeComponent();
-            bl = Factory.Get;
-            category.ItemsSource = Enum.GetValues(typeof(Category));    
-
+            Categorys = Enum.GetValues(typeof(Category));
             add.Visibility = Visibility.Hidden;
             update.Visibility = Visibility.Visible;
 
-            ID.Text = product.Id.ToString();
-            Name.Text = product.Name;
-            Amount.Text = bl.Product.GetProductM(product.Id).Instock.ToString();
-            Price.Text = product.Price.ToString();
-            category.Text = product.Category.ToString();
-            ID.IsReadOnly = true;   
+            productCurrnet = bl!.Product.GetProductM(id);
         }
 
         /// <summary>
@@ -64,18 +79,11 @@ namespace PL
         {
             try
             {
-                bl.Product.AddProduct(new Product
-                {
-                    Id = int.Parse(ID.Text),
-                    Name = Name.Text,
-                    Category = (Category)category.SelectedIndex,
-                    Instock = int.Parse(Amount.Text),
-                    Price = int.Parse(Price.Text),
-                });
+                bl.Product.AddProduct(productCurrnet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);    
+                MessageBox.Show(ex.Message);
             }
             this.Close();
         }
@@ -90,14 +98,7 @@ namespace PL
         {
             try
             {
-                bl.Product.Update(new Product
-                {
-                    Id = int.Parse(ID.Text),
-                    Name = Name.Text,
-                    Category = (Category)category.SelectedIndex,
-                    Instock = int.Parse(ID.Text),
-                    Price = int.Parse(Price.Text),
-                });
+                bl.Product.Update(productCurrnet);
             }
             catch (Exception ex)
             {
@@ -105,5 +106,7 @@ namespace PL
             }
             this.Close();
         }
+
+
     }
 }

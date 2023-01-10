@@ -68,8 +68,9 @@ namespace PL.manager
         /// <param name="e"></param>
         private void UpdateProduct(object sender, MouseButtonEventArgs e)
         {
-            if (List.SelectedItem is ProductForList productForList)
-                new AddAndUpdate(productForList).ShowDialog();
+            e.Handled = true;
+            ProductForList selected = (ProductForList)(((ListView)sender).SelectedItem);
+            new AddAndUpdate(selected.Id).ShowDialog();
             //We will update the list of products after the action we have taken
             try
             {

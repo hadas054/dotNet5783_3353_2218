@@ -5,31 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.client"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="mainClient" Height="450" Width="800">
     <Grid>
 
+        <!-- Main Grid-->
         <Grid x:Name="MainGrid" Visibility="{Binding mainGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="400"/>
             </Grid.RowDefinitions>
-            <Button Content="שמלות" Grid.Row="1" MouseDoubleClick="Dresses" HorizontalAlignment="Left" Height="40" Margin="102,50,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="מכנסיים" Grid.Row="1" MouseDoubleClick="pants"  HorizontalAlignment="Left" Height="40" Margin="102,100,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="גקטים" Grid.Row="1" MouseDoubleClick="jackets"  HorizontalAlignment="Left" Height="40" Margin="102,150,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="חולצות" Grid.Row="1" MouseDoubleClick="Shirts"  HorizontalAlignment="Left" Height="40" Margin="102,200,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="שמלות" Grid.Row="1" MouseDoubleClick="Dresses" HorizontalAlignment="Left" Height="40" Margin="102,50,0,0" VerticalAlignment="Top" Width="100" />
+            <Button Content="מכנסיים" Grid.Row="1" MouseDoubleClick="pants"  HorizontalAlignment="Left" Height="40" Margin="102,100,0,0" VerticalAlignment="Top" Width="100" />
+            <Button Content="גקטים" Grid.Row="1" MouseDoubleClick="jackets"  HorizontalAlignment="Left" Height="40" Margin="102,150,0,0" VerticalAlignment="Top" Width="100" />
+            <Button Content="חולצות" Grid.Row="1" MouseDoubleClick="Shirts"  HorizontalAlignment="Left" Height="40" Margin="102,200,0,0" VerticalAlignment="Top" Width="100" />
             <Button Content="הסל שלי" Grid.Row="0" Click="OpenCart" Height="40" Width="80" Margin="10,5,710,5"/>
         </Grid>
-
+        <Grid x:Name="pantsGrid" Visibility="Hidden" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Name="BackPants" Click="PantsBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="PantsLv" Grid.Row="1" MouseDoubleClick="addPants" />
+        </Grid>
+        
         <Grid x:Name="DressesGrid" Visibility="Hidden" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="300"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Name="Back" Click="DresessBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
-            <ListView x:Name="dresessLv" Grid.Row="1" MouseDoubleClick="addDresess" />
+            <Button Name="BackDress" Click="DresessBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="dresessLv" ItemsSource="{Binding Products}" Grid.Row="1" MouseDoubleClick="addDresess" />
+            <Button Visibility="Hidden" Tag="{Binding ID}"/>
         </Grid>
-
+        <Grid x:Name="JacketsGrid" Visibility="Hidden" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Name="BackJackets" Click="JacketsBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="JacketsLv" Grid.Row="1" MouseDoubleClick="addJackets" />
+        </Grid>
+        <Grid x:Name="ShirtsGrid" Visibility="Hidden" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Name="BackShirts" Click="ShirtsBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
+            <ListView x:Name="ShirtsLv" Grid.Row="1" MouseDoubleClick="addShirts" />
+        </Grid>
         <Grid x:Name="MyCart" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -39,7 +68,17 @@
             <Button Click="CartBack" Grid.Row="0" HorizontalAlignment="Right" Margin="50,0,0,0" Width="100" Content="חזרה" Height="40"/>
             <ListView x:Name="cartList" Grid.Row="1"/>
         </Grid>
+        <Grid x:Name="addToCart" Visibility="Hidden" Margin="436,67,10,107">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Content="amount"  HorizontalAlignment="Left" Margin="33,42,0,0" VerticalAlignment="Top" Height="45" Width="96" Grid.RowSpan="2"/>
 
+
+
+        </Grid>
     </Grid>
 
 </Window>
