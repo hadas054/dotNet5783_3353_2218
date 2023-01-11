@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,10 @@ public class Cart
     public string? CustomerEmail { get; set; }
     public string? CustomerAddress { get; set; }
     public List<OrderItem >Items { get; set; }
+    public double TotalPrice { get; set; }
 
-    public double TotalPrice { get; set; }  
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

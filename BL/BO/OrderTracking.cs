@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,5 +14,8 @@ public class OrderTracking
     public OrderStatus Status { get; set; }
     public List<Tuple<DateTime?, OrderStatus>>? Tracking { get; set; }
 
-
+    public override string ToString()
+    {
+        return this.ToStringProperty();
+    }
 }

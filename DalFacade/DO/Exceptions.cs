@@ -6,10 +6,29 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    internal class IdNotExistException:Exception
+    internal class NotExistException : Exception
     {
-
+        public NotExistException(string txt) { }
+        override public string ToString()
+        { return "The item  that you requested, was not found!\n" + Message; }
     }
+
+    internal class alreadyExistException : Exception
+    {
+        public alreadyExistException(string txt) { }
+        override public string ToString()
+        { return "The item  that you requested, already exist\n" + Message; }
+    }
+
+    [Serializable]
+    public class DalConfigException : Exception
+    {
+        public DalConfigException(string msg) : base(msg) { }
+        public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
+    }
+
+
+
 }
 
 

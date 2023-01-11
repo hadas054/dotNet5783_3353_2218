@@ -5,11 +5,13 @@ namespace BLImplementation
 {
     internal class BlProduct : IProduct
     {
-        DalApi.IDal dal = new Dal.DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
+        
         public void AddProduct(BO.Product product)
         {
             if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
-                throw new ArgumentException();
+                throw new Exception("the info is Error\n");
+
             try
             {
                 dal.Product.Add(new DO.Product()
@@ -23,14 +25,20 @@ namespace BLImplementation
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new alreadyExistException(ex.Message);
             }
         }
 
         public void Delete(int id)
         {
-            if (dal.OrderItem.GetAll().Select(x => x?.ID == id).Any())
-                throw new Exception();
+            try
+            {
+                dal.OrderItem.GetAll().Select(x => x?.ID == id).Any();
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             dal.Product.Delete(id);
         }
@@ -45,7 +53,7 @@ namespace BLImplementation
                 Name = dProduct.Name,
                 Price = dProduct.Price,
                 Category = (BO.Category)dProduct.Category,
-                Instock = dProduct.inStock >0 ? true : false
+                Amount = dProduct.inStock
             };
         }
 
@@ -54,31 +62,70 @@ namespace BLImplementation
 
             if (id < 0)
                 throw new Exception();
-            
-                DO.Product dProduct = dal.Product.Get(id);
 
-                return (new BO.Product()
-                {
+            DO.Product dProduct = new DO.Product();
+            try
+            {
+                dProduct = dal.Product.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
-                    Id = dProduct.ID,
-                    Name = dProduct.Name,
-                    Price = dProduct.Price,
-                    Category = (BO.Category)dProduct.Category,
-                    Instock = dProduct.inStock
-
-                });
+            return (new BO.Product()
+            {
+                Id = dProduct.ID,
+                Name = dProduct.Name,
+                Price = dProduct.Price,
+                Category = (BO.Category)dProduct.Category,
+                Instock = dProduct.inStock
+            });
         }
 
-        public IEnumerable<ProductForList> GetProducts()
+        public IEnumerable<ProductForList?> GetProductsList(Func<ProductForList, bool>? func = null)
         {
-            return from DO.Product dProduct in dal.Product.GetAll()
-                   select new BO.ProductForList()
-                   {
-                       Id = dProduct.ID,
-                       Name = dProduct.Name,
-                       Category = (BO.Category)dProduct.Category,
-                       Price = dProduct.Price
-                   };
+            try
+            {
+                IEnumerable<ProductForList?> products = from DO.Product dProduct in dal.Product.GetAll()
+                                                        select new BO.ProductForList()
+                                                        {
+                                                            Id = dProduct.ID,
+                                                            Name = dProduct.Name,
+                                                            Category = (BO.Category)dProduct.Category,
+                                                            Price = dProduct.Price,
+                                                            InStock = dProduct.inStock > 0,
+                                                            
+                                                        };
+
+                return func == null ? products : products.Where(func!);
+            }
+            catch(Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
+        }
+
+        public IEnumerable<ProductItem?> GetProductsItem(Func<ProductItem, bool>? func = null)
+        {
+            try
+            {
+                IEnumerable<ProductItem?> products = from DO.Product dProduct in dal.Product.GetAll()
+                                                        select new BO.ProductItem()
+                                                        {
+                                                            Id = dProduct.ID,
+                                                            Name = dProduct.Name,
+                                                            Category = (BO.Category)dProduct.Category,
+                                                            Price = dProduct.Price,
+                                                            Amount = dProduct.inStock
+                                                        };
+
+                return func == null ? products : products.Where(func);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
         }
 
         public void Update(Product product)
@@ -100,7 +147,7 @@ namespace BLImplementation
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                throw new NotExistException(ex.Message);
             }
         }
     }

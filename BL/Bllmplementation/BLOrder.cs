@@ -6,16 +6,25 @@ namespace BLImplementation
 {
     internal class BLOrder : IOrder
     {
-        DalApi.IDal dal = new DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
+
         public Order DeliveredOrder(int id)
         {
             if (id < 0)
-                throw new Exception();
+                throw new Exception("negativ id\n");
 
-            DO.Order dOrder = dal.Order.Get(id);
+            DO.Order dOrder = new DO.Order();
+            try
+            {
+                dOrder = dal.Order.Get(id);
+            }
+            catch(Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             if (dOrder.OrderShipDate == null)//בידקה אם ההזמנה נשלחה בכלל
-                throw new Exception();
+                throw new Exception("the order is not\n");
 
             if (dOrder is DO.Order order)
             {
@@ -39,7 +48,28 @@ namespace BLImplementation
 
         public Order GetOrder(int id)
         {
-            DO.Order dOrder = dal.Order.Get(id);
+
+            DO.Order dOrder = new DO.Order();
+            try
+            {
+                dOrder = dal.Order.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
+
+            IEnumerable<DO.OrderItem?> orderItems;
+            
+            try
+            {
+                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
+
 
             return new BO.Order()
             {
@@ -51,9 +81,9 @@ namespace BLImplementation
                 ShipDate = dOrder.OrderShipDate,
                 DeliveryDate = dOrder.OrderDeliveryDate,
                 status = GetSatus(dOrder),
-                TotalPrice = dal.OrderItem.GetAll().Where(x => x.Value.OrderID == id).Sum(x => x?.Price ?? 0),
+                TotalPrice = orderItems.Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0),
 
-                Items = from DO.OrderItem item in dal.OrderItem.GetAll().Select(x => x?.OrderID == id)
+                Items = from DO.OrderItem item in orderItems
                         select new BO.OrderItem()
                         {
                             ProductId = item.ProductID,
@@ -67,20 +97,35 @@ namespace BLImplementation
 
         public IEnumerable<OrderForList> GetOrders()
         {
-            return from DO.Order item in dal.Order.GetAll()
-                   select new BO.OrderForList()
-                   {
-                       Id = item.OrderID,
-                       CustomerName = item.CustomerName,
-                       Status = GetSatus(item),
-                       AmountOfItems = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Amount ?? 0),
-                       TotaiPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Price ?? 0 )
-                   };
+            try
+            {
+                return from DO.Order item in dal.Order.GetAll()
+                       select new BO.OrderForList()
+                       {
+                           Id = item.OrderID,
+                           CustomerName = item.CustomerName,
+                           Status = GetSatus(item),
+                           AmountOfItems = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Amount ?? 0),
+                           TotaiPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Price ?? 0)
+                       };
+            }
+            catch(Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
         }
 
         public OrderTracking OrderTracking(int id)
         {
-            DO.Order dOrder = dal.Order.Get(id);
+            DO.Order dOrder = new DO.Order();
+            try
+            {
+                dOrder = dal.Order.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
             return new OrderTracking()
             {
                 Id = id,
@@ -96,11 +141,9 @@ namespace BLImplementation
 
         OrderStatus GetSatus(DO.Order? order)
         {
-            return order?.OrderShipDate != null ? OrderStatus.Delievered :
+            return order?.OrderDeliveryDate != null ? OrderStatus.Delievered :
                 order?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Ordered;
         }
-
-
 
         public Order SentOrder(int id)
         {
@@ -108,6 +151,9 @@ namespace BLImplementation
                 throw new Exception();
 
             DO.Order dOrder = dal.Order.Get(id);
+
+            if (dOrder.OrderShipDate != null)
+                throw new Exception();
 
             if (dOrder is DO.Order order)
             {
@@ -131,7 +177,7 @@ namespace BLImplementation
 
         public Order UpdateOrder()
         {
-            
+            throw new NotImplementedException("we did't do this function thus for bonus only\n");
         }
     }
 }

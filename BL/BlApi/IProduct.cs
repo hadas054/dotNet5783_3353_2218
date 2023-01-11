@@ -1,14 +1,22 @@
 ﻿
+using BO;
+
 namespace BlApi;
 
 public interface IProduct
 {
 
     /// <summary>
-    /// return all product
+    /// return all product for client
     /// </summary>
     /// <returns></returns>
-    IEnumerable<BO.ProductForList> GetProducts();
+    IEnumerable<BO.ProductForList> GetProductsList(Func<ProductForList, bool>? func = null);
+
+    /// <summary>
+    /// return all product for manager
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<ProductItem?> GetProductsItem(Func<ProductItem, bool>? func = null);
 
     /// <summary>
     /// return product by ID for manager
@@ -41,5 +49,4 @@ public interface IProduct
     /// </summary>
     /// <param name="product"></param>
     void Update(BO.Product product);
-
 }
