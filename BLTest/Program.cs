@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 class Program
 {
-    static IBL bl = new BL();
+    static IBL bl = Factory.Get;
     static Cart cart = new Cart();
     static void Main(string[] args)
     {
@@ -101,7 +101,7 @@ g: return
                         Console.WriteLine(bl.Product.GetProductC(id));
                         break;
                     case "d":
-                        var v = bl.Product.GetProducts();
+                        var v = bl.Product.GetProductsList();
                         foreach (var item in v)
                         {
                             Console.WriteLine(item);

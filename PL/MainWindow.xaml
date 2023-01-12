@@ -9,6 +9,7 @@
     <Grid x:Name="MainGrid">
         <Button Content="manager" HorizontalAlignment="Left" Click="mainProduct" Margin="26,85,0,0" VerticalAlignment="Top" Height="89" Width="244" FontFamily="Sitka Small Semibold" FontSize="24" FontWeight="Bold" FontStyle="Italic" />
         <Button Content="client" HorizontalAlignment="Left" Click="MainClient" Margin="500,85,0,0" VerticalAlignment="Top" Height="89" Width="244" FontFamily="Sitka Small Semibold" FontSize="24" FontWeight="Bold" FontStyle="Italic" />
+        <Button Content="Order Tracking" HorizontalAlignment="Left" Click="OrderTracking" Margin="300,250,0,0" VerticalAlignment="Top" Height="89" Width="244" FontFamily="Sitka Small Semibold" FontSize="24" FontWeight="Bold" FontStyle="Italic" />
     </Grid>
     
 </Window>

@@ -7,10 +7,16 @@ public interface IProduct
 {
 
     /// <summary>
-    /// return all product
+    /// return all product for client
     /// </summary>
     /// <returns></returns>
-    IEnumerable<BO.ProductForList> GetProducts(Func<ProductForList, bool>? func = null);
+    IEnumerable<BO.ProductForList> GetProductsList(Func<ProductForList, bool>? func = null);
+
+    /// <summary>
+    /// return all product for manager
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<ProductItem?> GetProductsItem(BO.Cart cart, Func<ProductItem, bool>? func = null );
 
     /// <summary>
     /// return product by ID for manager

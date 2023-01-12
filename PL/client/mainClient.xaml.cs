@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,141 +23,67 @@ namespace PL.client
     /// </summary>
     public partial class mainClient : Window
     {
-        IBL bl;
-        Cart cart;
+        public static readonly IBL bl = Factory.Get;
 
-        public static DependencyProperty ProductListDep =
-            DependencyProperty.Register(nameof(Products), typeof(IEnumerable<ProductForList>), typeof(mainClient));
-        IEnumerable<ProductForList?> Products { get => (IEnumerable<ProductForList?>)GetValue(ProductListDep); set => SetValue(ProductListDep, value); }
+        public static DependencyProperty ProductsListDep =
+            DependencyProperty.Register(nameof(ProductsList), typeof(IEnumerable<ProductForList>), typeof(mainClient));
+        IEnumerable<ProductForList?> ProductsList { get => (IEnumerable<ProductForList?>)GetValue(ProductsListDep); set => SetValue(ProductsListDep, value); }
 
+
+
+        public Cart Cart
+        {
+            get { return (Cart)GetValue(CartDep); }
+            set { SetValue(CartDep, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CartDep =
+            DependencyProperty.Register(nameof(Cart), typeof(Cart), typeof(mainClient));
+
+
+
+        public ICollectionView CollectionViewProductItemList { set; get; }
+        private string groupName = "Category";
+        private PropertyGroupDescription groupDescription;
         public mainClient()
         {
+            Cart = new Cart { Items = new List<OrderItem>() };
             InitializeComponent();
-            bl = Factory.Get;
-            Products = bl.Product.GetProducts();
-            cart = new Cart { Items = new List<OrderItem>() };
+            ProductsList = bl.Product.GetProductsList();
+            CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductsList);
+            groupDescription = new PropertyGroupDescription(groupName);
+            CollectionViewProductItemList.GroupDescriptions.Add(groupDescription);
         }
 
-        private void Dresses(object sender, MouseButtonEventArgs e)
+        private void AddToCart(object sender, MouseButtonEventArgs e)
         {
-            DressesGrid.Visibility = Visibility;
-            MainGrid.Visibility = Visibility.Hidden;
-            Products = Products.Where(x => x!.Category == Category.Dresses);
-        }
-
-        private void pants(object sender, MouseButtonEventArgs e)
-        {
-            pantsGrid.Visibility = Visibility;
-            MainGrid.Visibility = Visibility.Hidden;
-            PantsLv.ItemsSource = Products.Where(x => x!.Category == Category.pants);
-        }
-
-        private void jackets(object sender, MouseButtonEventArgs e)
-        {
-            JacketsGrid.Visibility = Visibility;
-            MainGrid.Visibility = Visibility.Hidden;
-            JacketsLv.ItemsSource = Products.Where(x => x!.Category == Category.jackets);
-        }
-
-        private void Shirts(object sender, MouseButtonEventArgs e)
-        {
-            ShirtsGrid.Visibility = Visibility;
-            MainGrid.Visibility = Visibility.Hidden;
-            ShirtsLv.ItemsSource = Products.Where(x => x!.Category == Category.Shirts);
-        }
-
-        private void DresessBack(object sender, RoutedEventArgs e)
-        {
-            DressesGrid.Visibility = Visibility.Hidden;
-            MainGrid.Visibility = Visibility.Visible;
-        }
-
-        private void OpenCart(object sender, RoutedEventArgs e)
-        {
-            MyCart.Visibility = Visibility.Visible;
-            MainGrid.Visibility = Visibility.Hidden;
-            cartList.ItemsSource = cart.Items;
-        }
-
-        private void CartBack(object sender, RoutedEventArgs e)
-        {
-            MyCart.Visibility = Visibility.Hidden;
-            MainGrid.Visibility = Visibility.Visible;
-
-        }
-
-        private void addDresess(object sender, MouseButtonEventArgs e)
-        {
+            var selectProduct = (ProductForList)((Button)sender).Tag;
             try
             {
-                if (dresessLv.SelectedItem is ProductForList p)
-                    bl.cart.AddProduct(cart, p.Id);
+                Cart temp = bl.cart.AddProduct(Cart, selectProduct.Id);
+                Cart = null;
+                Cart = temp;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
-        private void PantsBack(object sender, RoutedEventArgs e)
-        {
-            pantsGrid.Visibility = Visibility.Hidden;
-            MainGrid.Visibility = Visibility.Visible;
-        }
-
-        private void addPants(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                if (PantsLv.SelectedItem is ProductForList p)
-                    bl.cart.AddProduct(cart, p.Id);
-            }
-            catch (Exception ex)
+            catch(Exception ex) 
             {
                 MessageBox.Show(ex.Message);
             }
         }
 
-        private void JacketsBack(object sender, RoutedEventArgs e)
+        private void CartButton(object sender, RoutedEventArgs e)
         {
-            JacketsGrid.Visibility = Visibility.Hidden;
-            MainGrid.Visibility = Visibility.Visible;
+            new CartWindow(Cart).Show();
         }
 
-        private void addJackets(object sender, MouseButtonEventArgs e)
+        private void BackButton(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (JacketsLv.SelectedItem is ProductForList p)
-                    bl.cart.AddProduct(cart, p.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
+            this.Close();
         }
 
-        private void ShirtsBack(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ShirtsGrid.Visibility = Visibility.Hidden;
-            MainGrid.Visibility = Visibility.Visible;
+
         }
-
-        private void addShirts(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                if (ShirtsLv.SelectedItem is ProductForList p)
-                    bl.cart.AddProduct(cart, p.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-
     }
 }

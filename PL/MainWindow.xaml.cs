@@ -45,5 +45,10 @@ namespace PL
         {
             new mainClient().Show();
         }
+
+        private void OrderTracking(object sender, RoutedEventArgs e)
+        {
+            new OrderTrackingWindow().Show();   
+        }
     }
 }
