@@ -53,7 +53,7 @@ namespace BLImplementation
                 Name = dProduct.Name,
                 Price = dProduct.Price,
                 Category = (BO.Category)dProduct.Category,
-                Instock = dProduct.inStock > 0 ? true : false
+                Instock = dProduct.inStock>0
             };
         }
 
@@ -83,7 +83,7 @@ namespace BLImplementation
             });
         }
 
-        public IEnumerable<ProductForList?> GetProducts(Func<ProductForList, bool>? func = null)
+        public IEnumerable<ProductForList?> GetProductsList(Func<ProductForList, bool>? func = null)
         {
             try
             {
@@ -93,12 +93,39 @@ namespace BLImplementation
                                                             Id = dProduct.ID,
                                                             Name = dProduct.Name,
                                                             Category = (BO.Category)dProduct.Category,
-                                                            Price = dProduct.Price
+                                                            Price = dProduct.Price,
+                                                            Amount = dProduct.inStock                                                             
                                                         };
 
                 return func == null ? products : products.Where(func!);
             }
             catch(Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
+        }
+
+        public IEnumerable<ProductItem?> GetProductsItem(Cart cart,Func<ProductItem, bool>? func = null)
+        {
+            try
+            {
+                IEnumerable<ProductItem?> products = from DO.Product dProduct in dal.Product.GetAll()
+                                                        select new BO.ProductItem()
+                                                        {
+                                                            Id = dProduct.ID,
+                                                            Name = dProduct.Name,
+                                                            Category = (BO.Category)dProduct.Category,
+                                                            Price = dProduct.Price,
+                                                            Instock = dProduct.inStock>0,
+                                                            AmountInCart = (from order in cart.Items
+                                                                            where dProduct.ID == order.ProductId
+                                                                            select order).FirstOrDefault()!.Amount
+                                                           
+                                                        };
+
+                return func == null ? products : products.Where(func);
+            }
+            catch (Exception ex)
             {
                 throw new NotExistException(ex.Message);
             }

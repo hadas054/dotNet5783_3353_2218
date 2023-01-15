@@ -18,6 +18,15 @@
         <TextBox Text="{Binding Cart.CustomerEmail , Mode=TwoWay }" HorizontalAlignment="Left" Margin="485,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
         <TextBox Text="{Binding Cart.CustomerAddress , Mode=TwoWay }" HorizontalAlignment="Left" Margin="655,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
 
+        <Label Content="Name"  HorizontalAlignment="Left" Margin="150,12,0,13"  Width="100" Background="Yellow"/>
+        <TextBox Text="{Binding Cart.CustomerName , Mode=TwoWay }"  HorizontalAlignment="Left" Margin="250,15,0,15" TextWrapping="Wrap" Width="100"/>
+
+        <Label Content="Mail"  HorizontalAlignment="Left" Margin="350,12,0,13"  Width="89" Background="Yellow"/>
+        <TextBox Text="{Binding Cart.CustomerEmail , Mode=TwoWay }" HorizontalAlignment="Left" Margin="444,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
+
+        <Label Content="Address"  HorizontalAlignment="Left" Margin="549,12,0,13"  Width="89" Background="Yellow"/>
+        <TextBox Text="{Binding Cart.CustomerAddress , Mode=TwoWay }" HorizontalAlignment="Left" Margin="647,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
+
         <ListView Grid.Row="1" ItemsSource="{Binding Cart.Items}" >
             <ListView.View>
                 <GridView>
@@ -71,5 +80,6 @@
 
             </ListView.View>
         </ListView>
+        <Button Content="Confirm" MouseDoubleClick="Confirm" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>

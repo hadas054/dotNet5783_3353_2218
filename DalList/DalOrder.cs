@@ -18,7 +18,7 @@ internal class DalOrder :IOrder
     public Order Get(int id)
     {
 
-        return OrderArr.Find(x => x.Value.OrderID == id) ?? throw new Exception();
+        return OrderArr.First(x => x?.OrderID == id) ?? throw new Exception();
         //else throw exeption?
 
     }

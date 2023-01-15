@@ -48,5 +48,17 @@ namespace PL.client
             Cart = null;
             Cart = temp;
         }
+
+        private void Confirm(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                bl.cart.OrderConfirmation(Cart);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

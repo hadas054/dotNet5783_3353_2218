@@ -21,7 +21,7 @@ namespace PL
 
     public partial class AddAndUpdate : Window
     {
-        static public readonly IBL bl  = BlApi.Factory.Get;
+        static public readonly IBL bl = BlApi.Factory.Get;
 
         //public static DependencyProperty ProductDep =
         //   DependencyProperty.Register(nameof(Product), typeof(Product), typeof(mainClient));
@@ -31,7 +31,7 @@ namespace PL
 
 
 
-        public BO.Product? productCurrnet
+        public BO.Product Product
         {
             get { return (BO.Product?)GetValue(productCurrnetProperty); }
             set { SetValue(productCurrnetProperty, value); }
@@ -39,35 +39,54 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for productCurrnet.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty productCurrnetProperty =
-            DependencyProperty.Register("productCurrnet", typeof(BO.Product), typeof(Window), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Product), typeof(BO.Product), typeof(AddAndUpdate));
 
 
 
-        Array Categorys;
-        /// <summary>
-        /// constructor for Add window
-        /// </summary>
-        public AddAndUpdate()
+        public bool AddMode
         {
-            InitializeComponent();
-            Categorys =  Enum.GetValues(typeof(Category));
-            add.Visibility = Visibility.Visible;
-            update.Visibility = Visibility.Hidden;
-
+            get { return (bool)GetValue(AddModeDep); }
+            set { SetValue(AddModeDep, value); }
         }
+
+        // Using a DependencyProperty as the backing store for AddMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AddModeDep =
+            DependencyProperty.Register(nameof(AddMode), typeof(bool), typeof(AddAndUpdate));
+
+
+
+
+
+        public Array Categorys
+        {
+            get { return (Array)GetValue(CategorysDep); }
+            set { SetValue(CategorysDep, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CategorysDep =
+            DependencyProperty.Register(nameof(Categorys), typeof(Array), typeof(AddAndUpdate));
 
         /// <summary>
         /// constructor for update window
         /// </summary>
         /// <param name="product"></param>
-        public AddAndUpdate(int id)
+        public AddAndUpdate(int id = 0)
         {
-            InitializeComponent();
             Categorys = Enum.GetValues(typeof(Category));
+            InitializeComponent();
+            AddMode = id != 0;
             add.Visibility = Visibility.Hidden;
             update.Visibility = Visibility.Visible;
-
-            productCurrnet = bl!.Product.GetProductM(id);
+            try
+            {
+                if (id != 0)
+                    Product = bl!.Product.GetProductM(id);
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show(EX.Message);
+            }
         }
 
         /// <summary>
@@ -79,7 +98,7 @@ namespace PL
         {
             try
             {
-                bl.Product.AddProduct(productCurrnet);
+                bl.Product.AddProduct(Product);
             }
             catch (Exception ex)
             {
@@ -98,7 +117,7 @@ namespace PL
         {
             try
             {
-                bl.Product.Update(productCurrnet);
+                bl.Product.Update(Product);
             }
             catch (Exception ex)
             {
