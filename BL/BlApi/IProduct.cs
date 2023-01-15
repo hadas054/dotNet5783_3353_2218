@@ -16,7 +16,7 @@ public interface IProduct
     /// return all product for manager
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<ProductItem?> GetProductsItem(Func<ProductItem, bool>? func = null);
+    IEnumerable<BO.ProductForList> GetProducts(Func<ProductForList, bool>? func = null);
 
     /// <summary>
     /// return product by ID for manager

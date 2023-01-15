@@ -101,7 +101,7 @@ g: return
                         Console.WriteLine(bl.Product.GetProductC(id));
                         break;
                     case "d":
-                        var v = bl.Product.GetProductsList();
+                        var v = bl.Product.GetProducts();
                         foreach (var item in v)
                         {
                             Console.WriteLine(item);

@@ -35,7 +35,7 @@ namespace PL.manager
         {
             InitializeComponent();
             bl = BlApi.Factory.Get;
-            List.ItemsSource = bl.Product.GetProductsList();
+            List.ItemsSource = bl.Product.GetProducts();
             categories = (Category[])Enum.GetValues(typeof(Category));
             ComboOption = new ObservableCollection<Category>(categories);
             this.DataContext = this;
@@ -54,7 +54,7 @@ namespace PL.manager
             //We will update the list of products after the action we have taken
             try
             {
-                List.ItemsSource = bl.Product.GetProductsList();
+                List.ItemsSource = bl.Product.GetProducts();
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace PL.manager
             //We will update the list of products after the action we have taken
             try
             {
-                List.ItemsSource = bl.Product.GetProductsList();
+                List.ItemsSource = bl.Product.GetProducts();
             }
             catch (Exception ex)
             {
@@ -88,9 +88,9 @@ namespace PL.manager
             if (selection.SelectedItem is Category category)
             {
                 if (category == Category.All)
-                    List.ItemsSource = bl.Product.GetProductsList();
+                    List.ItemsSource = bl.Product.GetProducts();
                 else
-                    List.ItemsSource = bl.Product.GetProductsList(x => x.Category == category);
+                    List.ItemsSource = bl.Product.GetProducts(x => x.Category == category);
 
                 ComboOption.Clear();
 
