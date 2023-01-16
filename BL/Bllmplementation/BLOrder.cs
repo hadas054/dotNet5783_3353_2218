@@ -18,7 +18,7 @@ namespace BLImplementation
             {
                 dOrder = dal.Order.Get(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new NotExistException(ex.Message);
             }
@@ -31,6 +31,16 @@ namespace BLImplementation
                 order.OrderDeliveryDate = DateTime.Now;
                 dal.Order.Update(order);
             }
+            IEnumerable<DO.OrderItem?> orderItems;
+
+            try
+            {
+                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             return new BO.Order()
             {
@@ -42,7 +52,16 @@ namespace BLImplementation
                 ShipDate = dOrder.OrderShipDate,
                 DeliveryDate = dOrder.OrderDeliveryDate,
                 status = OrderStatus.Delievered,
-                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0)
+                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0),
+                Items = from DO.OrderItem item in orderItems
+                        select new BO.OrderItem()
+                        {
+                            ProductId = item.ProductID,
+                            Price = item.Price,
+                            Amount = item.Amount,
+                            Name = dal.Product.Get(item.ProductID).Name,
+                            TotalPrice = item.Amount * item.Price
+                        }
             };
         }
 
@@ -60,7 +79,7 @@ namespace BLImplementation
             }
 
             IEnumerable<DO.OrderItem?> orderItems;
-            
+
             try
             {
                 orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
@@ -95,21 +114,22 @@ namespace BLImplementation
             };
         }
 
-        public IEnumerable<OrderForList> GetOrders()
+        public IEnumerable<OrderForList> GetOrders(Func<BO.OrderForList, bool> func = null)
         {
             try
             {
-                return from DO.Order item in dal.Order.GetAll()
-                       select new BO.OrderForList()
-                       {
-                           Id = item.OrderID,
-                           CustomerName = item.CustomerName,
-                           Status = GetSatus(item),
-                           AmountOfItems = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Amount ?? 0),
-                           TotaiPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Price ?? 0)
-                       };
+                IEnumerable<OrderForList> list = from DO.Order item in dal.Order.GetAll()
+                                                 select new BO.OrderForList()
+                                                 {
+                                                     Id = item.OrderID,
+                                                     CustomerName = item.CustomerName,
+                                                     Status = GetSatus(item),
+                                                     AmountOfItems = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Amount ?? 0),
+                                                     TotaiPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.OrderID).Sum(x => x?.Price ?? 0)
+                                                 };
+                return func is null ? list : list.Where(func);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new NotExistException(ex.Message);
             }
@@ -160,6 +180,16 @@ namespace BLImplementation
                 order.OrderShipDate = DateTime.Now;
                 dal.Order.Update(order);
             }
+            IEnumerable<DO.OrderItem?> orderItems;
+
+            try
+            {
+                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
+            }
+            catch (Exception ex)
+            {
+                throw new NotExistException(ex.Message);
+            }
 
             return new BO.Order()
             {
@@ -171,7 +201,16 @@ namespace BLImplementation
                 ShipDate = dOrder.OrderShipDate,
                 DeliveryDate = dOrder.OrderDeliveryDate,
                 status = OrderStatus.Delievered,
-                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0)
+                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0),
+                Items = from DO.OrderItem item in orderItems
+                        select new BO.OrderItem()
+                        {
+                            ProductId = item.ProductID,
+                            Price = item.Price,
+                            Amount = item.Amount,
+                            Name = dal.Product.Get(item.ProductID).Name,
+                            TotalPrice = item.Amount * item.Price
+                        }
             };
         }
 

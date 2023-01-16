@@ -1,0 +1,23 @@
+﻿<Window x:Class="PL.manager.ProductMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.manager"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
+        mc:Ignorable="d"
+        Title="ProductMain" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox ItemsSource="{Binding ComboOption}" SelectionChanged="Select" VerticalAlignment="Stretch" Grid.Row="1" />
+        <Label Content="Category" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"
+            HorizontalContentAlignment="Center"  />
+        <ListView ItemsSource="{Binding ProductList}" Grid.Row="1" MouseDoubleClick="UpdateProduct"/>
+        <Button Click="AddProduct" Content="Add new product" Grid.Row="2" Margin="5" Padding="5" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

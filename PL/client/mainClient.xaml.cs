@@ -26,8 +26,8 @@ namespace PL.client
         public static readonly IBL bl = Factory.Get;
 
         public static DependencyProperty ProductsListDep =
-            DependencyProperty.Register(nameof(ProductsList), typeof(IEnumerable<ProductForList>), typeof(mainClient));
-        IEnumerable<ProductForList?> ProductsList { get => (IEnumerable<ProductForList?>)GetValue(ProductsListDep); set => SetValue(ProductsListDep, value); }
+            DependencyProperty.Register(nameof(ProductsList), typeof(IEnumerable<ProductItem>), typeof(mainClient));
+        IEnumerable<ProductItem?> ProductsList { get => (IEnumerable<ProductItem?>)GetValue(ProductsListDep); set => SetValue(ProductsListDep, value); }
 
 
 
@@ -50,7 +50,7 @@ namespace PL.client
         {
             Cart = new Cart { Items = new List<OrderItem>() };
             InitializeComponent();
-            ProductsList = bl.Product.GetProductsList();
+            ProductsList = bl.Product.GetProductsItem(Cart);
             CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductsList);
             groupDescription = new PropertyGroupDescription(groupName);
             CollectionViewProductItemList.GroupDescriptions.Add(groupDescription);
@@ -58,10 +58,11 @@ namespace PL.client
 
         private void AddToCart(object sender, MouseButtonEventArgs e)
         {
-            var selectProduct = (ProductForList)((Button)sender).Tag;
+            var selectProduct = (ProductItem)((Button)sender).Tag;
             try
             {
                 Cart temp = bl.cart.AddProduct(Cart, selectProduct.Id);
+                ProductsList = bl.Product.GetProductsItem(Cart);
                 Cart = null;
                 Cart = temp;
             }

@@ -119,7 +119,7 @@ namespace BLImplementation
                                                             Instock = dProduct.inStock>0,
                                                             AmountInCart = (from order in cart.Items
                                                                             where dProduct.ID == order.ProductId
-                                                                            select order).FirstOrDefault()!.Amount
+                                                                            select order.Amount).FirstOrDefault()
                                                            
                                                         };
 
