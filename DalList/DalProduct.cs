@@ -3,6 +3,7 @@ using DO;
 using static Dal.DataSource;
 namespace Dal;
 using DalApi;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 internal class DalProduct:IProduct
@@ -20,14 +21,9 @@ internal class DalProduct:IProduct
     }
 
 
-    public  IEnumerable<Product?> GetAll()
+    public  IEnumerable<Product?> GetAll(Func<Product?, bool>? func = null)
     {
-        //List<Product?> list = productArr.ToList();
-        //return list;
-
-        return from Product? product in productArr
-               select product;
-
+        return func is null ? productArr.Select(x=>x) : productArr.Where(func);
     }
 
     public  void Delete(int id)

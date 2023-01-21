@@ -54,9 +54,16 @@ namespace PL.manager
 
         private void ShipOrder(object sender, MouseButtonEventArgs e)
         {
-            Order tmp = bl.Order.SentOrder(Order.Id);
-            Order = new Order();
-            Order = tmp;
+            try
+            {
+                Order tmp = bl.Order.SentOrder(Order.Id);
+                Order = new Order();
+                Order = tmp;
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void DeliveryOrder(object sender, MouseButtonEventArgs e)

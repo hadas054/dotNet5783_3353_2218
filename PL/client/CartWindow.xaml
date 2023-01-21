@@ -13,15 +13,15 @@
             <RowDefinition Height="350*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Cart.TotalPrice}" HorizontalAlignment="Center" Margin="0,22,0,0"  VerticalAlignment="Top" Width="100"/>
+        <Label Content="{Binding Cart.TotalPrice}" HorizontalAlignment="Center" Margin="-380,10,0,0"  VerticalAlignment="Top" Width="100"/>
 
-        <Label Content="Name"  HorizontalAlignment="Left" Margin="150,12,0,13"  Width="100" Background="Yellow"/>
+        <Label Content="Name"  HorizontalAlignment="Left" Margin="200,12,0,13"  Width="100" />
         <TextBox Text="{Binding Cart.CustomerName , Mode=TwoWay }"  HorizontalAlignment="Left" Margin="250,15,0,15" TextWrapping="Wrap" Width="100"/>
 
-        <Label Content="Mail"  HorizontalAlignment="Left" Margin="350,12,0,13"  Width="89" Background="Yellow"/>
+        <Label Content="Mail"  HorizontalAlignment="Left" Margin="400,12,0,13"  Width="89" />
         <TextBox Text="{Binding Cart.CustomerEmail , Mode=TwoWay }" HorizontalAlignment="Left" Margin="444,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
 
-        <Label Content="Address"  HorizontalAlignment="Left" Margin="549,12,0,13"  Width="89" Background="Yellow"/>
+        <Label Content="Address"  HorizontalAlignment="Left" Margin="570,12,0,13"  Width="89" />
         <TextBox Text="{Binding Cart.CustomerAddress , Mode=TwoWay }" HorizontalAlignment="Left" Margin="647,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
 
         <ListView Grid.Row="1" ItemsSource="{Binding Cart.Items}" >

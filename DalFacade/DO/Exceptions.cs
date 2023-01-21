@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    internal class NotExistException : Exception
+    public class NotExistException : Exception
     {
         public NotExistException(string txt) { }
         override public string ToString()
         { return "The item  that you requested, was not found!\n" + Message; }
     }
 
-    internal class alreadyExistException : Exception
+    public class alreadyExistException : Exception
     {
         public alreadyExistException(string txt) { }
         override public string ToString()

@@ -47,7 +47,7 @@ namespace BLImplementation
             return cart;
         }
 
-        public void OrderConfirmation(Cart cart)
+        public Cart OrderConfirmation(Cart cart)
         {
 
             var products = dal.Product.GetAll();
@@ -57,8 +57,10 @@ namespace BLImplementation
                 DO.Product p = new DO.Product();
                 try
                 {
-                    if (!products.Any(pro => pro?.ID == item.ProductId))
+                    if (products.Any(pro => pro?.ID == item.ProductId))
                         p = dal.Product.Get(item.ProductId);
+                    else
+                        break;
                 }
                 catch (Exception ex)
                 {
@@ -122,6 +124,8 @@ namespace BLImplementation
                 }
 
             }
+            cart.Items.Clear();
+            return cart;
         }
 
         public Cart UpdateAmount(Cart cart, int ID, int amount)

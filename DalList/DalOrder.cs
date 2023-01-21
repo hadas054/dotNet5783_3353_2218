@@ -23,10 +23,10 @@ internal class DalOrder :IOrder
 
     }
 
-    public IEnumerable<Order?> GetAll()
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func=null)
     {
-        List<Order?> list = OrderArr.ToList();
-        return list;
+        IEnumerable<Order?> list = OrderArr.Select(x=> x);
+        return func is null ? list : list.Where(func);
     }
 
     public void Delete(int id)
