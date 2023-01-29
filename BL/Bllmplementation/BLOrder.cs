@@ -107,7 +107,7 @@ namespace BLImplementation
                         {
                             ProductId = item.ProductID,
                             Price = item.Price,
-                            InStock = item.Amount,
+                            Amount = item.Amount,
                             Name = dal.Product.Get(item.ProductID).Name,
                             TotalPrice = item.Amount * item.Price
                         }

@@ -44,7 +44,7 @@ namespace PL.client
         private void Update(object sender, RoutedEventArgs e)
         {
             var selectProduct = (OrderItem)((Button)sender).Tag;
-            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, selectProduct.InStock + 1);
+            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, selectProduct.Amount + 1);
             Cart = null;
             Cart = temp;
         }
