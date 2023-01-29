@@ -44,21 +44,14 @@ namespace PL.client
         private void Update(object sender, RoutedEventArgs e)
         {
             var selectProduct = (OrderItem)((Button)sender).Tag;
-            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, selectProduct.Amount + 1);
+            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, selectProduct.InStock + 1);
             Cart = null;
             Cart = temp;
         }
 
         private void Confirm(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
-                bl.cart.OrderConfirmation(Cart);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            bl.cart.OrderConfirmation(Cart);
         }
     }
 }

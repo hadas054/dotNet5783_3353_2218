@@ -29,7 +29,7 @@ namespace BLImplementation
 
             if (index != -1)
             {
-                cart.Items[index].Amount++;
+                cart.Items[index].InStock++;
                 cart.Items[index].TotalPrice += product?.Price ?? 0;
                 cart.TotalPrice += product?.Price ?? 0;
                 return cart;
@@ -38,7 +38,7 @@ namespace BLImplementation
             cart.Items.Add(new BO.OrderItem()
             {
                 Name = product?.Name,
-                Amount = 1,
+                InStock = 1,
                 Price = product.Value.Price,
                 ProductId = product.Value.ID,
                 TotalPrice = product.Value.Price
@@ -65,10 +65,10 @@ namespace BLImplementation
                     throw new NotExistException("cart confirmation" + ex.Message + "\n");
                 }
 
-                if (item.Amount < 0 || item.Price < 0)
+                if (item.InStock < 0 || item.Price < 0)
                     throw new ConfirmException("negativ amount\n");
 
-                if (p.inStock < item.Amount)
+                if (p.inStock < item.InStock)
                     throw new ConfirmException("the product no avaliable\n");
 
                 if ((cart.CustomerName == "") || (cart.CustomerAddress == ""))
@@ -77,7 +77,7 @@ namespace BLImplementation
                 if (!cart.CustomerEmail.Contains("@gmail.com"))
                     throw new ConfirmException("Invalid email address\n");
 
-                p.inStock -= item.Amount;
+                p.inStock -= item.InStock;
                 dal.Product.Update(p);
 
             }
@@ -110,7 +110,7 @@ namespace BLImplementation
                     ProductID = item.ProductId,
                     OrderID = idOrder,
                     Price = item.Price,
-                    Amount = item.Amount
+                    Amount = item.InStock
                 };
                 try
                 {
@@ -144,8 +144,8 @@ namespace BLImplementation
 
             if (amount != 0)
             {
-                cart.Items[index].Amount = amount;
-                cart.Items[index].TotalPrice = cart.Items.Sum(x => x.Amount * x.Price);
+                cart.Items[index].InStock = amount;
+                cart.Items[index].TotalPrice = cart.Items.Sum(x => x.InStock * x.Price);
                 cart.TotalPrice = cart.Items.Sum(x => x.TotalPrice);
             }
 

@@ -53,7 +53,7 @@ namespace BLImplementation
                 Name = dProduct.Name,
                 Price = dProduct.Price,
                 Category = (BO.Category)dProduct.Category,
-                Instock = dProduct.inStock>0
+                InStock = dProduct.inStock > 0 
             };
         }
 
@@ -116,10 +116,10 @@ namespace BLImplementation
                                                             Name = dProduct.Name,
                                                             Category = (BO.Category)dProduct.Category,
                                                             Price = dProduct.Price,
-                                                            Instock = dProduct.inStock>0,
+                                                            InStock = dProduct.inStock>0,
                                                             AmountInCart = (from order in cart.Items
                                                                             where dProduct.ID == order.ProductId
-                                                                            select order).FirstOrDefault()!.Amount
+                                                                            select order).FirstOrDefault()!.InStock
                                                            
                                                         };
 
