@@ -46,5 +46,7 @@ namespace BlApi
         /// </summary>
         /// <returns></returns>
         BO.Order UpdateOrder();
+
+        public BO.Order GetTheOldOne();
     }
 }

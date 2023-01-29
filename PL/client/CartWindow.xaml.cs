@@ -37,7 +37,7 @@ namespace PL.client
         {
             var selectProduct = (OrderItem)((Button)sender).Tag;
             Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, 0);
-            Cart = null;
+            Cart = null!;
             Cart = temp;
         }
 

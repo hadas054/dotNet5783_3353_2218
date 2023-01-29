@@ -8,8 +8,6 @@ namespace BO;
 
 public enum OrderStatus
 {
-    Initiated,
-        Ordered,
         Paid,
         Shipped,
         Delievered,

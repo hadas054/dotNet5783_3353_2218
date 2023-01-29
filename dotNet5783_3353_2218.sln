@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{4F45D6A2-280
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{167BB60E-083D-4430-931E-94F4B45905EC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simulator.csproj", "{FECDACF3-D4E6-4D99-92A8-61AF719C7B9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{167BB60E-083D-4430-931E-94F4B45905EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{167BB60E-083D-4430-931E-94F4B45905EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{167BB60E-083D-4430-931E-94F4B45905EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECDACF3-D4E6-4D99-92A8-61AF719C7B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECDACF3-D4E6-4D99-92A8-61AF719C7B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECDACF3-D4E6-4D99-92A8-61AF719C7B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECDACF3-D4E6-4D99-92A8-61AF719C7B9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

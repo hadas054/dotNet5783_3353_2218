@@ -152,7 +152,7 @@ namespace BLImplementation
                 Status = GetSatus(dOrder),
                 Tracking = new List<Tuple<DateTime?, OrderStatus>>
                 {
-                    new Tuple<DateTime?, OrderStatus>(dOrder.OrderDate, OrderStatus.Ordered),
+                    new Tuple<DateTime?, OrderStatus>(dOrder.OrderDate, OrderStatus.Paid),
                     new Tuple<DateTime?, OrderStatus>(dOrder.OrderShipDate, OrderStatus.Shipped),
                     new Tuple<DateTime?, OrderStatus>(dOrder.OrderDeliveryDate, OrderStatus.Delievered)
                 }
@@ -162,7 +162,7 @@ namespace BLImplementation
         OrderStatus GetSatus(DO.Order? order)
         {
             return order?.OrderDeliveryDate != null ? OrderStatus.Delievered :
-                order?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Ordered;
+                order?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Paid;
         }
 
         public Order SentOrder(int id)
@@ -212,6 +212,25 @@ namespace BLImplementation
                             TotalPrice = item.Amount * item.Price
                         }
             };
+        }
+
+        public BO.Order GetTheOldOne()
+        {
+            DO.Order order = new DO.Order();
+            IEnumerable<DO.Order?> shippedOrOrdered = dal?.Order.GetAll(x => x?.OrderDeliveryDate == null)!;
+            IEnumerable<DO.Order?> orderedOrders = from item in shippedOrOrdered
+                                                   where item?.OrderShipDate == null
+                                                   select item;
+            IEnumerable<DO.Order?> shippedOrders = from item in shippedOrOrdered
+                                                   where item?.OrderShipDate != null
+                                                   select item;
+            DO.Order? x = orderedOrders.MinBy(x => x?.OrderDate);
+            DO.Order? y = shippedOrders.MinBy(x => x?.OrderShipDate);
+            if (x?.OrderDate < y?.OrderDate)
+                return GetOrder((int)(x?.OrderID)!);
+            else
+                return GetOrder((int)(y?.OrderID)!);
+
         }
 
         public Order UpdateOrder()
