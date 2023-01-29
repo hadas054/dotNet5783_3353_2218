@@ -8,9 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows;
 
 namespace PL.manager
 {
@@ -26,11 +24,12 @@ namespace PL.manager
 
         private void OrderWindow(object sender, MouseButtonEventArgs e)
         {
+            new OrderMain().Show();
         }
 
         private void ProductWindow(object sender, MouseButtonEventArgs e)
         {
-            new mainProduct().Show();
+            new ProductMain().Show();
         }
     }
 }

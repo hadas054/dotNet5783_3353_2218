@@ -13,7 +13,7 @@ namespace BlApi
         /// return order list for manager
         /// </summary>
         /// <returns></returns>
-        IEnumerable<BO.OrderForList> GetOrders();
+        IEnumerable<BO.OrderForList> GetOrders(Func <BO.OrderForList, bool > func = null);
 
         /// <summary>
         /// return order by id

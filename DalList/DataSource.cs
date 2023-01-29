@@ -95,6 +95,9 @@ internal static class DataSource
         CreateProducts();
         CreateOrder();
         CreateOrderItem();
+        XmlTools.SaveListToXMLSerializer(OrderArr, @"..\xml\Orders.xml");
+        XmlTools.SaveListToXMLSerializer(productArr, @"..\xml\Products.xml");
+        XmlTools.SaveListToXMLSerializer(OrderItemArr, @"..\xml\OrderItems.xml");
     }
 }
 

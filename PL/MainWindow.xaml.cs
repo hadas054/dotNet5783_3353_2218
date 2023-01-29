@@ -38,7 +38,7 @@ namespace PL
         /// <param name="e"></param>
         private void mainProduct(object sender, RoutedEventArgs e)
         {
-            new mainProduct().Show();
+            new MainManager().Show();
         }
 
         private void MainClient(object sender, RoutedEventArgs e)

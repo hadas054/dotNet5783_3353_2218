@@ -37,11 +37,10 @@ internal class DalOrderItem:IOrderItem
         return OrderItemArr.Find(x => x?.ID == id) ?? throw new Exception();
     }
 
-    public  IEnumerable<OrderItem?> GetAll()   //לסדר כמו  בפרודקט ולסדר גם באחרים
+    public  IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? func = null)   //לסדר כמו  בפרודקט ולסדר גם באחרים
     {
-        IEnumerable<OrderItem?> list = OrderItemArr.ToList();
-        return list;
-
+        IEnumerable<OrderItem?> list = OrderItemArr.Select(x=> x);
+        return func is null ? list : list.Where(func);
     }
 
 }

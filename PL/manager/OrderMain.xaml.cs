@@ -34,29 +34,54 @@ namespace PL.manager
             DependencyProperty.Register(nameof(OrderLIst), typeof(IEnumerable<OrderForList>), typeof(OrderMain));
 
 
-        public Array ComboOption
+        public IEnumerable<OrderForList> OrderList
         {
-            get { return (Array)GetValue(ComboOptionDep); }
-            set { SetValue(ComboOptionDep, value); }
+            get { return (IEnumerable<OrderForList>)GetValue(OrderListDep); }
+            set { SetValue(OrderListDep, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ComboOptionDep =
-            DependencyProperty.Register(nameof(ComboOption), typeof(Array), typeof(OrderMain));
+        public static readonly DependencyProperty OrderListDep =
+            DependencyProperty.Register("OrderList", typeof(IEnumerable<OrderForList>), typeof(OrderMain));
 
 
-        
+        public static readonly DependencyProperty ComboOptionProperty =
+          DependencyProperty.Register("ComboOption", typeof(Array), typeof(OrderMain));
+
+
+        public Array ComboOption
+        {
+            get { return (Array)GetValue(ComboOptionProperty); }
+            set { SetValue(ComboOptionProperty, value); }
+        }
+
         public OrderMain()
         {
             InitializeComponent();
             OrderLIst = bl.Order.GetOrders();
             ComboOption = Enum.GetValues(typeof(OrderStatus));
+            OrderList = bl.Order.GetOrders();
         }
 
-        private void select(object sender, SelectionChangedEventArgs e)
+        private void UpdateOrder(object sender, MouseButtonEventArgs e)
         {
-            var sele
-            OrderLIst = bl.Order.GetOrders(x=> x?.Category == )
+            e.Handled = true;
+            OrderForList select = (OrderForList)((ListView)sender).SelectedItem;
+            new OrderUpdate(select.Id).ShowDialog();
+            try
+            {
+                OrderList = bl.Order.GetOrders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Select(object sender, SelectionChangedEventArgs e)
+        {
+            var select = (OrderStatus)((ComboBox)sender).SelectedItem;
+            OrderList = bl.Order.GetOrders(x => x.Status == select);
         }
     }
 }

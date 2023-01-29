@@ -10,7 +10,7 @@ namespace DalApi
     {
         int Add(T Entity);
         void Delete(int Entity);  
-        IEnumerable<T?> GetAll();    
+        IEnumerable<T?> GetAll(Func<T?,bool>? func = null);    
         void Update (T Entity);
         T Get (int Entity); 
     }

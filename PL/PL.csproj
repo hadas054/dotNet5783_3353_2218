@@ -10,12 +10,15 @@
 		<OutputPath>$(SolutionDir)\bin\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-		<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <None Remove="לןגווווווו.png" />
 	  <None Remove="צילום מסך 2022-12-17 205513.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="MaterialDesignThemes" Version="4.7.1" />
 	</ItemGroup>
 
 	<ItemGroup>

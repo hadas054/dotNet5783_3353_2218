@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="OrderMain" Height="450" Width="800">
-    <Grid Name="MainGrid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="350*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
@@ -28,5 +28,9 @@
             </ListView.View>
         </ListView>
 
+        <ComboBox ItemsSource="{Binding ComboOption}" SelectionChanged="Select" VerticalAlignment="Stretch" Grid.Row="1" />
+        <Label Content="Status" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"
+            HorizontalContentAlignment="Center"  />
+        <ListView ItemsSource="{Binding OrderList}" Grid.Row="1" MouseDoubleClick="UpdateOrder"/>
     </Grid>
 </Window>
