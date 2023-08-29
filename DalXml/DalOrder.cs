@@ -5,6 +5,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -36,6 +37,7 @@ internal class DalOrder : IOrder
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order order)
     {
 
@@ -43,102 +45,20 @@ internal class DalOrder : IOrder
         XElement configRoot = XElement.Load(configPath);
         var v = configRoot.Element("orderSeq");
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
-        nextSeqNum++;
-
-        order.OrderID = nextSeqNum;
+        order.OrderID = nextSeqNum++;
         //update config file
         configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
+        List<Order> orders = XmlTools.LoadListFromXMLSerializer<Order>(path);
+        orders.Add(order);
+        XmlTools.SaveListToXMLSerializer(orders, path);
 
-        XElement OrderID = new XElement("OrderID", order.OrderID);
-        XElement CustomerName = new XElement("CustomerName", order.CustomerName);
-        XElement CustomerEmail = new XElement("CustomerEmail", order.CustomerEmail);
-        XElement CustomerAdress = new XElement("CustomerAdress", order.CustomerAdress);
-        XElement OrderDate = new XElement("OrderDate", order.OrderDate);
-        XElement OrderShipDate = new XElement("OrderShipDate", order.OrderShipDate);
-        XElement OrderDeliveryDate = new XElement("OrderDeliveryDate", order.OrderDeliveryDate);
-        XElement Order = new XElement("Order", OrderID, CustomerName, CustomerEmail, CustomerAdress, OrderDate, OrderShipDate, OrderDeliveryDate);
-
-        ordersRoot.Add(Order);
-        ordersRoot.Save(path);
-
-
-        return order.OrderID;
+        return nextSeqNum - 1;
 
     }
 
-    //string path = @"..\xml\orders.xml";
-    //string configPath = @"..\xml\config.xml";
-    ////string dir = @"..\bin\xml\";
-
-
-    //XElement ordersRoot;
-
-    //public DalOrder()
-    //{
-    //    LoadData();
-    //}
-
-    //private void LoadData()
-    //{
-    //    //try
-    //    //{
-    //    //if (!File.Exists(path))
-    //    //    throw new Exception("order File upload problem");
-    //    // else
-    //    //    {
-    //    //        ordersRoot = new XElement("orders");
-    //    //        ordersRoot.Save( path);
-    //    //    }
-    //    //}
-    //    //catch (Exception ex)
-    //    //{
-
-    //    //}
-    //    //}
-
-    //    if (!File.Exists(path))
-    //        throw new Exception("order File upload problem");
-    //    else
-    //    {
-    //        ordersRoot = new XElement("orders");
-    //        ordersRoot.Save(path);
-    //    }
-    //}
-
-    //    public int Add(Order order)
-    //{
-
-    //    //Read config file
-    //    XElement configRoot = XElement.Load(configPath);
-    //    var v = configRoot.Element("orderSeq");
-    //    int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
-    //    nextSeqNum++;
-
-    //    order.ID = nextSeqNum;
-    //    //update config file
-    //    configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
-    //    configRoot.Save(configPath);
-
-
-    //    XElement Id = new XElement("Id", order.ID);
-    //    XElement CustomerName = new XElement("CustomerName", order.CustomerName);
-    //    XElement CustomerEmail = new XElement("CustomerEmail", order.CustomerEmail);
-    //    XElement CustomerAdress = new XElement("CustomerAdress", order.CustomerAdress);
-    //    XElement OrderDate = new XElement("OrderDate", order.OrderDate);
-    //    XElement ShipDate = new XElement("ShipDate", order.ShipDate);
-    //    XElement DeliveryDate = new XElement("DeliveryDate", order.DeliveryDate);
-
-
-    //    ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
-    //    ordersRoot.Save(path);
-
-
-    //    return order.ID;
-
-    //}
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         List<Order> ordeLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
@@ -151,6 +71,7 @@ internal class DalOrder : IOrder
         XmlTools.SaveListToXMLSerializer(ordeLst, path);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order GetByCondition(Func<Order?, bool>? cond)
     {
         return (from item in XmlTools.LoadListFromXMLSerializer<Order>(path)
@@ -158,12 +79,14 @@ internal class DalOrder : IOrder
                 select item).FirstOrDefault();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? func = null)
     {
         List<DO.Order?> orderList = XmlTools.LoadListFromXMLSerializer<DO.Order?>(path);
         return func is null ? orderList : orderList.Where(func);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(int id)
     {
         List<Order> prodLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
@@ -176,6 +99,7 @@ internal class DalOrder : IOrder
                 select item).FirstOrDefault();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order Or)
     {
         List<Order> prodLst = XmlTools.LoadListFromXMLSerializer<Order>(path);

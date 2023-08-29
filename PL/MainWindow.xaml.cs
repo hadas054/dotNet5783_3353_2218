@@ -24,9 +24,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL bl;
-
-
+        static readonly IBL bl = BlApi.Factory.Get;
 
         public bool _simulatorClick
         {
@@ -42,7 +40,6 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            bl = BlApi.Factory.Get;
         }
 
         /// <summary>

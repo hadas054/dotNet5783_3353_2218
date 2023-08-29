@@ -1,6 +1,10 @@
 ﻿using BO;
 using Dal;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace BLImplementation
 {
@@ -8,6 +12,7 @@ namespace BLImplementation
     {
         DalApi.IDal? dal = DalApi.Factory.Get();
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Cart AddProduct(Cart cart, int ID)
         {
             if (cart.Items == null)
@@ -47,10 +52,15 @@ namespace BLImplementation
             return cart;
         }
 
-        public Cart OrderConfirmation(Cart cart)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int OrderConfirmation(Cart cart)
         {
 
-            var products = dal.Product.GetAll();
+            var products = dal!.Product.GetAll();
+
+            if (cart.Items == null || cart.Items.Count == 0)
+                throw new ConfirmException("the Cart is Empty");
+
 
             foreach (var item in cart.Items)
             {
@@ -76,7 +86,7 @@ namespace BLImplementation
                 if ((cart.CustomerName == "") || (cart.CustomerAddress == ""))
                     throw new ConfirmException("Invalid name or address\n");
 
-                if (!cart.CustomerEmail.Contains("@gmail.com"))
+                if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
                     throw new ConfirmException("Invalid email address\n");
 
                 p.inStock -= item.Amount;
@@ -125,9 +135,10 @@ namespace BLImplementation
 
             }
             cart.Items.Clear();
-            return cart;
+            return idOrder;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Cart UpdateAmount(Cart cart, int ID, int amount)
         {
             int index = cart.Items.FindIndex(x => x.ProductId == ID);

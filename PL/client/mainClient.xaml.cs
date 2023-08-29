@@ -48,9 +48,16 @@ namespace PL.client
         private PropertyGroupDescription groupDescription;
         public mainClient()
         {
-            Cart = new Cart { Items = new List<OrderItem>() };
+            Cart = new Cart { Items = new List<OrderItem>() , CustomerAddress="", CustomerEmail="" ,CustomerName=""};
             InitializeComponent();
-            ProductsList = bl.Product.GetProductsItem(Cart);
+            try
+            {
+                ProductsList = bl.Product.GetProductsItem(Cart);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductsList);
             groupDescription = new PropertyGroupDescription(groupName);
             CollectionViewProductItemList.GroupDescriptions.Add(groupDescription);
@@ -59,17 +66,18 @@ namespace PL.client
         private void AddToCart(object sender, MouseButtonEventArgs e)
         {
             var selectProduct = (ProductItem)((Button)sender).Tag;
-            try
-            {
-                Cart temp = bl.cart.AddProduct(Cart, selectProduct.Id);
-                ProductsList = bl.Product.GetProductsItem(Cart);
-                Cart = null;
-                Cart = temp;
-            }
-            catch(Exception ex) 
-            {
-                MessageBox.Show(ex.Message);
-            }
+            if (selectProduct != null)
+                try
+                {
+                    Cart temp = bl.cart.AddProduct(Cart, selectProduct.Id);
+                    ProductsList = bl.Product.GetProductsItem(Cart);
+                    Cart = null;
+                    Cart = temp;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         private void CartButton(object sender, RoutedEventArgs e)

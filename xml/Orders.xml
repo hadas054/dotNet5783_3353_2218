@@ -1,1 +1,192 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Order><OrderID>1000</OrderID><CustomerName>Hadas Zehevi</CustomerName><CustomerEmail>Hadas Zehevi@gmail.com</CustomerEmail><CustomerAdress>Atehena 5 Elad</CustomerAdress><OrderDate>2023-01-08T00:27:57.5760788+02:00</OrderDate><OrderShipDate>2023-01-21T00:27:57.5760788+02:00</OrderShipDate><OrderDeliveryDate>2023-01-23T00:27:57.5760788+02:00</OrderDeliveryDate></Order><Order><OrderID>1001</OrderID><CustomerName>Avigail Cohen</CustomerName><CustomerEmail>Avigail Cohen@gmail.com</CustomerEmail><CustomerAdress>Hashoshana 47 Givataim</CustomerAdress><OrderDate>2023-01-20T00:27:57.5775259+02:00</OrderDate><OrderShipDate>2023-02-01T00:27:57.5775259+02:00</OrderShipDate><OrderDeliveryDate>2023-02-02T00:27:57.5775259+02:00</OrderDeliveryDate></Order><Order><OrderID>1002</OrderID><CustomerName>Avigail Levi</CustomerName><CustomerEmail>Avigail Levi@gmail.com</CustomerEmail><CustomerAdress>Atehena 48 Elad</CustomerAdress><OrderDate>2023-01-21T00:27:57.577532+02:00</OrderDate><OrderShipDate>2023-02-08T00:27:57.577532+02:00</OrderShipDate><OrderDeliveryDate>2023-02-13T00:27:57.577532+02:00</OrderDeliveryDate></Order><Order><OrderID>1003</OrderID><CustomerName>Efrat Avitan</CustomerName><CustomerEmail>Efrat Avitan@gmail.com</CustomerEmail><CustomerAdress>Hashoshana 37 Givataim</CustomerAdress><OrderDate>2023-01-17T00:27:57.5775324+02:00</OrderDate><OrderShipDate>2023-01-29T00:27:57.5775324+02:00</OrderShipDate><OrderDeliveryDate>2023-02-01T00:27:57.5775324+02:00</OrderDeliveryDate></Order><Order><OrderID>1004</OrderID><CustomerName>Ayala Nisani</CustomerName><CustomerEmail>Ayala Nisani@gmail.com</CustomerEmail><CustomerAdress>rabi akiva 9</CustomerAdress><OrderDate>2023-01-19T00:27:57.5775327+02:00</OrderDate><OrderShipDate>2023-02-01T00:27:57.5775327+02:00</OrderShipDate><OrderDeliveryDate>2023-02-05T00:27:57.5775327+02:00</OrderDeliveryDate></Order><Order><OrderID>1005</OrderID><CustomerName>Shira kubin</CustomerName><CustomerEmail>Shira kubin@gmail.com</CustomerEmail><CustomerAdress>hashoshana 4</CustomerAdress><OrderDate>2023-01-18T00:27:57.5775342+02:00</OrderDate><OrderShipDate>2023-02-05T00:27:57.5775342+02:00</OrderShipDate><OrderDeliveryDate>2023-02-10T00:27:57.5775342+02:00</OrderDeliveryDate></Order><Order><OrderID>1006</OrderID><CustomerName>Teheila yahav</CustomerName><CustomerEmail>Teheila yahav@gmail.com</CustomerEmail><CustomerAdress>Atehena 5 Elad</CustomerAdress><OrderDate>2023-01-17T00:27:57.5775344+02:00</OrderDate><OrderShipDate>2023-01-30T00:27:57.5775344+02:00</OrderShipDate><OrderDeliveryDate>2023-01-31T00:27:57.5775344+02:00</OrderDeliveryDate></Order><Order><OrderID>1007</OrderID><CustomerName>Gefen Shalom</CustomerName><CustomerEmail>Gefen Shalom@gmail.com</CustomerEmail><CustomerAdress>Hashoshana 47 Givataim</CustomerAdress><OrderDate>2023-01-21T00:27:57.5775347+02:00</OrderDate><OrderShipDate>2023-02-08T00:27:57.5775347+02:00</OrderShipDate><OrderDeliveryDate>2023-02-09T00:27:57.5775347+02:00</OrderDeliveryDate></Order><Order><OrderID>1008</OrderID><CustomerName>Yair Macluf</CustomerName><CustomerEmail>Yair Macluf@gmail.com</CustomerEmail><CustomerAdress>Atehena 48 Elad</CustomerAdress><OrderDate>2023-01-21T00:27:57.577535+02:00</OrderDate><OrderShipDate>2023-02-02T00:27:57.577535+02:00</OrderShipDate><OrderDeliveryDate>2023-02-11T00:27:57.577535+02:00</OrderDeliveryDate></Order><Order><OrderID>1009</OrderID><CustomerName>Avishag Hazan</CustomerName><CustomerEmail>Avishag Hazan@gmail.com</CustomerEmail><CustomerAdress>karo 6 </CustomerAdress><OrderDate>2023-01-13T00:27:57.5775354+02:00</OrderDate><OrderShipDate>2023-01-28T00:27:57.5775354+02:00</OrderShipDate><OrderDeliveryDate>2023-02-02T00:27:57.5775354+02:00</OrderDeliveryDate></Order><Order><OrderID>1010</OrderID><CustomerName>Mical shooshan</CustomerName><CustomerEmail>Mical shooshan@gmail.com</CustomerEmail><CustomerAdress>Atehena 5 Elad</CustomerAdress><OrderDate>2023-01-17T00:27:57.5775357+02:00</OrderDate><OrderShipDate>2023-02-04T00:27:57.5775357+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1011</OrderID><CustomerName>Nati Segal</CustomerName><CustomerEmail>Nati Segal@gmail.com</CustomerEmail><CustomerAdress>Hashoshana 47 Givataim</CustomerAdress><OrderDate>2023-01-04T00:27:57.577536+02:00</OrderDate><OrderShipDate>2023-01-16T00:27:57.577536+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1012</OrderID><CustomerName>Yahakov Avidan</CustomerName><CustomerEmail>Yahakov Avidan@gmail.com</CustomerEmail><CustomerAdress>Atehena 48 Elad</CustomerAdress><OrderDate>2023-01-10T00:27:57.5775362+02:00</OrderDate><OrderShipDate>2023-01-28T00:27:57.5775362+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1013</OrderID><CustomerName>Meir Cohen</CustomerName><CustomerEmail>Meir Cohen@gmail.com</CustomerEmail><CustomerAdress>Hashoshana 37 Givataim</CustomerAdress><OrderDate>2023-01-04T00:27:57.5775364+02:00</OrderDate><OrderShipDate>2023-01-22T00:27:57.5775364+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1014</OrderID><CustomerName>Avishai Shitrit</CustomerName><CustomerEmail>Avishai Shitrit@gmail.com</CustomerEmail><CustomerAdress>rabi akiva 9</CustomerAdress><OrderDate>2023-01-04T00:27:57.5775366+02:00</OrderDate><OrderShipDate>2023-01-21T00:27:57.5775366+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1015</OrderID><CustomerName>Nati Levi</CustomerName><CustomerEmail>Nati Levi@gmail.com</CustomerEmail><CustomerAdress>hashoshana 4</CustomerAdress><OrderDate>2023-01-05T00:27:57.5775369+02:00</OrderDate><OrderShipDate>2023-01-24T00:27:57.5775369+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1016</OrderID><CustomerName>ronit chaim</CustomerName><CustomerEmail>ronit chaim@gmail.com</CustomerEmail><CustomerAdress>rabi akiva 19</CustomerAdress><OrderDate>2023-01-03T00:27:57.5775371+02:00</OrderDate><OrderShipDate>2023-01-29T23:20:13.1894596+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1017</OrderID><CustomerName>shira chaim</CustomerName><CustomerEmail>shira chaim@gmail.com</CustomerEmail><CustomerAdress>hashoshana 47</CustomerAdress><OrderDate>2023-01-03T00:27:57.5775404+02:00</OrderDate><OrderShipDate>2023-01-29T23:20:19.2865729+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1018</OrderID><CustomerName>hadar levi</CustomerName><CustomerEmail>hadar levi@gmail.com</CustomerEmail><CustomerAdress>rabi akiva 99</CustomerAdress><OrderDate>2023-01-03T00:27:57.5775406+02:00</OrderDate><OrderShipDate>2023-01-29T23:21:27.9856142+02:00</OrderShipDate><OrderDeliveryDate xsi:nil="true" /></Order><Order><OrderID>1019</OrderID><CustomerName>chana refi</CustomerName><CustomerEmail>chana refi@gmail.com</CustomerEmail><CustomerAdress>hashoshana 40</CustomerAdress><OrderDate>2023-01-03T00:27:57.5775408+02:00</OrderDate><OrderShipDate xsi:nil="true" /><OrderDeliveryDate xsi:nil="true" /></Order></ArrayOfOrder>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <OrderID>1000</OrderID>
+    <CustomerName>Hadas Zehevi</CustomerName>
+    <CustomerEmail>Hadas Zehevi@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 5 Elad</CustomerAdress>
+    <OrderDate>2023-08-14T19:35:41.5458844+03:00</OrderDate>
+    <OrderShipDate>2023-08-24T19:35:41.5458844+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-08-25T19:35:41.5458844+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1001</OrderID>
+    <CustomerName>Avigail Cohen</CustomerName>
+    <CustomerEmail>Avigail Cohen@gmail.com</CustomerEmail>
+    <CustomerAdress>Hashoshana 47 Givataim</CustomerAdress>
+    <OrderDate>2023-08-28T19:35:41.5473108+03:00</OrderDate>
+    <OrderShipDate>2023-09-09T19:35:41.5473108+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-09-10T19:35:41.5473108+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1002</OrderID>
+    <CustomerName>Avigail Levi</CustomerName>
+    <CustomerEmail>Avigail Levi@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 48 Elad</CustomerAdress>
+    <OrderDate>2023-08-28T19:35:41.5473231+03:00</OrderDate>
+    <OrderShipDate>2023-09-12T19:35:41.5473231+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-09-16T19:35:41.5473231+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1003</OrderID>
+    <CustomerName>Efrat Avitan</CustomerName>
+    <CustomerEmail>Efrat Avitan@gmail.com</CustomerEmail>
+    <CustomerAdress>Hashoshana 37 Givataim</CustomerAdress>
+    <OrderDate>2023-08-25T19:35:41.5473237+03:00</OrderDate>
+    <OrderShipDate>2023-09-04T19:35:41.5473237+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-09-05T19:35:41.5473237+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1004</OrderID>
+    <CustomerName>Ayala Nisani</CustomerName>
+    <CustomerEmail>Ayala Nisani@gmail.com</CustomerEmail>
+    <CustomerAdress>rabi akiva 9</CustomerAdress>
+    <OrderDate>2023-08-28T19:35:41.5473242+03:00</OrderDate>
+    <OrderShipDate>2023-09-14T19:35:41.5473242+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-09-19T19:35:41.5473242+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1005</OrderID>
+    <CustomerName>Shira kubin</CustomerName>
+    <CustomerEmail>Shira kubin@gmail.com</CustomerEmail>
+    <CustomerAdress>hashoshana 4</CustomerAdress>
+    <OrderDate>2023-08-24T19:35:41.5473271+03:00</OrderDate>
+    <OrderShipDate>2023-09-10T19:35:41.5473271+03:00</OrderShipDate>
+    <OrderDeliveryDate>2023-09-17T19:35:41.5473271+03:00</OrderDeliveryDate>
+  </Order>
+  <Order>
+    <OrderID>1006</OrderID>
+    <CustomerName>Teheila yahav</CustomerName>
+    <CustomerEmail>Teheila yahav@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 5 Elad</CustomerAdress>
+    <OrderDate>2023-08-22T19:35:41.5473276+03:00</OrderDate>
+    <OrderShipDate>2023-09-03T19:35:41.5473276+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1007</OrderID>
+    <CustomerName>Gefen Shalom</CustomerName>
+    <CustomerEmail>Gefen Shalom@gmail.com</CustomerEmail>
+    <CustomerAdress>Hashoshana 47 Givataim</CustomerAdress>
+    <OrderDate>2023-08-17T19:35:41.5473281+03:00</OrderDate>
+    <OrderShipDate>2023-08-28T19:35:41.5473281+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1008</OrderID>
+    <CustomerName>Yair Macluf</CustomerName>
+    <CustomerEmail>Yair Macluf@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 48 Elad</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473287+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:13:55.6165035+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1009</OrderID>
+    <CustomerName>Avishag Hazan</CustomerName>
+    <CustomerEmail>Avishag Hazan@gmail.com</CustomerEmail>
+    <CustomerAdress>karo 6 </CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473294+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:03.6719716+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1010</OrderID>
+    <CustomerName>Mical shooshan</CustomerName>
+    <CustomerEmail>Mical shooshan@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 5 Elad</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473298+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:10.7177012+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1011</OrderID>
+    <CustomerName>Nati Segal</CustomerName>
+    <CustomerEmail>Nati Segal@gmail.com</CustomerEmail>
+    <CustomerAdress>Hashoshana 47 Givataim</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473301+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:18.758756+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1012</OrderID>
+    <CustomerName>Yahakov Avidan</CustomerName>
+    <CustomerEmail>Yahakov Avidan@gmail.com</CustomerEmail>
+    <CustomerAdress>Atehena 48 Elad</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473306+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:22.8154776+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1013</OrderID>
+    <CustomerName>Meir Cohen</CustomerName>
+    <CustomerEmail>Meir Cohen@gmail.com</CustomerEmail>
+    <CustomerAdress>Hashoshana 37 Givataim</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473309+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:28.8735708+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1014</OrderID>
+    <CustomerName>Avishai Shitrit</CustomerName>
+    <CustomerEmail>Avishai Shitrit@gmail.com</CustomerEmail>
+    <CustomerAdress>rabi akiva 9</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473313+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:37.9313838+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1015</OrderID>
+    <CustomerName>Nati Levi</CustomerName>
+    <CustomerEmail>Nati Levi@gmail.com</CustomerEmail>
+    <CustomerAdress>hashoshana 4</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473316+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:47.8435301+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1016</OrderID>
+    <CustomerName>ronit chaim</CustomerName>
+    <CustomerEmail>ronit chaim@gmail.com</CustomerEmail>
+    <CustomerAdress>rabi akiva 19</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473321+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:14:54.8798764+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1017</OrderID>
+    <CustomerName>shira chaim</CustomerName>
+    <CustomerEmail>shira chaim@gmail.com</CustomerEmail>
+    <CustomerAdress>hashoshana 47</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473328+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:15:02.9328731+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1018</OrderID>
+    <CustomerName>hadar levi</CustomerName>
+    <CustomerEmail>hadar levi@gmail.com</CustomerEmail>
+    <CustomerAdress>rabi akiva 99</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473332+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:15:08.9653434+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1019</OrderID>
+    <CustomerName>chana refi</CustomerName>
+    <CustomerEmail>chana refi@gmail.com</CustomerEmail>
+    <CustomerAdress>hashoshana 40</CustomerAdress>
+    <OrderDate>2023-08-18T19:35:41.5473335+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:15:17.009566+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <OrderID>1021</OrderID>
+    <CustomerName>Orit</CustomerName>
+    <CustomerEmail>rozority@gmail.com</CustomerEmail>
+    <CustomerAdress>Hanassee 54 </CustomerAdress>
+    <OrderDate>2023-08-29T20:08:55.02374+03:00</OrderDate>
+    <OrderShipDate>2023-08-29T20:15:23.0620989+03:00</OrderShipDate>
+    <OrderDeliveryDate xsi:nil="true" />
+  </Order>
+</ArrayOfOrder>

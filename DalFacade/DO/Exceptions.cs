@@ -8,14 +8,14 @@ namespace DO
 {
     public class NotExistException : Exception
     {
-        public NotExistException(string txt) { }
+        public NotExistException(string txt) : base(txt) { }
         override public string ToString()
         { return "The item  that you requested, was not found!\n" + Message; }
     }
 
     public class alreadyExistException : Exception
     {
-        public alreadyExistException(string txt) { }
+        public alreadyExistException(string txt) : base(txt) { }
         override public string ToString()
         { return "The item  that you requested, already exist\n" + Message; }
     }

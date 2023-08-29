@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Product>
-    <ID>656633</ID>
+    <ID>662464</ID>
     <Name>meri</Name>
-    <Price>286</Price>
+    <Price>120</Price>
     <Category>Dresses</Category>
     <inStock>0</inStock>
   </Product>
   <Product>
-    <ID>955521</ID>
+    <ID>880877</ID>
     <Name>lihi</Name>
-    <Price>234</Price>
+    <Price>76</Price>
     <Category>Dresses</Category>
-    <inStock>5</inStock>
+    <inStock>3</inStock>
   </Product>
   <Product>
-    <ID>941856</ID>
+    <ID>246244</ID>
     <Name>yellowJacket</Name>
-    <Price>250</Price>
+    <Price>280</Price>
     <Category>jackets</Category>
     <inStock>10</inStock>
   </Product>
   <Product>
-    <ID>379088</ID>
+    <ID>851935</ID>
     <Name>blueJacket</Name>
-    <Price>107</Price>
+    <Price>116</Price>
     <Category>jackets</Category>
     <inStock>15</inStock>
   </Product>
   <Product>
-    <ID>599387</ID>
+    <ID>172756</ID>
     <Name>StripedShirt</Name>
-    <Price>271</Price>
+    <Price>172</Price>
     <Category>Shirts</Category>
     <inStock>20</inStock>
   </Product>
   <Product>
-    <ID>731930</ID>
+    <ID>862622</ID>
     <Name>WhiteShirt</Name>
-    <Price>105</Price>
+    <Price>204</Price>
     <Category>Shirts</Category>
     <inStock>25</inStock>
   </Product>
   <Product>
-    <ID>384847</ID>
+    <ID>390242</ID>
     <Name>jeans</Name>
-    <Price>112</Price>
+    <Price>283</Price>
     <Category>pants</Category>
     <inStock>30</inStock>
   </Product>
   <Product>
-    <ID>570165</ID>
+    <ID>722998</ID>
     <Name>Shorts</Name>
-    <Price>59</Price>
+    <Price>297</Price>
     <Category>pants</Category>
     <inStock>35</inStock>
   </Product>
   <Product>
-    <ID>899629</ID>
+    <ID>407022</ID>
     <Name>ElegantPpants</Name>
-    <Price>259</Price>
+    <Price>274</Price>
     <Category>pants</Category>
     <inStock>40</inStock>
   </Product>
   <Product>
-    <ID>430878</ID>
+    <ID>973905</ID>
     <Name>ClassicPants</Name>
-    <Price>194</Price>
+    <Price>127</Price>
     <Category>pants</Category>
-    <inStock>45</inStock>
+    <inStock>41</inStock>
   </Product>
 </ArrayOfProduct>

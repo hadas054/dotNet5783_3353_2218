@@ -8,21 +8,21 @@ namespace BO;
 
 internal class NotExistException : Exception
 {
-    public NotExistException(string txt) { }
+    public NotExistException(string txt) :base(txt) { }
     override public string ToString()
     { return  Message; }
 }
 
 internal class alreadyExistException : Exception
 {
-    public alreadyExistException(string txt) { }
+    public alreadyExistException(string txt) : base(txt) { }
     override public string ToString()
     { return  Message; }
 }
 
 internal class ConfirmException : Exception
 {
-    public ConfirmException(string txt) { }
+    public ConfirmException(string txt) : base(txt) { }
     override public string ToString()
     { return  Message; }
 }

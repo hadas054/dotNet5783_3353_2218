@@ -18,15 +18,34 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ListView ItemsSource="{Binding Order.Items}" Grid.Column="1"/>
-        <TextBox Text="{Binding Order.Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Text="{Binding Order.CustomerName, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Text="{Binding Order.CustomerAddres, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Text="{Binding Order.CustomerEmail, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox  Text="{Binding Order.status, Mode=TwoWay}" Margin="90,180,0,0"/>
-        <DatePicker Text="{Binding Order.OrderDate, Mode=OneWay}" Margin="90,220,0,0" IsEnabled="False"/>
-        <DatePicker Text="{Binding Order.ShipDate, Mode=TwoWay}" Margin="90,260,0,0" IsEnabled="{Binding Path=Order, Converter={StaticResource datePickerEnableShip}}"/>
-        <DatePicker Text="{Binding Order.DeliveryDate, Mode=TwoWay}" Margin="90,300,0,0" IsEnabled="{Binding Path=Order, Converter={StaticResource datePickerEnableDelivery}}" />
-        <TextBox Text="{Binding Order.TotalPrice, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+       
+        <Label Content="{Binding Order.Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,20,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="30,20,0,0"  VerticalAlignment="Top" Width="50"/>
+        
+        <Label Content="{Binding Order.CustomerName}" HorizontalAlignment="Left" Margin="90,60,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="50" />
+        
+        <Label Content="{Binding Order.CustomerAddres}" HorizontalAlignment="Left" Margin="90,100,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="30,100,0,0"  VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="{Binding Order.CustomerEmail}" HorizontalAlignment="Left" Margin="90,140,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Mail" HorizontalAlignment="Left" Margin="30,140,0,0"  VerticalAlignment="Top" Width="50"/>
+        
+        <Label Content="{Binding Order.status}" Margin="90,180,0,0"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="30,180,0,0"  VerticalAlignment="Top" Width="50"/>
+        
+        <Label Content="{Binding Order.OrderDate}" Margin="90,220,0,0" IsEnabled="False"/>
+        <Label Content="Order" HorizontalAlignment="Left" Margin="30,220,0,0"  VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="{Binding Order.ShipDate}" Margin="90,260,0,0"/>
+        <Label Content="Ship" HorizontalAlignment="Left" Margin="30,260,0,0"  VerticalAlignment="Top" Width="50"/>
+        
+        <Label Content="{Binding Order.DeliveryDate}" Margin="90,300,0,0"  />
+        <Label Content="Deliverey" HorizontalAlignment="Left" Margin="30,300,0,0"  VerticalAlignment="Top" Width="50"/>
+        
+        <Label Content="{Binding Order.TotalPrice}" HorizontalAlignment="Left" Margin="90,340,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="30,340,0,0"  VerticalAlignment="Top" Width="50"/>
+        
         <Button MouseDoubleClick="ShipOrder" Content="Sipe Order" IsEnabled="{Binding Path=Order, Converter={StaticResource datePickerEnableShip}}"  Margin="-150,380,0,0" Height="30" Width="100"/>
         <Button MouseDoubleClick="DeliveryOrder" IsEnabled="{Binding Path=Order, Converter={StaticResource datePickerEnableDelivery}}" Content="Delivery Order" Margin="150,380,0,0" Height="30" Width="100"/>
     </Grid>

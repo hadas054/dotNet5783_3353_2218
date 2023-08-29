@@ -29,29 +29,52 @@ namespace PL.client
 
         public CartWindow(Cart c)
         {
-            Cart= c;
+            Cart = c;
             InitializeComponent();
         }
-
-        private void Delete(object sender, RoutedEventArgs e)
-        {
-            var selectProduct = (OrderItem)((Button)sender).Tag;
-            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, 0);
-            Cart = null!;
-            Cart = temp;
-        }
-
         private void Update(object sender, RoutedEventArgs e)
         {
             var selectProduct = (OrderItem)((Button)sender).Tag;
-            Cart temp = bl.cart.UpdateAmount(Cart, selectProduct.ProductId, selectProduct.Amount + 1);
-            Cart = null;
-            Cart = temp;
+            string Action = ((Button)sender).Content.ToString()!;
+
+            if (selectProduct != null)
+                try
+                {
+                    Cart temp = null!;
+                    switch (Action)
+                    {
+                        case "X":
+                            temp = bl.cart.UpdateAmount(Cart, selectProduct!.ProductId, 0);
+                            break;
+                        case "+":
+                            temp = bl.cart.UpdateAmount(Cart, selectProduct!.ProductId, selectProduct.Amount+1);
+                            break;
+                        case "-":
+                            temp = bl.cart.UpdateAmount(Cart, selectProduct!.ProductId, selectProduct.Amount - 1);
+                            break;
+                    }
+
+                    Cart = null!;
+                    Cart = temp;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         private void Confirm(object sender, MouseButtonEventArgs e)
         {
-            bl.cart.OrderConfirmation(Cart);
+            try
+            {
+                int ID = bl.cart.OrderConfirmation(Cart);
+                MessageBox.Show($"the order ID is {ID}");
+                Cart= null!;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

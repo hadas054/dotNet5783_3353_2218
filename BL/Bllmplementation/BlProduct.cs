@@ -1,12 +1,14 @@
 ﻿using BlApi;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BLImplementation
 {
     internal class BlProduct : IProduct
     {
         DalApi.IDal? dal = DalApi.Factory.Get();
-        
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddProduct(BO.Product product)
         {
             if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
@@ -29,6 +31,7 @@ namespace BLImplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(int id)
         {
             try
@@ -43,6 +46,7 @@ namespace BLImplementation
             dal.Product.Delete(id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ProductItem GetProductC(int id)
         {
             DO.Product dProduct = dal.Product.Get(id);
@@ -57,6 +61,7 @@ namespace BLImplementation
             };
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Product GetProductM(int id)
         {
 
@@ -83,6 +88,7 @@ namespace BLImplementation
             });
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ProductForList?> GetProductsList(Func<ProductForList, bool>? func = null)
         {
             try
@@ -105,6 +111,7 @@ namespace BLImplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ProductItem?> GetProductsItem(Cart cart,Func<ProductItem, bool>? func = null)
         {
             try
@@ -131,9 +138,11 @@ namespace BLImplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Update(Product product)
         {
-            if (product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
+            
+            if (product == null||product.Id < 0 || product.Name == "" || product.Price <= 0 || product.Instock < 0)
                 throw new ArgumentException();
 
             try

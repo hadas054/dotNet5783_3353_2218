@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BLImplementation;
 using BO;
 using PL.client;
+using System.Text.RegularExpressions;
 
 namespace PL
 {
@@ -23,6 +24,8 @@ namespace PL
     {
         static public readonly IBL bl = BlApi.Factory.Get;
 
+        Regex regex;
+       
         //public static DependencyProperty ProductDep =
         //   DependencyProperty.Register(nameof(Product), typeof(Product), typeof(mainClient));
         //Product Product { get => (Product)GetValue(ProductDep); set => SetValue(ProductDep, value); }
@@ -75,13 +78,22 @@ namespace PL
         {
             Categorys = Enum.GetValues(typeof(Category));
             InitializeComponent();
-            AddMode = id != 0;
-            add.Visibility = Visibility.Hidden;
-            update.Visibility = Visibility.Visible;
             try
             {
                 if (id != 0)
+                {
                     Product = bl!.Product.GetProductM(id);
+                    add.Visibility = Visibility.Hidden;
+                    update.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Product = new BO.Product();
+                    update.Visibility = Visibility.Hidden;
+                    add.Visibility = Visibility.Visible;
+
+                }
+
             }
             catch (Exception EX)
             {
@@ -102,11 +114,10 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("המוצר קיים");
             }
             this.Close();
         }
-
 
         /// <summary>
         /// update product from the catalog
@@ -121,9 +132,42 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("המוצר לא קיים");
             }
             this.Close();
+        }
+
+        private void IdPreview(object sender, TextCompositionEventArgs e)
+        {
+            regex = new Regex("^[^0-9]+$");
+            e.Handled = regex.IsMatch(e.Text);
+            var ID = ((TextBox)sender).Text;
+
+        }
+
+        /// <summary>
+        /// check the corrent input of price
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PricePreview(object sender, TextCompositionEventArgs e)
+        {
+            regex = new Regex("^[^0-9]+$");
+            e.Handled = regex.IsMatch(e.Text);
+            var amount = ((TextBox)sender).Text;
+        }
+
+        /// <summary>
+        /// check the corrent input of amount
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AmountPreview(object sender, TextCompositionEventArgs e)
+        {
+            regex = new Regex("^[^0-9]+$");
+            e.Handled = regex.IsMatch(e.Text);
+            var amount = ((TextBox)sender).Text;
+
         }
 
 

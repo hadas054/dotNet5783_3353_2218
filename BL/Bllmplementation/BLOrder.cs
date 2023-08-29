@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using Dal;
+using System.Runtime.CompilerServices;
 
 namespace BLImplementation
 {
@@ -8,6 +9,7 @@ namespace BLImplementation
     {
         DalApi.IDal? dal = DalApi.Factory.Get();
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Order DeliveredOrder(int id)
         {
             if (id < 0)
@@ -31,47 +33,17 @@ namespace BLImplementation
                 order.OrderDeliveryDate = DateTime.Now;
                 dal.Order.Update(order);
             }
-            IEnumerable<DO.OrderItem?> orderItems;
-
-            try
-            {
-                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
-            }
-            catch (Exception ex)
-            {
-                throw new NotExistException(ex.Message);
-            }
-
-            return new BO.Order()
-            {
-                Id = id,
-                CustomerName = dOrder.CustomerName,
-                CustomerEmail = dOrder.CustomerEmail,
-                CustomerAddres = dOrder.CustomerAdress,
-                OrderDate = dOrder.OrderDate,
-                ShipDate = dOrder.OrderShipDate,
-                DeliveryDate = dOrder.OrderDeliveryDate,
-                status = OrderStatus.Delievered,
-                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0),
-                Items = from DO.OrderItem item in orderItems
-                        select new BO.OrderItem()
-                        {
-                            ProductId = item.ProductID,
-                            Price = item.Price,
-                            Amount = item.Amount,
-                            Name = dal.Product.Get(item.ProductID).Name,
-                            TotalPrice = item.Amount * item.Price
-                        }
-            };
+            return GetOrder(id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Order GetOrder(int id)
         {
 
             DO.Order dOrder = new DO.Order();
             try
             {
-                dOrder = dal.Order.Get(id);
+                dOrder = dal!.Order.Get(id);
             }
             catch (Exception ex)
             {
@@ -82,7 +54,7 @@ namespace BLImplementation
 
             try
             {
-                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
+                orderItems = dal.OrderItem.GetAll().Where(x => x.Value.OrderID == id);
             }
             catch (Exception ex)
             {
@@ -114,6 +86,7 @@ namespace BLImplementation
             };
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<OrderForList> GetOrders(Func<BO.OrderForList, bool> func = null)
         {
             try
@@ -135,12 +108,13 @@ namespace BLImplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public OrderTracking OrderTracking(int id)
         {
             DO.Order dOrder = new DO.Order();
             try
             {
-                dOrder = dal.Order.Get(id);
+                dOrder = dal!.Order.Get(id);
             }
             catch (Exception ex)
             {
@@ -159,12 +133,14 @@ namespace BLImplementation
             };
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         OrderStatus GetSatus(DO.Order? order)
         {
             return order?.OrderDeliveryDate != null ? OrderStatus.Delievered :
                 order?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Paid;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Order SentOrder(int id)
         {
             if (id < 0)
@@ -180,62 +156,68 @@ namespace BLImplementation
                 order.OrderShipDate = DateTime.Now;
                 dal.Order.Update(order);
             }
-            IEnumerable<DO.OrderItem?> orderItems;
 
+            return GetOrder(id);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public BO.Order GetTheOldOne()
+        {
+            IEnumerable<IGrouping<int?, DO.OrderItem?>> orderItems = from item in dal.OrderItem.GetAll()
+                                                                     group item by item?.OrderID into g
+                                                                     select g;
+
+            IEnumerable<BO.Order> orders = from order in dal.Order.GetAll()
+                                           select new BO.Order
+                                           {
+                                               Id = order?.OrderID ?? throw new BO.NotExistException("the order id is't found "),
+                                               CustomerName = order?.CustomerName,
+                                               CustomerEmail = order?.CustomerEmail,
+                                               CustomerAddres = order?.CustomerAdress,
+                                               OrderDate = order?.OrderDate,
+                                               ShipDate = order?.OrderShipDate,
+                                               DeliveryDate = order?.OrderDeliveryDate,
+                                               status = GetStatus(order),
+                                               Items = GetOrderItemList(order?.OrderID ?? throw new BO.NotExistException("the order id is't found ")).ToList()!,
+                                               TotalPrice = (double)(from item in orderItems
+                                                                     where item.Key == order?.OrderID
+                                                                     select item).Sum(x => x.Sum(x => x?.Price))!
+                                           }; ;
+            return orders.OrderBy(x => x.status).ThenBy(x => x.OrderDate).First();
+
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Order UpdateOrder()
+        {
+            throw new NotImplementedException("we did't do this function thus for bonus only\n");
+        }
+
+        private OrderStatus GetStatus(DO.Order? dOrder)
+        {
+            return dOrder?.OrderDeliveryDate != null ? OrderStatus.Delievered :
+                dOrder?.OrderShipDate != null ? OrderStatus.Shipped : OrderStatus.Paid;
+        }
+
+        private IEnumerable<OrderItem> GetOrderItemList(int id)
+        {
             try
             {
-                orderItems = dal.OrderItem.GetAll().Where(x => x?.ID == id);
+                return from DO.OrderItem item in dal.OrderItem.GetAll(x => x?.OrderID == id)
+                       select new BO.OrderItem()
+                       {
+                           ProductId = item.ProductID,
+                           Name = dal.Product.Get(item.ProductID).Name,
+                           Amount = item.Amount,
+                           Price = item.Price / item.Amount,
+                           TotalPrice = item.Price
+                       };
             }
             catch (Exception ex)
             {
                 throw new NotExistException(ex.Message);
             }
-
-            return new BO.Order()
-            {
-                Id = id,
-                CustomerName = dOrder.CustomerName,
-                CustomerEmail = dOrder.CustomerEmail,
-                CustomerAddres = dOrder.CustomerAdress,
-                OrderDate = dOrder.OrderDate,
-                ShipDate = dOrder.OrderShipDate,
-                DeliveryDate = dOrder.OrderDeliveryDate,
-                status = OrderStatus.Delievered,
-                TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == id).Sum(x => x?.Price ?? 0),
-                Items = from DO.OrderItem item in orderItems
-                        select new BO.OrderItem()
-                        {
-                            ProductId = item.ProductID,
-                            Price = item.Price,
-                            Amount = item.Amount,
-                            Name = dal.Product.Get(item.ProductID).Name,
-                            TotalPrice = item.Amount * item.Price
-                        }
-            };
         }
 
-        public BO.Order GetTheOldOne()
-        {
-            DO.Order order = new DO.Order();
-            IEnumerable<DO.Order?> shippedOrOrdered = dal?.Order.GetAll(x => x?.OrderDeliveryDate == null)!;
-            IEnumerable<DO.Order?> orderedOrders = from item in shippedOrOrdered
-                                                   where item?.OrderShipDate == null
-                                                   select item;
-            IEnumerable<DO.Order?> shippedOrders = from item in shippedOrOrdered
-                                                   where item?.OrderShipDate != null
-                                                   select item;
-            DO.Order? x = orderedOrders.MinBy(x => x?.OrderDate);
-            DO.Order? y = shippedOrders.MinBy(x => x?.OrderShipDate);
-            if (x?.OrderDate < y?.OrderDate)
-                return GetOrder((int)(x?.OrderID)!);
-            else
-                return GetOrder((int)(y?.OrderID)!);
-
-        }
-
-        public Order UpdateOrder()
-        {
-            throw new NotImplementedException("we did't do this function thus for bonus only\n");
-        }
     }
 }

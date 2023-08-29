@@ -58,9 +58,16 @@ namespace PL.manager
         public OrderMain()
         {
             InitializeComponent();
-            OrderLIst = bl.Order.GetOrders();
-            ComboOption = Enum.GetValues(typeof(OrderStatus));
-            OrderList = bl.Order.GetOrders();
+            try
+            {
+                OrderLIst = bl.Order.GetOrders();
+                ComboOption = Enum.GetValues(typeof(OrderStatus));
+                OrderList = bl.Order.GetOrders();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void UpdateOrder(object sender, MouseButtonEventArgs e)
@@ -81,7 +88,14 @@ namespace PL.manager
         private void Select(object sender, SelectionChangedEventArgs e)
         {
             var select = (OrderStatus)((ComboBox)sender).SelectedItem;
-            OrderList = bl.Order.GetOrders(x => x.Status == select);
+            try
+            {
+                OrderList = bl.Order.GetOrders(x => x.Status == select);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

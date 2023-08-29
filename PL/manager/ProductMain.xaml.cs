@@ -52,7 +52,14 @@ namespace PL.manager
         public ProductMain()
         {
             InitializeComponent();
-            ProductList = bl.Product.GetProductsList();
+            try
+            {
+                ProductList = bl.Product.GetProductsList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             ComboOption = Enum.GetValues(typeof(Category));
         }
 
@@ -87,7 +94,14 @@ namespace PL.manager
         private void Select(object sender, SelectionChangedEventArgs e)
         {
             var select = (Category)((ComboBox)sender).SelectedItem;
-            ProductList = bl.Product.GetProductsList(x => x.Category == select);
+            try
+            {
+                ProductList = bl.Product.GetProductsList(x => x.Category == select);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -3,26 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:PL.converter"
         xmlns:local="clr-namespace:PL.client"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="CartWindow" Height="450" Width="800">
+    <Window.Resources>
+        <converter:ConfirmCart x:Key="ConfirmCart"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="350*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Cart.TotalPrice}" HorizontalAlignment="Center" Margin="-380,10,0,0"  VerticalAlignment="Top" Width="100"/>
+        <Label Content="{Binding Cart.TotalPrice}" FontWeight="Bold" HorizontalAlignment="Center" Margin="-380,10,0,0"  VerticalAlignment="Top" Width="100"/>
 
         <Label Content="Name"  HorizontalAlignment="Left" Margin="200,12,0,13"  Width="100" />
-        <TextBox Text="{Binding Cart.CustomerName , Mode=TwoWay }"  HorizontalAlignment="Left" Margin="250,15,0,15" TextWrapping="Wrap" Width="100"/>
+        <TextBox x:Name="CustomerName" Text="{Binding Cart.CustomerName , Mode=TwoWay }" Height="25" HorizontalAlignment="Left" Margin="250,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
 
         <Label Content="Mail"  HorizontalAlignment="Left" Margin="400,12,0,13"  Width="89" />
-        <TextBox Text="{Binding Cart.CustomerEmail , Mode=TwoWay }" HorizontalAlignment="Left" Margin="444,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="CustomerMail" Text="{Binding Cart.CustomerEmail , Mode=TwoWay }"  Height="25" HorizontalAlignment="Left" Margin="444,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
 
         <Label Content="Address"  HorizontalAlignment="Left" Margin="570,12,0,13"  Width="89" />
-        <TextBox Text="{Binding Cart.CustomerAddress , Mode=TwoWay }" HorizontalAlignment="Left" Margin="647,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="CustomerAdress" Text="{Binding Cart.CustomerAddress , Mode=TwoWay }" Height="25" HorizontalAlignment="Left" Margin="647,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="100"/>
 
         <ListView Grid.Row="1" ItemsSource="{Binding Cart.Items}" >
             <ListView.View>
@@ -61,7 +65,7 @@
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="Delete" Tag="{Binding}"/>
+                                <Button Content="Delete" Click="Update" Tag="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -73,10 +77,25 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="-" Click="Update" Tag="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
 
             </ListView.View>
         </ListView>
-        <Button Content="Confirm" MouseDoubleClick="Confirm" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Center"/>
+        <Button Content="Confirm" MouseDoubleClick="Confirm" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Center">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource ConfirmCart}">
+                    <Binding ElementName="CustomerName" Path="Text"/>
+                    <Binding ElementName="CustomerMail" Path="Text"/>
+                    <Binding ElementName="CustomerAdress" Path="Text"/>
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
     </Grid>
 </Window>

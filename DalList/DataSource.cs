@@ -55,13 +55,13 @@ internal static class DataSource
             order.CustomerAdress = costumerAdress[i];
             order.OrderShipDate = null;
             order.OrderDeliveryDate = null;
-            if (i < AmountOfOrders * 0.8)
+            if (i < AmountOfOrders * 0.4)
             {
                 days = rand.Next(10, 20);
                 TimeSpan shipTime = new TimeSpan(days, 0, 0, 0);
                 order.OrderShipDate = order.OrderDate + shipTime;
             }
-            if (i < AmountOfOrders * 0.8*0.6)
+            if (i < AmountOfOrders * 0.48*0.6)
             {
                 days = rand.Next(1, 10);
                 TimeSpan deliverTime = new TimeSpan(days, 0, 0, 0);

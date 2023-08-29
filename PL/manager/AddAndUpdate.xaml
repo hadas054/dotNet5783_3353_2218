@@ -8,10 +8,10 @@
         DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="production" Height="450" Width="800">
     <Grid >
-        <TextBox Text="{Binding Product.Id, Mode=TwoWay}" IsReadOnly="{Binding AddMode}" HorizontalAlignment="Left" Margin="228,50,0,0"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Product.Id, Mode=TwoWay}" PreviewTextInput="IdPreview" IsReadOnly="{Binding AddMode}" MaxLength="6" HorizontalAlignment="Left" Margin="228,50,0,0"  VerticalAlignment="Top" Width="120"/>
         <TextBox Text="{Binding Product.Name, Mode=TwoWay}" HorizontalAlignment="Left" Margin="228,100,0,0"  VerticalAlignment="Top" Width="120"/>
-        <TextBox Text="{Binding Product.Price, Mode=TwoWay}" HorizontalAlignment="Left" Margin="228,200,0,0"  VerticalAlignment="Top" Width="120"/>
-        <TextBox Text="{Binding Product.Instock, Mode=TwoWay}" HorizontalAlignment="Left" Margin="228,250,0,0"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Product.Price, Mode=TwoWay}" PreviewTextInput="PricePreview" HorizontalAlignment="Left" Margin="228,200,0,0"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Product.Instock, Mode=TwoWay}" HorizontalAlignment="Left" PreviewTextInput="AmountPreview" Margin="228,250,0,0"  VerticalAlignment="Top" Width="120"/>
         <ComboBox Text="{Binding Product.Category , Mode=TwoWay}" ItemsSource="{Binding Categorys}" HorizontalAlignment="Left" Margin="228,150,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Id" HorizontalAlignment="Left" Margin="400,50,0,0" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="400,100,0,0" VerticalAlignment="Top"/>

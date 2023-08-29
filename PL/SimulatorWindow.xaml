@@ -26,11 +26,11 @@
         <TextBlock Grid.Row="0" Text="{Binding Timer, Mode=OneWay}" FontSize="60" Margin="20,0" />
 
         <TextBlock Grid.Row="1" Text="Currently handling order:" TextAlignment="Left" Margin="50,0" />
-        <TextBlock Grid.Row="1" Text="{Binding Data.CurrentOrderInLine.ID}" TextAlignment="right"   Margin="0,0,40,0" />
+        <TextBlock Grid.Row="1" Text="{Binding Data.CurrentOrderInLine.Id}" TextAlignment="right"   Margin="0,0,40,0" />
         
         
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Current status:" TextAlignment="left"  Margin="50,0" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Data.CurrentOrderInLine.Status}" TextAlignment="Right"  Margin="0,0,50,0" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Data.CurrentOrderInLine.status}" TextAlignment="Right"  Margin="0,0,50,0" />
         
         
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Processing start time:" TextAlignment="left"/>

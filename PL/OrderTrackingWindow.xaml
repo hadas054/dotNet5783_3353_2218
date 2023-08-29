@@ -17,14 +17,14 @@
         <Label Content="status" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top"/>
         <Label Content="date" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="{Binding OrderTracking.Tracking[0].Item1}" Width="100" Margin="-450,300,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding OrderTracking.Tracking[0].Item2}" Width="100" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[0].Item1}" Width="120" Margin="-450,300,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[0].Item2}" Width="120" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="{Binding OrderTracking.Tracking[1].Item1}" Width="100" HorizontalAlignment="Left" Margin="300,300,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding OrderTracking.Tracking[1].Item2}" Width="100" HorizontalAlignment="Center" Margin="-10,350,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[1].Item1}" Width="120" HorizontalAlignment="Left" Margin="300,300,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[1].Item2}" Width="120" HorizontalAlignment="Center" Margin="-10,350,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="{Binding OrderTracking.Tracking[2].Item1}" Width="100" HorizontalAlignment="Left" Margin="480,300,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding OrderTracking.Tracking[2].Item2}" Width="100" HorizontalAlignment="Left" Margin="500,350,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[2].Item1}" Width="120" HorizontalAlignment="Left" Margin="480,300,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.Tracking[2].Item2}" Width="120" HorizontalAlignment="Left" Margin="500,350,0,0" VerticalAlignment="Top"/>
         <Button Content="Search" HorizontalAlignment="Left" Margin="200,76,0,0" VerticalAlignment="Top" Click="Search"/>
     </Grid>
 </Window>

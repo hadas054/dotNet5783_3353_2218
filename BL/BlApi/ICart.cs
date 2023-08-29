@@ -27,7 +27,7 @@ namespace BlApi
         /// check thr cart for new order
         /// </summary>
         /// <param name="cart"></param>
-        BO.Cart OrderConfirmation(BO.Cart cart);
+        int OrderConfirmation(BO.Cart cart);
 
 
     }

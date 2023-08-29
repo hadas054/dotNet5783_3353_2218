@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL.manager
@@ -32,8 +33,6 @@ namespace PL.manager
         public static readonly DependencyProperty ComboOptionDep =
             DependencyProperty.Register(nameof(ComboOption), typeof(Array), typeof(OrderUpdate));
 
-
-
         public BO.Order Order
         {
             get { return (BO.Order)GetValue(OrderDep); }
@@ -44,11 +43,16 @@ namespace PL.manager
         public static readonly DependencyProperty OrderDep =
             DependencyProperty.Register(nameof(Order), typeof(BO.Order), typeof(OrderUpdate));
 
-
-
         public OrderUpdate(int id)
         {
-            Order = bl.Order.GetOrder(id);
+            try
+            {
+                Order = bl.Order.GetOrder(id);
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
             InitializeComponent();
         }
 
@@ -60,7 +64,7 @@ namespace PL.manager
                 Order = new Order();
                 Order = tmp;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -68,9 +72,16 @@ namespace PL.manager
 
         private void DeliveryOrder(object sender, MouseButtonEventArgs e)
         {
-            Order tmp = bl.Order.DeliveredOrder(Order.Id);
-            Order = new Order();
-            Order = tmp;
+            try
+            {
+                Order tmp = bl.Order.DeliveredOrder(Order.Id);
+                Order = new Order();
+                Order = tmp;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
